@@ -22,8 +22,11 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -40,11 +43,12 @@ public class MainActivity extends AppCompatActivity {
         CombinedChart chart = findViewById(R.id.chart2);//new CombinedChart(this/*getApplicationContext()*/);
         /*LinearLayout layout = findViewById(R.id.chart);
         layout.addView(chart);*/
-        List<Habit> data = dao.getMonthlyDataOfHabit("Janv", "Manger");
+        List<Habit> data = dao.getMonthlyDataOfHabit("2019","01", "Manger");
 
         List<Entry> liste = new ArrayList<>();
         for (Habit hab : data){
-            liste.add(new Entry(hab.getDay(), (int)hab.getAdvancement()));
+            // Convert string to int with parseInt
+            liste.add(new Entry(Integer.parseInt(hab.getDay()), (int)hab.getAdvancement()));
         }
 
         LineDataSet lds = new LineDataSet(liste, "Avancée du jour");
@@ -132,13 +136,20 @@ public class MainActivity extends AppCompatActivity {
 
         HabitDao dao = new HabitDao(this);
         dao.open();
-        dao.insertDailyAdv(new Habit("Manger", "Janv", 0, 70));
-        dao.insertDailyAdv(new Habit("Manger", "Janv", 1, 10));
-        dao.insertDailyAdv(new Habit("Manger", "Janv", 2, 30));
-        dao.insertDailyAdv(new Habit("Manger", "Janv", 3, 90));
-        dao.insertDailyAdv(new Habit("Manger", "Janv", 4, 20));
+        dao.insertDailyAdv(new Habit("Manger", "2019", "01", "01", 70));
+        dao.insertDailyAdv(new Habit("Manger", "2019", "01", "02", 10));
+        dao.insertDailyAdv(new Habit("Manger", "2019", "01", "03", 30));
+        dao.insertDailyAdv(new Habit("Manger", "2019", "01", "04", 90));
+        dao.insertDailyAdv(new Habit("Manger", "2019", "01", "05", 20));
 
         createChart(dao, "Janv", "Manger");
+
+        String date = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).format(new Date());
+        System.out.println("DATE : " + date);
+        // Donne : 2019-04-13
+        String an = date.substring(0, 3);
+        String mois = date.substring(5, 6);
+        String jour = date.substring(8);
     }
 }
 

@@ -26,10 +26,13 @@ dependencies {
     implementation "androidx.room:room-runtime:2.1.0"
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'com.android.support:cardview-v7:28.2.1'
+    implementation 'com.android.support:recyclerview-v7:28.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
     implementation files('libs/achartengine-1.2.0.jar')
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.google.android.material:material:1.0.0'
 }

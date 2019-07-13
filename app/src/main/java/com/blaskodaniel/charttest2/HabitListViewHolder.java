@@ -1,0 +1,24 @@
+package com.blaskodaniel.charttest2;
+
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class HabitListViewHolder extends RecyclerView.ViewHolder {
+    // Adapter makes us not fetch the view ID's everytime
+
+    CardView cardView;
+    TextView habitText;
+    ImageView deleteButton;
+
+    public HabitListViewHolder(View view){
+        super(view);
+        cardView = (CardView)view.findViewById(R.id.listCardView);
+        habitText = (TextView)view.findViewById(R.id.listCardViewHabitText);
+        deleteButton = (ImageView)view.findViewById(R.id.listCardViewDelete);
+    }
+}

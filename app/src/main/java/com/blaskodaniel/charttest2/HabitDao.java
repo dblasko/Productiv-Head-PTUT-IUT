@@ -17,16 +17,18 @@ public class HabitDao {
 
     public static final String TABLE_NAME = "habits";
     public static final String  KEY_HABIT = "habit";
+    public static final String KEY_YEAR = "year";
     public static final String  KEY_MONTH = "month";
     public static final String  KEY_DAY = "day";
     public static final String  KEY_ADVANCEMENT = "advancement";
     public static final String CREATE_TABLE_HABITS = "CREATE TABLE " + TABLE_NAME
             + " (" +
             " " + KEY_HABIT + " TEXT," +
+            " " + KEY_YEAR + " TEXT," +
             " " + KEY_MONTH + " TEXT," +
-            " " + KEY_DAY + " INTEGER," +
+            " " + KEY_DAY + " TEXT," +
             " " + KEY_ADVANCEMENT + " REAL," +
-            " " + " CONSTRAINT pk_habits PRIMARY KEY(habit, month, day)"
+            " " + " CONSTRAINT pk_habits PRIMARY KEY(habit, year, month, day)"
             + ");";
     private MySQLite mySQLiteBase; // Notre gestionnaire de bd
     private SQLiteDatabase db; // Notre instance de bd
@@ -51,6 +53,7 @@ public class HabitDao {
 
         ContentValues values = new ContentValues();
         values.put(KEY_HABIT, habit.getHabit());
+        values.put(KEY_YEAR, habit.getYear());
         values.put(KEY_MONTH, habit.getMonth());
         values.put(KEY_DAY, habit.getDay());
         values.put(KEY_ADVANCEMENT, habit.getAdvancement());
@@ -63,30 +66,30 @@ public class HabitDao {
          + KEY_HABIT + " = '" + ancien + "'");
     }
 
-    public void modifAdv(String habit, String month, int day, double newAdv){
+    public void modifAdv(String habit, String year, String month, String day, double newAdv){
         // Modif l'avancement d'une habitude à un jour
 
         ContentValues values = new ContentValues();
         values.put(KEY_ADVANCEMENT, newAdv);
 
-        String where = KEY_HABIT+" = ? AND "+KEY_MONTH+" = ? AND "+KEY_DAY+" = ?";
-        String[] whereArgs = {habit, month, Integer.toString(day)};
+        String where = KEY_HABIT+" = ? AND "+KEY_MONTH+" = ? AND "+KEY_DAY+" = ? AND "+KEY_YEAR+" = ?";
+        String[] whereArgs = {habit, month, day, year};
 
         db.update(TABLE_NAME, values, where, whereArgs);
     }
 
-    public void delMonthlyHabit(String habit, String month){
+    public void delMonthlyHabit(String habit, String year, String month){
         // Suppr une habitude sur un mois
 
-        String where = KEY_HABIT+" = ? AND "+KEY_MONTH+" = ?";
-        String[] whereArgs = {habit, month};
+        String where = KEY_HABIT+" = ? AND "+KEY_MONTH+" = ? AND "+KEY_YEAR+" = ?";
+        String[] whereArgs = {habit, month, year};
 
         db.delete(TABLE_NAME, where, whereArgs);
     }
 
-    public List<String> getMonthlyHabits(String month){
+    public List<String> getMonthlyHabits(String year, String month){
         Cursor c = db.rawQuery("SELECT DISTINCT " + KEY_HABIT + " FROM " + TABLE_NAME
-                + " WHERE " + KEY_MONTH + " = '" + month + "'", null);
+                + " WHERE " + KEY_MONTH + " = '" + month + "' AND " + KEY_YEAR + " = '" + year + "'", null);
 
         List<String> monthlyHabits = new ArrayList<>();
         // Tant qu'il y a des lignes à traîter
@@ -97,43 +100,45 @@ public class HabitDao {
         return monthlyHabits;
     }
 
-    public Cursor getMonthlyTable(String month){
+    public Cursor getMonthlyTable(String year, String month){
         // Récupère curseur avec données du mois
 
-        return db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE " + KEY_MONTH +" = '" + month + "'", null);
+        return db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE " + KEY_MONTH +" = '" + month + "' AND " + KEY_YEAR + " = '" + year + "'", null);
     }
 
-    public Habit getDailyAdv(String habit, String month, int day){
+    public Habit getDailyAdv(String habit, String year, String month, String day){
         // Récup° une ligne
 
         Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_HABIT + " = '" + habit
-                + "' AND " + KEY_MONTH + " = '" + month + "' AND " + KEY_DAY + " = '" + Integer.toString(day) + "'", null);
+                + "' AND " + KEY_MONTH + " = '" + month + "' AND " + KEY_DAY + " = '" + day + "' AND " + KEY_YEAR + " = '"+year+"'", null);
 
         // Récupère données du curseur et construit nouveau habit
         String habit_data = c.getString(c.getColumnIndex(KEY_HABIT));
+        String year_data = c.getString(c.getColumnIndex(KEY_YEAR));
         String month_data = c.getString(c.getColumnIndex(KEY_MONTH));
-        int day_data = c.getInt(c.getColumnIndex(KEY_DAY));
+        String day_data = c.getString(c.getColumnIndex(KEY_DAY));
         double adv_data = c.getDouble(c.getColumnIndex(KEY_ADVANCEMENT));
 
-        Habit result = new Habit(habit_data, month_data, day_data, adv_data);
+        Habit result = new Habit(habit_data, year_data, month_data, day_data, adv_data);
         return result;
     }
 
 
-    public List<Habit> getMonthlyDataOfHabit(String month, String habit) {
+    public List<Habit> getMonthlyDataOfHabit(String year, String month, String habit) {
         // Données sur un mois pour une habitude
 
         Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_MONTH + " = '" + month
-                + "' AND " + KEY_HABIT + " = '" + habit + "' ORDER BY DAY asc", null);
+                + "' AND " + KEY_HABIT + " = '" + habit + "' AND "+ KEY_YEAR+ " = '" + year + "' ORDER BY DAY asc", null);
 
         List<Habit> result = new ArrayList<>();
         while (c.moveToNext()){
             String habit_data = c.getString(c.getColumnIndex(KEY_HABIT));
+            String year_data = c.getString(c.getColumnIndex(KEY_YEAR));
             String month_data = c.getString(c.getColumnIndex(KEY_MONTH));
-            int day_data = c.getInt(c.getColumnIndex(KEY_DAY));
+            String day_data = c.getString(c.getColumnIndex(KEY_DAY));
             double adv_data = c.getDouble(c.getColumnIndex(KEY_ADVANCEMENT));
 
-            Habit ajout = new Habit(habit_data, month_data, day_data, adv_data);
+            Habit ajout = new Habit(habit_data, year_data, month_data, day_data, adv_data);
 
             result.add(ajout);
         }

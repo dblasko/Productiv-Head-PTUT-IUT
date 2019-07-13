@@ -7,12 +7,14 @@ public class Habit {
      */
 
     private String habit;
+    private String year;
     private String month;
-    private int day;
+    private String day;
     private double advancement;
 
-    public Habit(String habit, String month, int day, double advancement){
+    public Habit(String habit, String year, String month, String day, double advancement){
         this.habit = habit;
+        this.year = year;
         this.month = month;
         this.day = day;
         this.advancement = advancement;
@@ -22,11 +24,15 @@ public class Habit {
         return habit;
     }
 
+    public String getYear() {
+        return year;
+    }
+
     public String getMonth() {
         return month;
     }
 
-    public int getDay() {
+    public String getDay() {
         return day;
     }
 
@@ -38,11 +44,13 @@ public class Habit {
         this.habit = habit;
     }
 
+    public void setYear(String year) { this.year = year; }
+
     public void setMonth(String month) {
         this.month = month;
     }
 
-    public void setDay(int day) {
+    public void setDay(String day) {
         this.day = day;
     }
 
