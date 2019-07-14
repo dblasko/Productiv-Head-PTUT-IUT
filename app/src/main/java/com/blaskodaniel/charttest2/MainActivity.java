@@ -136,11 +136,11 @@ public class MainActivity extends AppCompatActivity {
 
         HabitDao dao = new HabitDao(this);
         dao.open();
-        dao.insertDailyAdv(new Habit("Manger", "2019", "01", "01", 70));
+        /*dao.insertDailyAdv(new Habit("Manger", "2019", "01", "01", 70));
         dao.insertDailyAdv(new Habit("Manger", "2019", "01", "02", 10));
         dao.insertDailyAdv(new Habit("Manger", "2019", "01", "03", 30));
         dao.insertDailyAdv(new Habit("Manger", "2019", "01", "04", 90));
-        dao.insertDailyAdv(new Habit("Manger", "2019", "01", "05", 20));
+        dao.insertDailyAdv(new Habit("Manger", "2019", "01", "05", 20));*/
 
         createChart(dao, "Janv", "Manger");
 

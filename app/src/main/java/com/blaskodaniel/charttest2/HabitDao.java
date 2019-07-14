@@ -15,12 +15,15 @@ public class HabitDao {
         CLASSE DAO EN SOMME
      */
 
+    // TODO - si problèmes/crash - changer constructeurs où unit demandé de null à ""
+
     public static final String TABLE_NAME = "habits";
     public static final String  KEY_HABIT = "habit";
     public static final String KEY_YEAR = "year";
     public static final String  KEY_MONTH = "month";
     public static final String  KEY_DAY = "day";
     public static final String  KEY_ADVANCEMENT = "advancement";
+    public static final String KEY_UNIT = "unit";
     public static final String CREATE_TABLE_HABITS = "CREATE TABLE " + TABLE_NAME
             + " (" +
             " " + KEY_HABIT + " TEXT," +
@@ -28,6 +31,7 @@ public class HabitDao {
             " " + KEY_MONTH + " TEXT," +
             " " + KEY_DAY + " TEXT," +
             " " + KEY_ADVANCEMENT + " REAL," +
+            " " + KEY_UNIT + " TEXT, " +
             " " + " CONSTRAINT pk_habits PRIMARY KEY(habit, year, month, day)"
             + ");";
     private MySQLite mySQLiteBase; // Notre gestionnaire de bd
@@ -57,6 +61,7 @@ public class HabitDao {
         values.put(KEY_MONTH, habit.getMonth());
         values.put(KEY_DAY, habit.getDay());
         values.put(KEY_ADVANCEMENT, habit.getAdvancement());
+        values.put(KEY_UNIT, habit.getUnit());
 
         db.insert(TABLE_NAME, null, values);
     }
@@ -119,7 +124,7 @@ public class HabitDao {
         String day_data = c.getString(c.getColumnIndex(KEY_DAY));
         double adv_data = c.getDouble(c.getColumnIndex(KEY_ADVANCEMENT));
 
-        Habit result = new Habit(habit_data, year_data, month_data, day_data, adv_data);
+        Habit result = new Habit(habit_data, year_data, month_data, day_data, adv_data, null);
         return result;
     }
 
@@ -137,11 +142,23 @@ public class HabitDao {
             String month_data = c.getString(c.getColumnIndex(KEY_MONTH));
             String day_data = c.getString(c.getColumnIndex(KEY_DAY));
             double adv_data = c.getDouble(c.getColumnIndex(KEY_ADVANCEMENT));
+            String unit_data = c.getString(c.getColumnIndex(KEY_UNIT));
 
-            Habit ajout = new Habit(habit_data, year_data, month_data, day_data, adv_data);
+            Habit ajout = new Habit(habit_data, year_data, month_data, day_data, adv_data, unit_data);
 
             result.add(ajout);
         }
+        return result;
+    }
+
+    public String getMonthlyHabitUnit(String year, String month, String habit) {
+        // Returns the unit of a given habit at a given month+year
+
+        Cursor c = db.rawQuery("SELECT unit FROM " + TABLE_NAME + " WHERE " + KEY_MONTH + " = '" + month + "' AND " + KEY_YEAR + " = '" + year + "' AND " +
+                KEY_HABIT + " = '" + habit + "' AND " + KEY_DAY + " = '00'", null);
+        String result;
+        if (c.moveToNext()) result = c.getString(c.getColumnIndex(KEY_UNIT));
+        else result = " ";
         return result;
     }
 

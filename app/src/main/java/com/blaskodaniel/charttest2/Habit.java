@@ -11,13 +11,16 @@ public class Habit {
     private String month;
     private String day;
     private double advancement;
+    // Unit is set at day 0 !
+    private String unit;
 
-    public Habit(String habit, String year, String month, String day, double advancement){
+    public Habit(String habit, String year, String month, String day, double advancement, String unit){
         this.habit = habit;
         this.year = year;
         this.month = month;
         this.day = day;
         this.advancement = advancement;
+        this.unit = unit;
     }
 
     public String getHabit() {
@@ -40,6 +43,8 @@ public class Habit {
         return advancement;
     }
 
+    public String getUnit() { return unit; }
+
     public void setHabit(String habit){
         this.habit = habit;
     }
@@ -57,4 +62,6 @@ public class Habit {
     public void setAdvancement(double advancement) {
         this.advancement = advancement;
     }
+
+    public void setUnit(String unit) { this.unit = unit; }
 }
