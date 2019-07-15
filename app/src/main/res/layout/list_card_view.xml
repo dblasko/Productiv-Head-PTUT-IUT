@@ -28,7 +28,7 @@
                 android:textSize="17sp"
                 android:text="Habitude"
                 android:textAlignment="textStart"
-                android:paddingVertical="21dp"
+                android:paddingVertical="20dp"
                 android:layout_weight="19"/>
 
 

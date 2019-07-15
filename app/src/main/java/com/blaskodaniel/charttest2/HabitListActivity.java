@@ -60,7 +60,7 @@ public class HabitListActivity extends AppCompatActivity {
         // Get monthly data
         List<String> monthlyHabits = habitDao.getMonthlyHabits(year, month);
         // Change the adapter with monthly data - IF CRASH TRY REPLACE THE DATA IN ACTUAL ADAPTER OR NO DATA CHANGE
-        HabitListAdapter adapter = new HabitListAdapter(monthlyHabits);
+        HabitListAdapter adapter = new HabitListAdapter(monthlyHabits, this, year, month);
         habitRecView.setAdapter(adapter);
         // Set textview
         TextView dateText = findViewById(R.id.textViewMonthYear);
