@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 // CF https://fr.jeffprod.com/blog/2015/utilisation-d-une-base-sqlite-sous-android/
 public class HabitDao {
@@ -149,6 +151,38 @@ public class HabitDao {
             result.add(ajout);
         }
         return result;
+    }
+
+    public double getObjective(String year, String month, String habit) {
+        // Gets the user's daily objective for the habit for the month
+
+        Cursor c = db.rawQuery("SELECT advancement FROM " + TABLE_NAME +
+                " WHERE year = '"+year+"' AND month='"+month+"' AND habit='"+habit+"' AND day == '00'", null );
+        c.moveToFirst();
+        String advancementString = c.getString(c.getColumnIndex(KEY_ADVANCEMENT));
+        return Double.parseDouble(advancementString);
+    }
+
+    public Map<Integer, Double> getMonthlyHabitAdvancementPercentages(String year, String month, String habit) {
+        // Returns the needed data for the line chart
+
+        Cursor c = db.rawQuery("SELECT day, advancement FROM " + TABLE_NAME +
+                " WHERE year = '"+year+"' AND month='"+month+"' AND habit='"+habit+"' AND day != '00' ORDER BY day ASC", null);
+
+        Map<Integer, Double> result = new HashMap<>();
+        while (c.moveToNext()) {
+            String dayString = c.getString(c.getColumnIndex(KEY_DAY));
+            int day = Integer.parseInt(dayString);
+            String advancementString = c.getString(c.getColumnIndex(KEY_ADVANCEMENT));
+            double advancement = Double.parseDouble(advancementString);
+            double objective = getObjective(year, month, habit);
+
+            // %age
+            result.put(day, advancement/objective * 100);
+        }
+
+        return result;
+
     }
 
     public String getMonthlyHabitUnit(String year, String month, String habit) {

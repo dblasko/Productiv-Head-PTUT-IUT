@@ -6,30 +6,49 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 public class HabitDetailActivity extends AppCompatActivity {
 
+    PieChart chart;
+
     private LineData getData(String habit, String year, String month) {
         // Prepares and returns the monthly data of an habit for the LineChart
-        // TODO - use the DB
+
+        HabitDao habitDao = new HabitDao(this);
+        habitDao.open();
+        // Retrieve the data for the graph from the DB
+        Map<Integer, Double> dbData = habitDao.getMonthlyHabitAdvancementPercentages(year, month, habit);
 
         List<Entry> entries = new ArrayList<>();
-        for (int i = 1; i<31; i++) {
-            int number = new Random().nextInt()%100;
-            if (number < 0) number = -1 * number;
-            entries.add(new Entry(i, number));
+        // Iterate map and create entries for the graph
+        for (Map.Entry<Integer, Double> mapEntry : dbData.entrySet()) {
+            entries.add(new Entry(mapEntry.getKey(), mapEntry.getValue().floatValue())); // entry takes a float and not a double as a parameter
         }
+
+
         LineDataSet lineDataSet = new LineDataSet(entries, "Lds1");
         // Styling
         lineDataSet.setLineWidth(1.75f);
@@ -82,17 +101,116 @@ public class HabitDetailActivity extends AppCompatActivity {
         lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         lineChart.getXAxis().setDrawGridLines(false);
         lineChart.getXAxis().setDrawAxisLine(true);
-
+        lineChart.getXAxis().setAxisLineColor(Color.parseColor("#AC9F29")); // give more width, dashed?
+        //lineChart.getXAxis().enableAxisLineDashedLine(1, 1, );
+        // fixed intervals
+        lineChart.getXAxis().setGranularityEnabled(true);
+        lineChart.getXAxis().setGranularity(1);
         // Set left Y axis
         lineChart.getAxisLeft().setDrawGridLines(false);
         lineChart.getAxisLeft().setDrawAxisLine(true);
+        lineChart.getAxisLeft().setAxisMinimum(0); // to start at 90%
+        lineChart.getAxisLeft().setAxisLineColor(Color.parseColor("#AC9F29")); // give more width, dashed?
         // Hide right Y axis
         lineChart.getAxisRight().setEnabled(false);
         // -> Uncomment to show all Xs
         //lineChart.getXAxis().setLabelCount(30, true);
-        
+
         lineChart.animateX(2500);
     }
+
+    public void setupPieChart(String year, String month, String habit) {
+        chart = findViewById(R.id.chartSumup);
+        chart.setBackgroundColor(Color.WHITE);
+
+        chart.setUsePercentValues(true);
+        chart.getDescription().setEnabled(false); // éventuellement maj et afficher description
+
+        chart.setDrawHoleEnabled(true);
+        chart.setHoleColor(Color.WHITE);
+        chart.setTransparentCircleColor(Color.WHITE);
+        chart.setTransparentCircleAlpha(110);
+        chart.setHoleRadius(58f);
+        chart.setTransparentCircleRadius(61f);
+        //chart.setMinimumHeight(90);
+
+        // interactions
+        chart.setRotationEnabled(false);
+        chart.setHighlightPerTapEnabled(true);
+
+        chart.setMaxAngle(180f); // HALF CHART
+        chart.setRotationAngle(180f);
+        chart.setCenterTextOffset(0, -20);
+
+        // TODO - set data
+        HabitDao habitDao = new HabitDao(this);
+        habitDao.open();
+        Map<Integer, Double> mData = habitDao.getMonthlyHabitAdvancementPercentages(year, month, habit);
+        // Calculate avg advancement percentage
+        List<Double> percentages = new ArrayList<>(mData.values());
+        double sum = 0;
+        for (double d : percentages) {
+            sum += d;
+        }
+        double avg = sum/percentages.size();
+        // Prepare pie data
+        ArrayList<PieEntry> values = new ArrayList<>();
+        values.add(new PieEntry((float)avg));
+        values.add(new PieEntry((float)(100 - avg)));
+        PieDataSet dataSet = new PieDataSet(values, "Moyenne du mois");
+
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(5f);
+
+        // Couleur en fonction de la moyenne TODO - switch et juste variable couleur - mettre %age à cette couleur aussi
+        int color;
+        if (avg <= 40) color = Color.parseColor("#ef5350");
+        else if (avg <= 70) color = Color.parseColor("#AC9F29");
+        else color = Color.parseColor("#00e676");
+
+        dataSet.setColors(color, Color.WHITE); // set the 2 colors,
+        chart.setCenterText(Double.toString(avg) + "%");
+        chart.setDrawCenterText(true);
+        chart.setCenterTextSize(21);
+        chart.setCenterTextColor(color);
+
+
+        PieData data = new PieData(dataSet);
+        data.setValueTextSize(0);
+        chart.setData(data);
+
+        chart.invalidate();
+
+        chart.animateY(1400, Easing.EaseInOutQuad);
+
+        Legend l = chart.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        l.setDrawInside(false);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(0f);
+        l.setYOffset(0f);
+        l.setEnabled(false);
+
+        // entry label styling
+        chart.setEntryLabelColor(Color.WHITE);
+        chart.setEntryLabelTextSize(12f);
+    }
+
+    public void moveOffScreen() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int height = displayMetrics.heightPixels;
+
+        int offset = (int)(height*0.20); /* percent to move */
+
+        LinearLayout.LayoutParams rlParams = (LinearLayout.LayoutParams) chart.getLayoutParams();
+        rlParams.setMargins(0,0,0,-offset);
+        chart.setLayoutParams(rlParams);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,11 +229,26 @@ public class HabitDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
 
+        // TODO - remove - for testing purposes
+        HabitDao habitDao = new HabitDao(this);
+        habitDao.open();
+        //habitDao.insertDailyAdv(new Habit("Testage", "2019", "07", "00", 5, null));
+        habitDao.insertDailyAdv(new Habit("Testage", "2019", "07", "01", 3, null));
+        habitDao.insertDailyAdv(new Habit("Testage", "2019", "07", "02", 5, null));
+        habitDao.insertDailyAdv(new Habit("Testage", "2019", "07", "03", 2, null));
+        habitDao.insertDailyAdv(new Habit("Testage", "2019", "07", "04", 3, null));
+        habitDao.insertDailyAdv(new Habit("Testage", "2019", "07", "06", 6, null));
+
         // Get the lineChart reference
         LineChart chartDetail = findViewById(R.id.chartDetail);
 
-        LineData data = getData("","","");
+        // Get the extras from the intent to get the data
+        LineData data = getData(habit, intent.getStringExtra("year"), intent.getStringExtra("month"));
         setupLineChart(chartDetail, data);
+
+        // Display pie chart
+        setupPieChart(intent.getStringExtra("year"), intent.getStringExtra("month"), habit);
+        moveOffScreen();
     }
 
     @Override
