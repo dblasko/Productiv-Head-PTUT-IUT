@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -33,6 +34,23 @@ import java.util.Set;
 public class HabitDetailActivity extends AppCompatActivity {
 
     PieChart chart;
+
+    public double getAveragePercentage(String year, String month, String habit) {
+        // Connects to the database and calculates & returns that average advancement %age
+
+        HabitDao habitDao = new HabitDao(this);
+        habitDao.open();
+        Map<Integer, Double> mData = habitDao.getMonthlyHabitAdvancementPercentages(year, month, habit);
+        // Calculate avg advancement percentage
+        List<Double> percentages = new ArrayList<>(mData.values());
+        double sum = 0;
+        for (double d : percentages) {
+            sum += d;
+        }
+        double avg = sum/percentages.size();
+
+        return avg;
+    }
 
     private LineData getData(String habit, String year, String month) {
         // Prepares and returns the monthly data of an habit for the LineChart
@@ -120,6 +138,8 @@ public class HabitDetailActivity extends AppCompatActivity {
     }
 
     public void setupPieChart(String year, String month, String habit) {
+        // Prepares & sets the pie chart display up
+
         chart = findViewById(R.id.chartSumup);
         chart.setBackgroundColor(Color.WHITE);
 
@@ -143,16 +163,8 @@ public class HabitDetailActivity extends AppCompatActivity {
         chart.setCenterTextOffset(0, -20);
 
         // TODO - set data
-        HabitDao habitDao = new HabitDao(this);
-        habitDao.open();
-        Map<Integer, Double> mData = habitDao.getMonthlyHabitAdvancementPercentages(year, month, habit);
-        // Calculate avg advancement percentage
-        List<Double> percentages = new ArrayList<>(mData.values());
-        double sum = 0;
-        for (double d : percentages) {
-            sum += d;
-        }
-        double avg = sum/percentages.size();
+        double avg = getAveragePercentage(year, month, habit);
+
         // Prepare pie data
         ArrayList<PieEntry> values = new ArrayList<>();
         values.add(new PieEntry((float)avg));
@@ -199,6 +211,8 @@ public class HabitDetailActivity extends AppCompatActivity {
     }
 
     public void moveOffScreen() {
+        // Moves the pie chart down the screen
+
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
@@ -209,6 +223,53 @@ public class HabitDetailActivity extends AppCompatActivity {
         LinearLayout.LayoutParams rlParams = (LinearLayout.LayoutParams) chart.getLayoutParams();
         rlParams.setMargins(0,0,0,-offset);
         chart.setLayoutParams(rlParams);
+    }
+
+    public void setupAdvice(String year, String month, String habit) {
+        // Sets up the advice card of the layout
+        // By calculating the avg advancement & selecting a random advice based on that %age
+
+        String[] low = new String[]{
+                "Un petit coup de mou? Ne lâchez pas !",
+                "Peut être avez-vous fixé un objectif trop haut ?",
+                "Pensez à votre habitude tous les jours,\nla régualité est la clé de la réussite !",
+                "Vous pouvez le faire ! Essayez d'être plus réguliers dorénavant.",
+                "Pensez à régler une heure de rappel quotidien qui vous convient !",
+                "Essayez de réfléchir à ce qui vous motive vraiment à suivre cette habitude.",
+                "Accrochez vous ! Vous en êtes capables.",
+                "Visualisez-vous suivant votre habitude idéalement : à vous d'en faire une réalité."
+        };
+        String[] mid = new String[]{
+                "Pas mal! Vous êtes sur la bonne voie, accrochez-vous.",
+                "Regardez le progrès que vous avez déjà fait ! Tenez bon.",
+                "Quelle régularité ! Et si vous essayiez de passer au niveau supérieur ?",
+                "C'est bien parti ! Restez sur cette lancée !",
+                "Au vu de votre régularité, c'est bien parti pour intégrer cette habitude à votre vie !"
+        };
+        String[] high = new String[]{
+                "Quelle assiduité ! Impressionnant.",
+                "Continuez comme ça, c'est parfait !",
+                "Votre régularité sur cette habitude est exemplaire.",
+                "Si vous continuez comme ça, vous ne pourrez que vous améliorer !",
+                "En étant si rigoureux, vous allez atteindre vos objectifs sans aucun doute !",
+                "Essayez de maintenir ce score !",
+                "Et si vous tentiez d'améliorer votre score de quelques pourcents encore ?"
+        };
+
+        double avg = getAveragePercentage(year, month, habit); // get avg value
+        TextView adviceTextView = findViewById(R.id.tw_conseil); // get the textView to display the text
+        Random r = new Random(); // nextInt gives int between 0 and param-1
+
+        if (avg <= 40) {
+            int i = r.nextInt(low.length);
+            adviceTextView.setText(low[i]);
+        } else if (avg <= 70) {
+            int i = r.nextInt(mid.length);
+            adviceTextView.setText(high[i]);
+        } else {
+            int i= r.nextInt(high.length);
+            adviceTextView.setText(high[i]);
+        }
     }
 
 
@@ -249,6 +310,9 @@ public class HabitDetailActivity extends AppCompatActivity {
         // Display pie chart
         setupPieChart(intent.getStringExtra("year"), intent.getStringExtra("month"), habit);
         moveOffScreen();
+
+        // Fill the advice card
+        setupAdvice(intent.getStringExtra("year"), intent.getStringExtra("month"), habit);
     }
 
     @Override
