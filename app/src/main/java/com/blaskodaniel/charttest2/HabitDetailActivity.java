@@ -1,5 +1,6 @@
 package com.blaskodaniel.charttest2;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -7,8 +8,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -24,6 +30,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +41,7 @@ import java.util.Set;
 public class HabitDetailActivity extends AppCompatActivity {
 
     PieChart chart;
+    AlertDialog dialog;
 
     public double getAveragePercentage(String year, String month, String habit) {
         // Connects to the database and calculates & returns that average advancement %age
@@ -272,14 +280,58 @@ public class HabitDetailActivity extends AppCompatActivity {
         }
     }
 
+    public int getMonthlyDaysCount(String month, String year) {
+        int monthInt = Integer.parseInt(month);
+        int yearInt = Integer.parseInt(year);
+
+        if (monthInt == 2) {
+            if ((yearInt%4 == 0 && yearInt%100 != 0) || yearInt%400 == 0) return 29; // bissextile
+            return 28;
+        } else if (monthInt <= 7) {
+            if (monthInt%2 == 0) return 30;
+            return 31;
+        } else {
+            if (monthInt%2 == 0) return 31;
+            return 30;
+        }
+    }
+
+    public void showHabitInputDialog(String year, String month, String habit) {
+        // TODO - comment
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+        View mView = getLayoutInflater().inflate(R.layout.input_habit_dialog, null);
+        Spinner daySpinner = mView.findViewById(R.id.daySpinner);
+        Button buttonConfirm = findViewById(R.id.buttonConfirm);
+        Button buttonCancel = findViewById(R.id.buttonCancel);
+        TextView twHabitName = findViewById(R.id.textViewAdv);
+        TextView twUnit = findViewById(R.id.textViewUnit);
+        EditText etAdvancement = findViewById(R.id.editTextAdv);
+
+        // Prepare data for the spinner
+        int daysCount = getMonthlyDaysCount(month, year);
+        String[] items = new String[daysCount+1];
+        items[0] = "Aujourd'hui";
+        for (int i = 1; i <= daysCount; i++){
+            items[i] = Integer.toString(i);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, items);
+        daySpinner.setAdapter(adapter);
+
+        mBuilder.setView(mView);
+        dialog = mBuilder.create();
+        dialog.show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_detail);
 
-        Intent intent = getIntent();
-        String habit = intent.getStringExtra("habit");
+        final Intent intent = getIntent();
+        final String habit = intent.getStringExtra("habit");
+        final String year = intent.getStringExtra("year");
+        final String month = intent.getStringExtra("month");
 
         // Display icon in actionbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -304,15 +356,23 @@ public class HabitDetailActivity extends AppCompatActivity {
         LineChart chartDetail = findViewById(R.id.chartDetail);
 
         // Get the extras from the intent to get the data
-        LineData data = getData(habit, intent.getStringExtra("year"), intent.getStringExtra("month"));
+        LineData data = getData(habit, year, month);
         setupLineChart(chartDetail, data);
 
         // Display pie chart
-        setupPieChart(intent.getStringExtra("year"), intent.getStringExtra("month"), habit);
+        setupPieChart(year, month, habit);
         moveOffScreen();
 
         // Fill the advice card
-        setupAdvice(intent.getStringExtra("year"), intent.getStringExtra("month"), habit);
+        setupAdvice(year, month, habit);
+
+        FloatingActionButton fab = findViewById(R.id.detailFAB);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showHabitInputDialog(year, month, habit);
+            }
+        });
     }
 
     @Override
