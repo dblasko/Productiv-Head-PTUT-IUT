@@ -32,8 +32,11 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -297,16 +300,62 @@ public class HabitDetailActivity extends AppCompatActivity {
     }
 
     public void showHabitInputDialog(String year, String month, String habit) {
-        // TODO - comment
+        // Shows the dialog for habit input
 
+        // Final vars for the inner class
+        final String yearData = year;
+        final String monthData = month;
+        final String habitData = habit;
+
+        // Prepare variables
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
         View mView = getLayoutInflater().inflate(R.layout.input_habit_dialog, null);
-        Spinner daySpinner = mView.findViewById(R.id.daySpinner);
-        Button buttonConfirm = findViewById(R.id.buttonConfirm);
-        Button buttonCancel = findViewById(R.id.buttonCancel);
-        TextView twHabitName = findViewById(R.id.textViewAdv);
-        TextView twUnit = findViewById(R.id.textViewUnit);
-        EditText etAdvancement = findViewById(R.id.editTextAdv);
+        final Spinner daySpinner = mView.findViewById(R.id.daySpinner);
+        Button buttonConfirm = mView.findViewById(R.id.buttonConfirm);
+        Button buttonCancel = mView.findViewById(R.id.buttonCancel);
+        TextView twHabitName = mView.findViewById(R.id.textViewAdv);
+        TextView twUnit = mView.findViewById(R.id.textViewUnit);
+        final EditText etAdvancement = mView.findViewById(R.id.editTextAdv);
+
+        final HabitDao habitDao = new HabitDao(this);
+        habitDao.open();
+        // Get the daily unit
+        String unit = habitDao.getMonthlyHabitUnit(year, month, habit);
+        twUnit.setText(unit);
+
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO - get values, insert OR update to the DB if for the day exists !
+                // TODO - test so valeurs vides etc
+                // TODO - arrondir val graphe du bas
+                String adv = etAdvancement.getText().toString();
+                adv = adv.replace(',', '.');
+                double advDouble = Double.parseDouble(adv);
+                String when = daySpinner.getSelectedItem().toString();
+                if (when.equals("Aujourd'hui")) { // TODO - convert en constante plus facile à modifier
+                    // Get current day
+                    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                    String day = date.substring(8);
+                    when = day;
+                }
+
+                Habit insertion = new Habit(habitData, yearData, monthData, when, advDouble, null);
+                habitDao.insertDailyAdv(insertion);
+
+                // Update the UI with the new data
+                setupUI(habitData, yearData, monthData);
+
+                dialog.cancel();
+            }
+        });
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
 
         // Prepare data for the spinner
         int daysCount = getMonthlyDaysCount(month, year);
@@ -318,9 +367,29 @@ public class HabitDetailActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, items);
         daySpinner.setAdapter(adapter);
 
+        // Build the dialog
         mBuilder.setView(mView);
         dialog = mBuilder.create();
         dialog.show();
+    }
+
+    public void setupUI(String habit, String year, String month ) {
+        // Sets up the activity UI with the data
+
+        // Draws the line chart widget
+        // Get the lineChart reference
+        LineChart chartDetail = findViewById(R.id.chartDetail);
+
+        // Get the extras from the intent to get the data
+        LineData data = getData(habit, year, month);
+        setupLineChart(chartDetail, data);
+
+        // Draws the pie chart widget
+        setupPieChart(year, month, habit);
+        moveOffScreen();
+
+        // Fill the advice widget
+        setupAdvice(year, month, habit);
     }
 
     @Override
@@ -352,19 +421,10 @@ public class HabitDetailActivity extends AppCompatActivity {
         habitDao.insertDailyAdv(new Habit("Testage", "2019", "07", "04", 3, null));
         habitDao.insertDailyAdv(new Habit("Testage", "2019", "07", "06", 6, null));
 
-        // Get the lineChart reference
-        LineChart chartDetail = findViewById(R.id.chartDetail);
+        // Draw the line chart
+        setupUI(habit, year, month);
 
-        // Get the extras from the intent to get the data
-        LineData data = getData(habit, year, month);
-        setupLineChart(chartDetail, data);
 
-        // Display pie chart
-        setupPieChart(year, month, habit);
-        moveOffScreen();
-
-        // Fill the advice card
-        setupAdvice(year, month, habit);
 
         FloatingActionButton fab = findViewById(R.id.detailFAB);
         fab.setOnClickListener(new View.OnClickListener() {

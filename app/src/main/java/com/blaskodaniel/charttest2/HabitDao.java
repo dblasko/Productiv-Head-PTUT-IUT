@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 // CF https://fr.jeffprod.com/blog/2015/utilisation-d-une-base-sqlite-sous-android/
 public class HabitDao {
@@ -169,7 +170,7 @@ public class HabitDao {
         Cursor c = db.rawQuery("SELECT day, advancement FROM " + TABLE_NAME +
                 " WHERE year = '"+year+"' AND month='"+month+"' AND habit='"+habit+"' AND day != '00' ORDER BY day ASC", null);
 
-        Map<Integer, Double> result = new HashMap<>();
+        Map<Integer, Double> result = new TreeMap<>(); // ! Treemap to avoid plotting in the bad y order issue
         while (c.moveToNext()) {
             String dayString = c.getString(c.getColumnIndex(KEY_DAY));
             int day = Integer.parseInt(dayString);

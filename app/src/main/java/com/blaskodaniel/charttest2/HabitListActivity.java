@@ -90,6 +90,8 @@ public class HabitListActivity extends AppCompatActivity {
                 double adv = Double.parseDouble(advText);
                 String unit = et3.getText().toString();
 
+                if (advText.equals("") || habitTitle.equals("")) dialog.cancel();
+
                 habitDao.insertDailyAdv(new Habit(habitTitle, year, month, "00", adv, unit));
                 ((HabitListAdapter)habitRecView.getAdapter()).habitsData = habitDao.getMonthlyHabits(year, month);
                 habitRecView.getAdapter().notifyDataSetChanged();
