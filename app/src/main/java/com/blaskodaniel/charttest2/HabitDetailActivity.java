@@ -45,6 +45,7 @@ public class HabitDetailActivity extends AppCompatActivity {
 
     PieChart chart;
     AlertDialog dialog;
+    final String textToday = "Aujourd'hui";
 
     public double getAveragePercentage(String year, String month, String habit) {
         // Connects to the database and calculates & returns that average advancement %age
@@ -173,7 +174,6 @@ public class HabitDetailActivity extends AppCompatActivity {
         chart.setRotationAngle(180f);
         chart.setCenterTextOffset(0, -20);
 
-        // TODO - set data
         double avg = getAveragePercentage(year, month, habit);
 
         // Prepare pie data
@@ -192,7 +192,7 @@ public class HabitDetailActivity extends AppCompatActivity {
         else color = Color.parseColor("#00e676");
 
         dataSet.setColors(color, Color.WHITE); // set the 2 colors,
-        chart.setCenterText(Double.toString(avg) + "%");
+        chart.setCenterText(Double.toString(Math.round(avg)) + "%");
         chart.setDrawCenterText(true);
         chart.setCenterTextSize(21);
         chart.setCenterTextColor(color);
@@ -322,18 +322,21 @@ public class HabitDetailActivity extends AppCompatActivity {
         // Get the daily unit
         String unit = habitDao.getMonthlyHabitUnit(year, month, habit);
         twUnit.setText(unit);
+        twHabitName.setText("Habitude : " + habit);
 
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO - get values, insert OR update to the DB if for the day exists !
-                // TODO - test so valeurs vides etc
-                // TODO - arrondir val graphe du bas
                 String adv = etAdvancement.getText().toString();
+                if (adv.isEmpty()) { // TODO - same in list dialog
+                    dialog.cancel(); // Exit if empty
+                    return;
+                }
                 adv = adv.replace(',', '.');
                 double advDouble = Double.parseDouble(adv);
                 String when = daySpinner.getSelectedItem().toString();
-                if (when.equals("Aujourd'hui")) { // TODO - convert en constante plus facile à modifier
+                if (when.equals(textToday)) {
                     // Get current day
                     String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                     String day = date.substring(8);
@@ -360,7 +363,7 @@ public class HabitDetailActivity extends AppCompatActivity {
         // Prepare data for the spinner
         int daysCount = getMonthlyDaysCount(month, year);
         String[] items = new String[daysCount+1];
-        items[0] = "Aujourd'hui";
+        items[0] = textToday;
         for (int i = 1; i <= daysCount; i++){
             items[i] = Integer.toString(i);
         }
@@ -397,6 +400,7 @@ public class HabitDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_detail);
 
+        // Get intent data from previous activity
         final Intent intent = getIntent();
         final String habit = intent.getStringExtra("habit");
         final String year = intent.getStringExtra("year");
@@ -410,22 +414,10 @@ public class HabitDetailActivity extends AppCompatActivity {
         getSupportActionBar().setSubtitle("Détail sur l'habitude " + habit);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-
-        // TODO - remove - for testing purposes
-        HabitDao habitDao = new HabitDao(this);
-        habitDao.open();
-        //habitDao.insertDailyAdv(new Habit("Testage", "2019", "07", "00", 5, null));
-        habitDao.insertDailyAdv(new Habit("Testage", "2019", "07", "01", 3, null));
-        habitDao.insertDailyAdv(new Habit("Testage", "2019", "07", "02", 5, null));
-        habitDao.insertDailyAdv(new Habit("Testage", "2019", "07", "03", 2, null));
-        habitDao.insertDailyAdv(new Habit("Testage", "2019", "07", "04", 3, null));
-        habitDao.insertDailyAdv(new Habit("Testage", "2019", "07", "06", 6, null));
-
         // Draw the line chart
         setupUI(habit, year, month);
 
-
-
+        // Setup FAB
         FloatingActionButton fab = findViewById(R.id.detailFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -437,6 +429,7 @@ public class HabitDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+        // Enables going back from the activty
         onBackPressed();
         return true;
     }
