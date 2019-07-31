@@ -47,7 +47,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:spinnerMode="dropdown"/>
+        android:spinnerMode="dropdown"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,7 +62,10 @@
             android:layout_height="wrap_content"
             android:text="Confirmer"
             android:layout_margin="5dp"
-            android:layout_weight="5"/>
+            android:layout_weight="5"
+            android:backgroundTintMode="src_over"
+            android:backgroundTint="@color/colorAccent"
+            android:textColor="@color/grey"/>
 
         <Button
             android:id="@+id/buttonCancel"
@@ -69,7 +73,10 @@
             android:layout_height="wrap_content"
             android:text="Annuler"
             android:layout_margin="5dp"
-            android:layout_weight="5"/>
+            android:layout_weight="5"
+            android:backgroundTintMode="src_over"
+            android:backgroundTint="@color/colorAccent"
+            android:textColor="@color/grey"/>
 
     </LinearLayout>
 

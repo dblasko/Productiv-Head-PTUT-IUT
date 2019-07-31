@@ -4,11 +4,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -410,18 +413,24 @@ public class HabitDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.mipmap.app_icon_round);
+        //getSupportActionBar().setLogo(R.mipmap.app_icon_round);
         getSupportActionBar().setSubtitle("Détail sur l'habitude " + habit);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
+       // getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         // Draw the line chart
         setupUI(habit, year, month);
 
+        LinearLayout layout = findViewById(R.id.linearLayout);
+        final LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(layout.getContext(), R.anim.layout_animation_fall_up);
+        layout.setLayoutAnimation(controller);
+        layout.scheduleLayoutAnimation();
+
         // Setup FAB
-        FloatingActionButton fab = findViewById(R.id.detailFAB);
+        final FloatingActionButton fab = findViewById(R.id.detailFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ObjectAnimator.ofFloat(fab, "rotation", 0f, 720f).setDuration(1200).start();
                 showHabitInputDialog(year, month, habit);
             }
         });

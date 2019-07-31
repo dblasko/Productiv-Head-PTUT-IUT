@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HabitListActivity"
-    android:background="@color/grey">
+    tools:context=".HabitListActivity">
 
 
     <TextView
@@ -19,7 +18,6 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:paddingBottom="10dp"
-        android:backgroundTint="@color/colorAccent"
         android:text="Juillet 2019"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +32,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMonthYear"
         tools:layout_editor_absoluteX="0dp"
+        android:paddingTop="8dp"
+        android:layoutAnimation="@anim/layout_animation_fall_down"
     />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -63,20 +63,25 @@
         android:clickable="true"
         android:focusable="true"/>
 
-    <ImageView
-        android:id="@+id/rightArrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fab_viewgroup"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toTopOf="@+id/habitRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewMonthYear"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    <ImageView
+        android:id="@+id/rightArrow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/arrow_right"
         android:clickable="true"
         android:focusable="true"/>
+    </LinearLayout>
 
 
 

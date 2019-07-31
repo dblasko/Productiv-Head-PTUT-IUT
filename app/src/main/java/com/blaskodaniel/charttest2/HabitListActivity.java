@@ -2,19 +2,33 @@ package com.blaskodaniel.charttest2;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.transitionseverywhere.Fade;
+import com.transitionseverywhere.Rotate;
+import com.transitionseverywhere.Slide;
+import com.transitionseverywhere.Transition;
+import com.transitionseverywhere.TransitionManager;
+import com.transitionseverywhere.TransitionSet;
+import com.transitionseverywhere.extra.Scale;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -62,6 +76,8 @@ public class HabitListActivity extends AppCompatActivity {
         // Change the adapter with monthly data - IF CRASH TRY REPLACE THE DATA IN ACTUAL ADAPTER OR NO DATA CHANGE
         HabitListAdapter adapter = new HabitListAdapter(monthlyHabits, this, year, month);
         habitRecView.setAdapter(adapter);
+        // Re animate
+        animateRecyclerView();
         // Set textview
         TextView dateText = findViewById(R.id.textViewMonthYear);
         dateText.setText(getLiteralMonth(month) + " " + year);
@@ -98,6 +114,8 @@ public class HabitListActivity extends AppCompatActivity {
                 habitDao.insertDailyAdv(new Habit(habitTitle, year, month, "00", adv, unit));
                 ((HabitListAdapter)habitRecView.getAdapter()).habitsData = habitDao.getMonthlyHabits(year, month);
                 habitRecView.getAdapter().notifyDataSetChanged();
+                // Re animate
+                animateRecyclerView();
 
                 dialog.cancel();
             }
@@ -113,6 +131,13 @@ public class HabitListActivity extends AppCompatActivity {
         mBuilder.setView(mView);
         dialog = mBuilder.create();
         dialog.show();
+    }
+
+    public void animateRecyclerView(){
+        // Re animate the recyclerview
+        final LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(habitRecView.getContext(), R.anim.layout_animation_fall_down);
+        habitRecView.setLayoutAnimation(controller);
+        habitRecView.scheduleLayoutAnimation();
     }
 
     @Override
@@ -142,6 +167,7 @@ public class HabitListActivity extends AppCompatActivity {
         month = date.substring(5, 7);
 
         updateView(year, month);
+
 
         // Change month with the arrows
         ImageView leftArrow = findViewById(R.id.leftArrow);
@@ -190,14 +216,23 @@ public class HabitListActivity extends AppCompatActivity {
 
 
         // Floating action button adds a new habit
-        FloatingActionButton fab = findViewById(R.id.listFAB);
+        final FloatingActionButton fab = findViewById(R.id.listFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // ADD HABIT FOR THE MONTH
+                ObjectAnimator.ofFloat(fab, "rotation", 0f, 720f).setDuration(1200).start();
                 createHabitDialog();
             }
         });
 
+        // ANIMATIONS
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        animateRecyclerView();
     }
 }

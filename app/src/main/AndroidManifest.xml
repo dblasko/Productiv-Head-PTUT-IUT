@@ -9,7 +9,7 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HabitDetailActivity"></activity>
+        <activity android:name=".HabitDetailActivity" />
         <activity android:name=".HabitListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
