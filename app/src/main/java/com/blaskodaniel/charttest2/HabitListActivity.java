@@ -85,12 +85,15 @@ public class HabitListActivity extends AppCompatActivity {
                 // Insert habit
                 String habitTitle = et1.getText().toString();
                 String advText = et2.getText().toString();
+                // Close if nothing was entered
+                if (advText.isEmpty() || habitTitle.isEmpty() ) {
+                    dialog.cancel(); // Exit if empty
+                    return;
+                }
                 // => Double uses ".", parsing with , results in an app crash
                 advText = advText.replace(',', '.');
                 double adv = Double.parseDouble(advText);
                 String unit = et3.getText().toString();
-
-                if (advText.equals("") || habitTitle.equals("")) dialog.cancel();
 
                 habitDao.insertDailyAdv(new Habit(habitTitle, year, month, "00", adv, unit));
                 ((HabitListAdapter)habitRecView.getAdapter()).habitsData = habitDao.getMonthlyHabits(year, month);

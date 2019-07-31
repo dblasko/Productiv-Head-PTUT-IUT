@@ -329,7 +329,7 @@ public class HabitDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // TODO - get values, insert OR update to the DB if for the day exists !
                 String adv = etAdvancement.getText().toString();
-                if (adv.isEmpty()) { // TODO - same in list dialog
+                if (adv.isEmpty()) {
                     dialog.cancel(); // Exit if empty
                     return;
                 }
