@@ -37,6 +37,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -147,6 +148,7 @@ public class HabitDetailActivity extends AppCompatActivity {
         lineChart.getAxisLeft().setDrawAxisLine(true);
         lineChart.getAxisLeft().setAxisMinimum(0); // to start at 90%
         lineChart.getAxisLeft().setAxisLineColor(Color.parseColor("#AC9F29")); // give more width, dashed?
+        lineChart.getAxisLeft().setValueFormatter(new PercentFormatter());
         // Hide right Y axis
         lineChart.getAxisRight().setEnabled(false);
         // -> Uncomment to show all Xs
