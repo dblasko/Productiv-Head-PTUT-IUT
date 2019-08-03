@@ -15,15 +15,16 @@
 
 As you can see, you can add habits to the monthly scrollable list. Those can be deleted, _will be editable and shareable in the future_.
 
-![adding_habit_empty](./screenshots/adding_habit_empty.jpg | width=100) ![adding_habit_full](./screenshots/adding_habit_full.jpg | width=100) ![habit_list](./screenshots/habit_list.jpg | width=100)
-<img src="./screenshots/adding_habit_empty.jpg" alt="adding_habit_empty" width="100">
+<img src="./screenshots/adding_habit_empty.jpg" alt="adding_habit_empty" width="300"><img src="./screenshots/adding_habit_full.jpg" alt="adding_habit_full" width="300"><img src="./screenshots/habit_list.jpg" alt="habit_list" width="300">
 
 
 ### Tracking your performance on different habits
 
 And you can track your progress on every habit while adding your daily advancement in a dedicated activity : 
 
-![adding_progress](./screenshots/adding_progress.jpg | width=100) ![detail](./screenshots/detail.jpg | width=100)
+<img src="./screenshots/adding_progress.jpg" alt="adding_progress" width="300">
+<img src="./screenshots/detail.jpg" alt="detail" width="300">
+
 
 ## Estimate development advancement of the module
 
