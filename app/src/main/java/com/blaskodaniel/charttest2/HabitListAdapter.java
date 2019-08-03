@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.astritveliu.boom.Boom;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -64,6 +66,10 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitListViewHolder> 
                 notifyItemRangeChanged(pos, habitsData.size());
             }
         });
+
+        // Add animations
+        new Boom((View)holder.cardView);
+        new Boom((View)holder.deleteButton);
     }
 
     @Override

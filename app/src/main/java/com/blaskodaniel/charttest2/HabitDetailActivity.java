@@ -2,24 +2,30 @@ package com.blaskodaniel.charttest2;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import oxim.digital.rxanim.RxAnimationBuilder;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
+import com.astritveliu.boom.Boom;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -31,8 +37,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -42,7 +46,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 public class HabitDetailActivity extends AppCompatActivity {
 
@@ -181,8 +184,13 @@ public class HabitDetailActivity extends AppCompatActivity {
 
         // Prepare pie data
         ArrayList<PieEntry> values = new ArrayList<>();
-        values.add(new PieEntry((float)avg));
-        values.add(new PieEntry((float)(100 - avg)));
+        if (avg > 100) { // To fix the bug if the avg is > 100% the graph makes multiple cycles
+            values.add(new PieEntry(100f));
+            values.add(new PieEntry(0f));
+        } else {
+            values.add(new PieEntry((float) avg));
+            values.add(new PieEntry((float) (100 - avg)));
+        }
         PieDataSet dataSet = new PieDataSet(values, "Moyenne du mois");
 
         dataSet.setSliceSpace(3f);
@@ -274,6 +282,13 @@ public class HabitDetailActivity extends AppCompatActivity {
         TextView adviceTextView = findViewById(R.id.tw_conseil); // get the textView to display the text
         Random r = new Random(); // nextInt gives int between 0 and param-1
 
+        AlphaAnimation fadeIn = new AlphaAnimation(0.0f , 1.0f ) ;
+        AlphaAnimation fadeOut = new AlphaAnimation( 1.0f , 0.0f ) ;
+
+        adviceTextView.startAnimation(fadeOut);
+        fadeIn.setDuration(1200);
+        fadeIn.setFillAfter(true);
+
         if (avg <= 40) {
             int i = r.nextInt(low.length);
             adviceTextView.setText(low[i]);
@@ -284,6 +299,10 @@ public class HabitDetailActivity extends AppCompatActivity {
             int i= r.nextInt(high.length);
             adviceTextView.setText(high[i]);
         }
+
+        adviceTextView.startAnimation(fadeIn);
+        fadeOut.setDuration(1200);
+        fadeOut.setFillAfter(true);
     }
 
     public int getMonthlyDaysCount(String month, String year) {
@@ -319,6 +338,9 @@ public class HabitDetailActivity extends AppCompatActivity {
         TextView twHabitName = mView.findViewById(R.id.textViewAdv);
         TextView twUnit = mView.findViewById(R.id.textViewUnit);
         final EditText etAdvancement = mView.findViewById(R.id.editTextAdv);
+        new Boom((View)buttonCancel);
+        new Boom((View)buttonConfirm);
+
 
         final HabitDao habitDao = new HabitDao(this);
         habitDao.open();
@@ -376,6 +398,7 @@ public class HabitDetailActivity extends AppCompatActivity {
         // Build the dialog
         mBuilder.setView(mView);
         dialog = mBuilder.create();
+        RxAnimationBuilder.animate(mView, 800).fadeIn();
         dialog.show();
     }
 
@@ -425,6 +448,9 @@ public class HabitDetailActivity extends AppCompatActivity {
         layout.setLayoutAnimation(controller);
         layout.scheduleLayoutAnimation();
 
+        CardView adviceCard = findViewById(R.id.messageCard);
+        new Boom((View)adviceCard);
+
         // Setup FAB
         final FloatingActionButton fab = findViewById(R.id.detailFAB);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -432,6 +458,14 @@ public class HabitDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 ObjectAnimator.ofFloat(fab, "rotation", 0f, 720f).setDuration(1200).start();
                 showHabitInputDialog(year, month, habit);
+            }
+        });
+
+        CardView msgCardView = findViewById(R.id.messageCard);
+        msgCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setupAdvice(year, month, habit);
             }
         });
     }

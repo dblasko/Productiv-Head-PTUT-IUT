@@ -20,7 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="A quel point avez-vous atteint votre objectif ?"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:textAlignment="center"/>
 
     <LinearLayout
         android:layout_width="200dp"

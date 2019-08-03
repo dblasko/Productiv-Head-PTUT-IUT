@@ -2,18 +2,13 @@ package com.blaskodaniel.charttest2;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
-import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import oxim.digital.rxanim.RxAnimationBuilder;
 
 import android.animation.ObjectAnimator;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
@@ -21,14 +16,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.astritveliu.boom.Boom;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.transitionseverywhere.Fade;
-import com.transitionseverywhere.Rotate;
-import com.transitionseverywhere.Slide;
-import com.transitionseverywhere.Transition;
-import com.transitionseverywhere.TransitionManager;
-import com.transitionseverywhere.TransitionSet;
-import com.transitionseverywhere.extra.Scale;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -87,12 +76,15 @@ public class HabitListActivity extends AppCompatActivity {
         // Prompts the user to create a habit
 
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
-        View mView = getLayoutInflater().inflate(R.layout.new_habit_dialog, null);
+        final View mView = getLayoutInflater().inflate(R.layout.new_habit_dialog, null);
         final EditText et1 = mView.findViewById(R.id.editText1);
         final EditText et2 = mView.findViewById(R.id.editText2);
         final EditText et3 = mView.findViewById(R.id.editText3);
         Button buttonValider = mView.findViewById(R.id.button_valider);
         Button buttonAnnuler = mView.findViewById(R.id.button_annuler);
+        // Add boom animation to both buttons
+        new Boom(buttonValider);
+        new Boom(buttonAnnuler);
 
         buttonValider.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +122,7 @@ public class HabitListActivity extends AppCompatActivity {
 
         mBuilder.setView(mView);
         dialog = mBuilder.create();
+        RxAnimationBuilder.animate(mView, 800).fadeIn();
         dialog.show();
     }
 
@@ -150,6 +143,7 @@ public class HabitListActivity extends AppCompatActivity {
         getSupportActionBar().setLogo(R.mipmap.app_icon_round);
         getSupportActionBar().setSubtitle("Liste des habitudes");
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+        //getSupportActionBar().hide();
 
         // Get the recyclerView
         habitRecView = (RecyclerView)findViewById(R.id.habitRecyclerView);
@@ -172,6 +166,9 @@ public class HabitListActivity extends AppCompatActivity {
         // Change month with the arrows
         ImageView leftArrow = findViewById(R.id.leftArrow);
         ImageView rightArrow = findViewById(R.id.rightArrow);
+        // Add boom animation
+        new Boom((View)leftArrow);
+        new Boom((View)rightArrow);
         // Go back a month
         leftArrow.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -14,7 +14,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,15 +31,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:paddingLeft="30dp"
-                android:textSize="17sp"
+                android:textSize="19sp"
                 android:text="Habitude"
                 android:textAlignment="textStart"
-                android:paddingVertical="20dp"
+                android:paddingVertical="17dp"
                 android:layout_weight="19" />
 
 
             <ImageView
-                android:clickable="true"
                 android:id="@+id/listCardViewDelete"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -44,8 +46,10 @@
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="false"
+                android:clickable="true"
                 android:cropToPadding="false"
-                android:src="@drawable/trash"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                app:srcCompat="@android:drawable/ic_menu_delete"
                 tools:src="@drawable/trash" />
 
         </LinearLayout>

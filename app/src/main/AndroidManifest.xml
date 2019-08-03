@@ -9,8 +9,10 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HabitDetailActivity" />
-        <activity android:name=".HabitListActivity">
+        <activity android:name=".HabitDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".HabitListActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HabitListActivity">
+    tools:context=".HabitListActivity"
+    android:paddingTop="10dp">
 
 
     <TextView
@@ -24,6 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="5dp"
         android:id="@+id/habitRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -51,37 +53,34 @@
 
     <ImageView
         android:id="@+id/leftArrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/arrow_left"
+        app:layout_constraintBottom_toTopOf="@+id/habitRecyclerView"
         app:layout_constraintEnd_toStartOf="@+id/textViewMonthYear"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/arrow_left"
-        android:clickable="true"
-        android:focusable="true"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fab_viewgroup"
+    <ImageView
+        android:id="@+id/rightArrow"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/arrow_right"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toTopOf="@+id/habitRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewMonthYear"
-        app:layout_constraintTop_toTopOf="parent">
-    <ImageView
-        android:id="@+id/rightArrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/arrow_right"
-        android:clickable="true"
-        android:focusable="true"/>
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
 
