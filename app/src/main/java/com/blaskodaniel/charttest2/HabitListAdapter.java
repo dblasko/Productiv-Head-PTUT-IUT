@@ -27,6 +27,10 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitListViewHolder> 
         this.month = month;
     }
 
+    public void setHabitsData(List<String> habitsData) {
+        this.habitsData = habitsData;
+    }
+
 
     @NonNull
     @Override

@@ -38,7 +38,7 @@ public class HabitListActivity extends AppCompatActivity {
     }
 
     public static String getLiteralMonth(String month) {
-        // Returns the corresponding month name
+        // Returns the corresponding month name as a String
         switch (month) {
             case "00" : return "Mois sauvegarde";
             case "01" : return "Janvier";
@@ -57,31 +57,37 @@ public class HabitListActivity extends AppCompatActivity {
         return "Erreur conversion mois";
     }
 
-    public void updateView(String year, String month) {
-        // Updates the view for given year/month
+    public String getCurrentDate(){
+        return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+    }
 
-        // Get monthly data
+    public void refreshView(String year, String month) {
+        // Populates the view with given year+month pairs data
+
+        // Get the list of the month's habits
         List<String> monthlyHabits = habitDao.getMonthlyHabits(year, month);
-        // Change the adapter with monthly data - IF CRASH TRY REPLACE THE DATA IN ACTUAL ADAPTER OR NO DATA CHANGE
+        // Replace the adapter with one holding the new data
         HabitListAdapter adapter = new HabitListAdapter(monthlyHabits, this, year, month);
         habitRecView.setAdapter(adapter);
-        // Re animate
+        // Re-animate view
         animateRecyclerView();
-        // Set textview
+        // Update the month+year textView
         TextView dateText = findViewById(R.id.textViewMonthYear);
         dateText.setText(getLiteralMonth(month) + " " + year);
     }
 
     public void createHabitDialog() {
-        // Prompts the user to create a habit
+        // Creates and displays the dialog to create a new habit
 
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
         final View mView = getLayoutInflater().inflate(R.layout.new_habit_dialog, null);
+
         final EditText et1 = mView.findViewById(R.id.editText1);
         final EditText et2 = mView.findViewById(R.id.editText2);
         final EditText et3 = mView.findViewById(R.id.editText3);
         Button buttonValider = mView.findViewById(R.id.button_valider);
         Button buttonAnnuler = mView.findViewById(R.id.button_annuler);
+
         // Add boom animation to both buttons
         new Boom(buttonValider);
         new Boom(buttonAnnuler);
@@ -89,11 +95,9 @@ public class HabitListActivity extends AppCompatActivity {
         buttonValider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               //  TODO
                 // Insert habit
                 String habitTitle = et1.getText().toString();
                 String advText = et2.getText().toString();
-                // Close if nothing was entered
                 if (advText.isEmpty() || habitTitle.isEmpty() ) {
                     dialog.cancel(); // Exit if empty
                     return;
@@ -103,8 +107,8 @@ public class HabitListActivity extends AppCompatActivity {
                 double adv = Double.parseDouble(advText);
                 String unit = et3.getText().toString();
 
-                habitDao.insertDailyAdv(new Habit(habitTitle, year, month, "00", adv, unit));
-                ((HabitListAdapter)habitRecView.getAdapter()).habitsData = habitDao.getMonthlyHabits(year, month);
+                habitDao.insertDailyAdv(new Habit(habitTitle, year, month, "00", adv, unit)); // Day 0 is here to remember the habit + to know its unit
+                ((HabitListAdapter) habitRecView.getAdapter()).setHabitsData(habitDao.getMonthlyHabits(year, month)); // We update the adapters data once the new habit is added, this is enough since there is no need to refresh the entire view, only the list is changing
                 habitRecView.getAdapter().notifyDataSetChanged();
                 // Re animate
                 animateRecyclerView();
@@ -127,48 +131,29 @@ public class HabitListActivity extends AppCompatActivity {
     }
 
     public void animateRecyclerView(){
-        // Re animate the recyclerview
+        // Re animates the recyclerview
         final LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(habitRecView.getContext(), R.anim.layout_animation_fall_down);
         habitRecView.setLayoutAnimation(controller);
         habitRecView.scheduleLayoutAnimation();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_habit_list);
-
-        // Display icon in actionbar
+    public void customizeActionBar(){
+        // Customizes the actionbar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.app_icon_round);
         getSupportActionBar().setSubtitle("Liste des habitudes");
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        //getSupportActionBar().hide();
+    }
 
-        // Get the recyclerView
-        habitRecView = (RecyclerView)findViewById(R.id.habitRecyclerView);
-        // Create the linear layout manager => positions the views in our list
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        habitRecView.setLayoutManager(layoutManager);
+    public void setupMonthNavigation(){
 
-        // Open a DB
-        habitDao = new HabitDao(this);
-        habitDao.open();
-
-        // Get current month/year and init view at these values
-        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        year = date.substring(0, 4);
-        month = date.substring(5, 7);
-
-        updateView(year, month);
-
-
-        // Change month with the arrows
+        // Sets up the month navigation on click on the arrows
         ImageView leftArrow = findViewById(R.id.leftArrow);
         ImageView rightArrow = findViewById(R.id.rightArrow);
         // Add boom animation
         new Boom((View)leftArrow);
         new Boom((View)rightArrow);
+
         // Go back a month
         leftArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,8 +170,8 @@ public class HabitListActivity extends AppCompatActivity {
                     if (monthInt < 10) month = "0" + Integer.toString(monthInt);
                     else month = Integer.toString(monthInt);
                 }
-                // Update the view
-                updateView(year, month);
+                // Update the view with new data
+                refreshView(year, month);
             }
         });
 
@@ -206,13 +191,37 @@ public class HabitListActivity extends AppCompatActivity {
                     if (monthInt < 10) month = "0" + Integer.toString(monthInt);
                     else month = Integer.toString(monthInt);
                 }
-                // Update the view
-                updateView(year, month);
+                // Update the view with new data
+                refreshView(year, month);
             }
         });
+    }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_habit_list);
 
-        // Floating action button adds a new habit
+        customizeActionBar();
+
+        setupMonthNavigation();
+
+        // Get a DAO instance & open DB
+        habitDao = new HabitDao(this);
+        habitDao.open();
+
+        // Create the linear layout manager => positions the views in our list
+        habitRecView = findViewById(R.id.habitRecyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        habitRecView.setLayoutManager(layoutManager);
+
+        // Get current month/year and init view at these values
+        String date = getCurrentDate();
+        year = date.substring(0, 4);
+        month = date.substring(5, 7);
+        refreshView(year, month);
+
+        // Setup floating action button -> displays new habit dialog
         final FloatingActionButton fab = findViewById(R.id.listFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,9 +231,6 @@ public class HabitListActivity extends AppCompatActivity {
                 createHabitDialog();
             }
         });
-
-        // ANIMATIONS
-
     }
 
     @Override

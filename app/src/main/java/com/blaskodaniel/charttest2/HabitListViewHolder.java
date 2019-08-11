@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class HabitListViewHolder extends RecyclerView.ViewHolder {
+    // Référence les components view de chaque item de la liste
     // Adapter makes us not fetch the view ID's everytime
 
     CardView cardView;
