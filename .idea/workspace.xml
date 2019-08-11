@@ -16,9 +16,7 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitListActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitListViewHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitListViewHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitDetailActivity.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +53,7 @@
         <counts>
           <entry key="class" value="2" />
           <entry key="gradle" value="3" />
-          <entry key="java" value="33" />
+          <entry key="java" value="35" />
           <entry key="md" value="1" />
           <entry key="png" value="6" />
           <entry key="xml" value="51" />
@@ -66,7 +64,7 @@
           <entry key="CLASS" value="2" />
           <entry key="Groovy" value="3" />
           <entry key="Image" value="6" />
-          <entry key="JAVA" value="33" />
+          <entry key="JAVA" value="35" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="XML" value="51" />
         </counts>
@@ -74,7 +72,7 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gradle" value="232" />
-          <entry key="java" value="23358" />
+          <entry key="java" value="24113" />
           <entry key="txt" value="3" />
           <entry key="xml" value="3245" />
         </counts>
@@ -82,7 +80,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Groovy" value="232" />
-          <entry key="JAVA" value="23358" />
+          <entry key="JAVA" value="24113" />
           <entry key="PLAIN_TEXT" value="3" />
           <entry key="XML" value="3245" />
         </counts>
@@ -94,20 +92,39 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitDetailActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-584">
-              <caret line="159" column="18" selection-start-line="159" selection-start-column="18" selection-end-line="159" selection-end-column="18" />
+            <state relative-caret-position="23">
+              <caret line="451" column="28" selection-start-line="451" selection-start-column="28" selection-end-line="451" selection-end-column="28" />
+              <folding>
+                <element signature="method#getMonthlyDaysCount#0;class#HabitDetailActivity#0" />
+                <element signature="method#getCurrentDate#0;class#HabitDetailActivity#0" />
+                <element signature="method#getAveragePercentage#0;class#HabitDetailActivity#0" />
+                <element signature="method#getData#0;class#HabitDetailActivity#0" />
+                <element signature="method#setupLineChart#0;class#HabitDetailActivity#0" />
+                <element signature="method#setupPieChart#0;class#HabitDetailActivity#0" />
+                <element signature="method#moveOffScreen#0;class#HabitDetailActivity#0" />
+                <element signature="method#setupAdvice#0;class#HabitDetailActivity#0" />
+                <element signature="method#showHabitInputDialog#0;class#HabitDetailActivity#0" />
+                <element signature="method#setupUI#0;class#HabitDetailActivity#0" />
+                <element signature="method#customizeActionBar#0;class#HabitDetailActivity#0" />
+                <element signature="method#onSupportNavigateUp#0;class#HabitDetailActivity#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitListAdapter.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitListActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="30" column="37" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
+            <state relative-caret-position="159">
+              <caret line="139" column="4" selection-start-line="139" selection-start-column="4" selection-end-line="140" selection-end-column="35" />
               <folding>
-                <element signature="e#814#815#0" expanded="true" />
-                <element signature="e#858#859#0" expanded="true" />
+                <element signature="method#deleteHabit#0;class#HabitListActivity#0" />
+                <element signature="method#getLiteralMonth#0;class#HabitListActivity#0" />
+                <element signature="method#getCurrentDate#0;class#HabitListActivity#0" />
+                <element signature="method#refreshView#0;class#HabitListActivity#0" />
+                <element signature="method#createHabitDialog#0;class#HabitListActivity#0" />
+                <element signature="method#animateRecyclerView#0;class#HabitListActivity#0" />
+                <element signature="method#setupMonthNavigation#0;class#HabitListActivity#0" />
               </folding>
             </state>
           </provider>
@@ -168,10 +185,10 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_habit_detail.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/list_card_view.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitDetailActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitListViewHolder.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitListActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitDetailActivity.java" />
       </list>
     </option>
   </component>
@@ -220,7 +237,7 @@
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="device.picker.selection" value="Nexus_5X_API_27" />
+    <property name="device.picker.selection" value="23e40e20920c7ece" />
     <property name="last_opened_file_path" value="$USER_HOME$/AndroidStudioProjects/PTUT_Habitudes" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
@@ -513,13 +530,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="20" column="85" selection-start-line="20" selection-start-column="85" selection-end-line="20" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
@@ -531,20 +541,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="20" column="85" selection-start-line="20" selection-start-column="85" selection-end-line="20" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitListActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="39" column="55" selection-start-line="39" selection-start-column="55" selection-end-line="39" selection-end-column="55" />
+        <state relative-caret-position="159">
+          <caret line="139" column="4" selection-start-line="139" selection-start-column="4" selection-end-line="140" selection-end-column="35" />
           <folding>
             <element signature="method#deleteHabit#0;class#HabitListActivity#0" />
             <element signature="method#getLiteralMonth#0;class#HabitListActivity#0" />
             <element signature="method#getCurrentDate#0;class#HabitListActivity#0" />
-            <element signature="method#updateView#0;class#HabitListActivity#0" />
+            <element signature="method#refreshView#0;class#HabitListActivity#0" />
             <element signature="method#createHabitDialog#0;class#HabitListActivity#0" />
-            <element signature="e#3382#4516#0" expanded="true" />
-            <element signature="e#4515#4516#0" expanded="true" />
             <element signature="method#animateRecyclerView#0;class#HabitListActivity#0" />
-            <element signature="method#customizeActionBar#0;class#HabitListActivity#0" />
             <element signature="method#setupMonthNavigation#0;class#HabitListActivity#0" />
           </folding>
         </state>
@@ -552,8 +566,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/blaskodaniel/charttest2/HabitDetailActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-584">
-          <caret line="159" column="18" selection-start-line="159" selection-start-column="18" selection-end-line="159" selection-end-column="18" />
+        <state relative-caret-position="23">
+          <caret line="451" column="28" selection-start-line="451" selection-start-column="28" selection-end-line="451" selection-end-column="28" />
+          <folding>
+            <element signature="method#getMonthlyDaysCount#0;class#HabitDetailActivity#0" />
+            <element signature="method#getCurrentDate#0;class#HabitDetailActivity#0" />
+            <element signature="method#getAveragePercentage#0;class#HabitDetailActivity#0" />
+            <element signature="method#getData#0;class#HabitDetailActivity#0" />
+            <element signature="method#setupLineChart#0;class#HabitDetailActivity#0" />
+            <element signature="method#setupPieChart#0;class#HabitDetailActivity#0" />
+            <element signature="method#moveOffScreen#0;class#HabitDetailActivity#0" />
+            <element signature="method#setupAdvice#0;class#HabitDetailActivity#0" />
+            <element signature="method#showHabitInputDialog#0;class#HabitDetailActivity#0" />
+            <element signature="method#setupUI#0;class#HabitDetailActivity#0" />
+            <element signature="method#customizeActionBar#0;class#HabitDetailActivity#0" />
+            <element signature="method#onSupportNavigateUp#0;class#HabitDetailActivity#0" />
+          </folding>
         </state>
       </provider>
     </entry>

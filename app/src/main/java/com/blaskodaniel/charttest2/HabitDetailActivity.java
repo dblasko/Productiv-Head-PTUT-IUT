@@ -10,10 +10,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ArrayAdapter;
@@ -21,9 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextSwitcher;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
 import com.astritveliu.boom.Boom;
 import com.github.mikephil.charting.animation.Easing;
@@ -54,12 +50,33 @@ public class HabitDetailActivity extends AppCompatActivity {
     AlertDialog dialog;
     final String textToday = "Aujourd'hui";
 
-    public double getAveragePercentage(String year, String month, String habit) {
-        // Connects to the database and calculates & returns that average advancement %age
+    public int getMonthlyDaysCount(String month, String year) {
+        // Returns monthly days count
+        int monthInt = Integer.parseInt(month);
+        int yearInt = Integer.parseInt(year);
 
+        if (monthInt == 2) {
+            if ((yearInt%4 == 0 && yearInt%100 != 0) || yearInt%400 == 0) return 29; // bissextile
+            return 28;
+        } else if (monthInt <= 7) {
+            if (monthInt%2 == 0) return 30;
+            return 31;
+        } else {
+            if (monthInt%2 == 0) return 31;
+            return 30;
+        }
+    }
+
+    public String getCurrentDate(){
+        return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+    }
+
+    public double getAveragePercentage(String year, String month, String habit) {
+        // Calculates & returns the average advancement %age for given habit + month/year
         HabitDao habitDao = new HabitDao(this);
         habitDao.open();
         Map<Integer, Double> mData = habitDao.getMonthlyHabitAdvancementPercentages(year, month, habit);
+
         // Calculate avg advancement percentage
         List<Double> percentages = new ArrayList<>(mData.values());
         double sum = 0;
@@ -71,11 +88,11 @@ public class HabitDetailActivity extends AppCompatActivity {
         return avg;
     }
 
-    private LineData getData(String habit, String year, String month) {
+    private LineData getLineChartData(String habit, String year, String month) {
         // Prepares and returns the monthly data of an habit for the LineChart
-
         HabitDao habitDao = new HabitDao(this);
         habitDao.open();
+
         // Retrieve the data for the graph from the DB
         Map<Integer, Double> dbData = habitDao.getMonthlyHabitAdvancementPercentages(year, month, habit);
 
@@ -282,15 +299,16 @@ public class HabitDetailActivity extends AppCompatActivity {
 
         double avg = getAveragePercentage(year, month, habit); // get avg value
         TextView adviceTextView = findViewById(R.id.tw_conseil); // get the textView to display the text
-        Random r = new Random(); // nextInt gives int between 0 and param-1
 
+        // Setup view animation
         AlphaAnimation fadeIn = new AlphaAnimation(0.0f , 1.0f ) ;
         AlphaAnimation fadeOut = new AlphaAnimation( 1.0f , 0.0f ) ;
-
         adviceTextView.startAnimation(fadeOut);
         fadeIn.setDuration(1200);
         fadeIn.setFillAfter(true);
 
+        // Set textView content based on the percentage
+        Random r = new Random(); // nextInt gives int between 0 and param-1
         if (avg <= 40) {
             int i = r.nextInt(low.length);
             adviceTextView.setText(low[i]);
@@ -302,29 +320,14 @@ public class HabitDetailActivity extends AppCompatActivity {
             adviceTextView.setText(high[i]);
         }
 
+        // Start view animation
         adviceTextView.startAnimation(fadeIn);
         fadeOut.setDuration(1200);
         fadeOut.setFillAfter(true);
     }
 
-    public int getMonthlyDaysCount(String month, String year) {
-        int monthInt = Integer.parseInt(month);
-        int yearInt = Integer.parseInt(year);
-
-        if (monthInt == 2) {
-            if ((yearInt%4 == 0 && yearInt%100 != 0) || yearInt%400 == 0) return 29; // bissextile
-            return 28;
-        } else if (monthInt <= 7) {
-            if (monthInt%2 == 0) return 30;
-            return 31;
-        } else {
-            if (monthInt%2 == 0) return 31;
-            return 30;
-        }
-    }
-
     public void showHabitInputDialog(String year, String month, String habit) {
-        // Shows the dialog for habit input
+        // Builds & shows the dialog for habit input
 
         // Final vars for the inner class
         final String yearData = year;
@@ -340,15 +343,18 @@ public class HabitDetailActivity extends AppCompatActivity {
         TextView twHabitName = mView.findViewById(R.id.textViewAdv);
         TextView twUnit = mView.findViewById(R.id.textViewUnit);
         final EditText etAdvancement = mView.findViewById(R.id.editTextAdv);
+
+        // Animate buttons
         new Boom((View)buttonCancel);
         new Boom((View)buttonConfirm);
 
-
         final HabitDao habitDao = new HabitDao(this);
         habitDao.open();
-        // Get the daily unit
+
+        // Get & set the daily unit
         String unit = habitDao.getMonthlyHabitUnit(year, month, habit);
         twUnit.setText(unit);
+
         twHabitName.setText("Habitude : " + habit);
 
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
@@ -360,18 +366,18 @@ public class HabitDetailActivity extends AppCompatActivity {
                     dialog.cancel(); // Exit if empty
                     return;
                 }
-                adv = adv.replace(',', '.');
+                adv = adv.replace(',', '.'); // Doubles use . or else throw an exception
                 double advDouble = Double.parseDouble(adv);
                 String when = daySpinner.getSelectedItem().toString();
                 if (when.equals(textToday)) {
                     // Get current day
-                    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-                    String day = date.substring(8);
-                    when = day;
+                    String date = getCurrentDate();
+                    when = date.substring(8); // day part
                 }
 
+                // Insert the advancement to the DB
                 Habit insertion = new Habit(habitData, yearData, monthData, when, advDouble, null);
-                habitDao.insertDailyAdv(insertion);
+                habitDao.insertDailyAdv(insertion); // TODO - try update here
 
                 // Update the UI with the new data
                 setupUI(habitData, yearData, monthData);
@@ -387,7 +393,7 @@ public class HabitDetailActivity extends AppCompatActivity {
             }
         });
 
-        // Prepare data for the spinner
+        // Prepare & set the data for the spinner
         int daysCount = getMonthlyDaysCount(month, year);
         String[] items = new String[daysCount+1];
         items[0] = textToday;
@@ -405,22 +411,27 @@ public class HabitDetailActivity extends AppCompatActivity {
     }
 
     public void setupUI(String habit, String year, String month ) {
-        // Sets up the activity UI with the data
+        // Sets up the activity UI with the data (fills the 3 cardViews)
 
-        // Draws the line chart widget
-        // Get the lineChart reference
+        // Draw the line chart card
         LineChart chartDetail = findViewById(R.id.chartDetail);
-
-        // Get the extras from the intent to get the data
-        LineData data = getData(habit, year, month);
+        LineData data = getLineChartData(habit, year, month);
         setupLineChart(chartDetail, data);
 
-        // Draws the pie chart widget
+        // Draw the pie chart card
         setupPieChart(year, month, habit);
         moveOffScreen();
 
-        // Fill the advice widget
+        // Fill the advice card
         setupAdvice(year, month, habit);
+    }
+
+    public void customizeActionBar(String habitName) {
+        // Customizes the actionbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setSubtitle("Détail sur l'habitude " + habitName);
     }
 
     @Override
@@ -434,26 +445,17 @@ public class HabitDetailActivity extends AppCompatActivity {
         final String year = intent.getStringExtra("year");
         final String month = intent.getStringExtra("month");
 
-        // Display icon in actionbar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setLogo(R.mipmap.app_icon_round);
-        getSupportActionBar().setSubtitle("Détail sur l'habitude " + habit);
-       // getSupportActionBar().setDisplayUseLogoEnabled(true);
+        customizeActionBar(habit);
 
-        // Draw the line chart
         setupUI(habit, year, month);
 
+        // Animate the cards
         LinearLayout layout = findViewById(R.id.linearLayout);
         final LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(layout.getContext(), R.anim.layout_animation_fall_up);
         layout.setLayoutAnimation(controller);
         layout.scheduleLayoutAnimation();
 
-        CardView adviceCard = findViewById(R.id.messageCard);
-        new Boom((View)adviceCard);
-
-        // Setup FAB
+        // Setup FAB to show the add progress dialog
         final FloatingActionButton fab = findViewById(R.id.detailFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -463,8 +465,10 @@ public class HabitDetailActivity extends AppCompatActivity {
             }
         });
 
-        CardView msgCardView = findViewById(R.id.messageCard);
-        msgCardView.setOnClickListener(new View.OnClickListener() {
+        // Re-generate a random advice on click on the cardView
+        CardView adviceCard = findViewById(R.id.messageCard);
+        new Boom((View)adviceCard);
+        adviceCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setupAdvice(year, month, habit);
