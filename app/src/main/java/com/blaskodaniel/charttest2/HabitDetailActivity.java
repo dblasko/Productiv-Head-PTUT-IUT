@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.AnimationUtils;
@@ -49,6 +51,10 @@ public class HabitDetailActivity extends AppCompatActivity {
     PieChart chart;
     AlertDialog dialog;
     final String textToday = "Aujourd'hui";
+    // We store the current habit data for the share functionnality
+    double shareHabitAvgPerf;
+    String shareHabitName;
+
 
     public int getMonthlyDaysCount(String month, String year) {
         // Returns monthly days count
@@ -84,6 +90,7 @@ public class HabitDetailActivity extends AppCompatActivity {
             sum += d;
         }
         double avg = sum/percentages.size();
+        shareHabitAvgPerf = avg;
 
         return avg;
     }
@@ -360,7 +367,7 @@ public class HabitDetailActivity extends AppCompatActivity {
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO - get values, insert OR update to the DB if for the day exists !
+
                 String adv = etAdvancement.getText().toString();
                 if (adv.isEmpty()) {
                     dialog.cancel(); // Exit if empty
@@ -377,7 +384,11 @@ public class HabitDetailActivity extends AppCompatActivity {
 
                 // Insert the advancement to the DB
                 Habit insertion = new Habit(habitData, yearData, monthData, when, advDouble, null);
-                habitDao.insertDailyAdv(insertion); // TODO - try update here
+                if (habitDao.shouldUpdate(insertion)){ // Returns true if a line for given habit+date already exists, so we update
+                    habitDao.updateDailyAdv(insertion);
+                } else {
+                    habitDao.insertDailyAdv(insertion); // Else we insert the new line into the DB
+                }
 
                 // Update the UI with the new data
                 setupUI(habitData, yearData, monthData);
@@ -444,6 +455,7 @@ public class HabitDetailActivity extends AppCompatActivity {
         final String habit = intent.getStringExtra("habit");
         final String year = intent.getStringExtra("year");
         final String month = intent.getStringExtra("month");
+        shareHabitName = habit; // TODO - cleanup and only use this and not params?
 
         customizeActionBar(habit);
 
@@ -474,6 +486,32 @@ public class HabitDetailActivity extends AppCompatActivity {
                 setupAdvice(year, month, habit);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_habit_detail_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Allows us to share on click on the share menu item
+        switch (item.getItemId()) {
+            case R.id.mShare:
+                Intent  i = new Intent(
+                        android.content.Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(
+                        android.content.Intent.EXTRA_TEXT, "Ce mois-ci, j'ai atteint mon objectif pour l'habitude " + shareHabitName + " à " + Double.toString(shareHabitAvgPerf) + "%!\n Téléchargez Productiv'Head sur le PlayStore et améliorez vous aussi.");
+                startActivity(Intent.createChooser(
+                        i,
+                        "Partager votre avancée..."));
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+
     }
 
     @Override

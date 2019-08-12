@@ -7,7 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import oxim.digital.rxanim.RxAnimationBuilder;
 
 import android.animation.ObjectAnimator;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
@@ -231,6 +235,42 @@ public class HabitListActivity extends AppCompatActivity {
                 createHabitDialog();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_habit_list_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Allows us to show info dialog on click on the info menu item
+        switch (item.getItemId()) {
+            case R.id.mInfo:
+                // TODO - extract to function? idk if needed
+                // Build & show information dialog
+                AlertDialog alertDialog = new AlertDialog.Builder(HabitListActivity.this).create();
+                alertDialog.setTitle("Module suivi d'habitudes");
+                alertDialog.setMessage("Ce module vous permet de suivre des habitudes tous les mois.\n" +
+                        "La motivation marche sur la courte durée, " +
+                        "mais s'instaurer de nouvelles habitudes est là seule manière de réellement s'améliorer durablement.\n\n" +
+                        "Vous pourrez donc créer de nouvelles habitudes à instaurer tous les mois, et entrer votre avancement correspondant quotidiennement. \n" +
+                        "Veuillez saisir un nombre pour l'objectif, et l'unité est libre à vous. Vous pouvez entrer votre avancement pour un jour passé, " +
+                        "et si vous l'avez déjà entré et que vous recommencez, l'avancement sera automatiquement mis à jour.\n\nSuivez nos conseils générés pour vous, " +
+                        "partagez vos résultats pour avoir le soutien de votre entourage et votre réussite sera toute tracée !");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+
     }
 
     @Override

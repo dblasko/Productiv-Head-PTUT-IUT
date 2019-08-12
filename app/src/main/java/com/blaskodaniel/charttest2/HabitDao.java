@@ -69,6 +69,31 @@ public class HabitDao {
         db.insert(TABLE_NAME, null, values);
     }
 
+    public boolean shouldUpdate(Habit habit){
+        // Returns true if an update should be performed and not an insert for given line
+
+        Cursor c = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " +
+                KEY_HABIT + " = '" + habit.getHabit() + "' AND " + KEY_YEAR + " = '" + habit.getYear() +
+                "' AND " + KEY_MONTH + " = '" + habit.getMonth() + "' AND " + KEY_DAY + " = '" +
+                habit.getDay() + "'", null);
+
+        c.moveToFirst();
+        int count = c.getInt(0); // first and only column + line
+
+        c.close();
+
+        return !(count==0);
+    }
+
+    public void updateDailyAdv(Habit habit){
+        // Mettre à jour une ligne dans habit
+
+        db.execSQL("UPDATE " + TABLE_NAME + " SET " + KEY_ADVANCEMENT +  " = " + habit.getAdvancement() + " WHERE " +
+                KEY_HABIT + " = '" + habit.getHabit() + "' AND " + KEY_YEAR + " = '" + habit.getYear() +
+                "' AND " + KEY_MONTH + " = '" + habit.getMonth() + "' AND " + KEY_DAY + " = '" +
+                habit.getDay() + "'");
+    }
+
     public void modifNomHabit(String ancien, String nouveau){
         db.execSQL("UPDATE " + TABLE_NAME + " SET " + KEY_HABIT + " = '" + nouveau + "' WHERE "
          + KEY_HABIT + " = '" + ancien + "'");
@@ -126,6 +151,8 @@ public class HabitDao {
         String month_data = c.getString(c.getColumnIndex(KEY_MONTH));
         String day_data = c.getString(c.getColumnIndex(KEY_DAY));
         double adv_data = c.getDouble(c.getColumnIndex(KEY_ADVANCEMENT));
+
+        c.close();
 
         Habit result = new Habit(habit_data, year_data, month_data, day_data, adv_data, null);
         return result;
