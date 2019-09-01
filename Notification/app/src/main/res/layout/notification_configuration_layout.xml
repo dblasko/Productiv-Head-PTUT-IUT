@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewHeure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="A quelle heure ?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TimePicker
+        android:id="@+id/choixHeureNotifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:timePickerMode="spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHeure"></TimePicker>
+
+    <TextView
+        android:id="@+id/textViewJours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Quels jours ?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choixHeureNotifications" />
+
+    <CheckBox
+        android:id="@+id/checkBoxLundi"
+        android:tag="Lundi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:text="L"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewJours" />
+
+    <CheckBox
+        android:id="@+id/checkBoxMardi"
+        android:tag="Mardi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="M"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBoxLundi"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxLundi" />
+
+    <CheckBox
+        android:id="@+id/checkBoxMercredi"
+        android:tag="Mercredi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="M"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBoxMardi"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxMardi" />
+
+    <CheckBox
+        android:id="@+id/checkBoxJeudi"
+        android:tag="Jeudi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="J"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBoxMercredi"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxMercredi" />
+
+    <CheckBox
+        android:id="@+id/checkBoxVendredi"
+        android:tag="Vendredi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:text="V"
+        app:layout_constraintStart_toStartOf="@+id/checkBoxLundi"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxLundi" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSamedi"
+        android:tag="Samedi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="S"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBoxVendredi"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxVendredi" />
+
+    <CheckBox
+        android:id="@+id/checkBoxDimanche"
+        android:tag="Dimanche"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="D"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBoxSamedi"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxSamedi" />
+
+</android.support.constraint.ConstraintLayout>
