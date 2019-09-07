@@ -19,6 +19,7 @@ import java.util.List;
 
 public class RappelsActivity extends AppCompatActivity {
 
+    //Variables
     public ListView listView;
     private CustomNotificationButtonAdapter adapter;
     public int id;
@@ -30,6 +31,7 @@ public class RappelsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rappels);
 
+        //Initialisation des variables
         final SharedPreferences settings = getApplicationContext().getSharedPreferences("notification", 0);
         final SharedPreferences.Editor editor = settings.edit();
 
@@ -37,41 +39,70 @@ public class RappelsActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         Button buttonAdd = findViewById(R.id.buttonAdd);
 
+        //Initialisation des CustomNotificationButton déja existants
         customNotifications = new ArrayList<>();
         for(int i = 1; i < 100; i++){
             if(settings.getBoolean("notificationButton" + i, false))
                 customNotifications.add(new CustomNotificationButton(i, settings.getString("notificationContent" + i, "")));
         }
-        adapter = new CustomNotificationButtonAdapter(this, getApplicationContext(), customNotifications);
-        RappelsActivity.this.listView.setAdapter(adapter);
 
+        //Création d'un adapter pour la ListView
+        adapter = new CustomNotificationButtonAdapter(this, getApplicationContext(), customNotifications);
+        listView.setAdapter(adapter);
+
+        //Création d'un CustomNotificationButton quand on clique sur le bouton d'ajout
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //Initialisation du EditText
                 final EditText input = new EditText(getApplicationContext());
                 input.setHint("Entrez le contenu de la notification");
 
+                //Création du dialogue permettant d'entrer le contenu de la notification
                 AlertDialog.Builder builder = new AlertDialog.Builder(RappelsActivity.this);
+
+                //Création du CustomNotificationButton lorsqu'on valide
                 builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+                        //Récupération de la liste des ids déja utilisés
                         notificationsId.clear();
                         for(CustomNotificationButton customNotificationButton : customNotifications)
                             notificationsId.add(customNotificationButton.getId());
+
+                        //Récupération du premier id non utilisé
                         id = 1;
                         while(notificationsId.contains(id))
                             id++;
+
+                        //Instanciation du CustomNotificationButton
                         CustomNotificationButton customNotificationButton = new CustomNotificationButton(id, input.getText().toString());
+
+                        //Ajout du CustomNotificationButton à la liste
                         customNotifications.add(customNotificationButton);
+
+                        //Sauvegarde des données dans les SharedPreferences
                         editor.putBoolean("notificationButton" + id, true);
                         editor.putString("notificationContent" + id, customNotificationButton.getContent());
                         editor.commit();
+
+                        //Refresh de l'adapter
                         adapter.notifyDataSetChanged();
                     }
                 });
+
+                //Annulation de la création du CustomNotificationButton
                 builder.setNegativeButton("Annuler", null);
+
+                //Setup de la View du dialogue
                 builder.setView(input);
+
+                //Création du dialogue
                 Dialog dialog = builder.create();
+
+                //Affichage du dialogue
                 dialog.show();
             }
         });

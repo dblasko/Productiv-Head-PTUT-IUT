@@ -54,28 +54,26 @@ public class CustomNotificationButtonAdapter extends ArrayAdapter<CustomNotifica
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new ConfigDialog(activity, customNotificationButton, view).show();
+                    new ConfigDialog(activity, customNotificationButton.getId()).show();
                 }
             });
             viewHolder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if(b)
-                        NotificationManager.scheduleNotification(getContext(), customNotificationButton);
+                        NotificationManager.scheduleNotification(getContext(), customNotificationButton.getId(), customNotificationButton.getContent());
                     else
-                        NotificationManager.cancelNotification(customNotificationButton.getId(), getContext());
+                        NotificationManager.cancelNotification(getContext(), customNotificationButton.getId());
                 }
             });
             viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    NotificationManager.cancelNotification(customNotificationButton.getId(), getContext());
+                    NotificationManager.cancelNotification(getContext(), customNotificationButton.getId());
 
                     SharedPreferences settings = getContext().getSharedPreferences("notification", 0);
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putBoolean("notificationButton" + customNotificationButton.getId(), false);
-                    /*for(int i = 0; i < days.length; i++)
-                        editor.putBoolean("notification" + customNotificationButton.getId() + days[i], false);*/
                     for(Days day : Days.values())
                         editor.putBoolean("notification" + customNotificationButton.getId() + day, false);
                     editor.putLong("alarmTime" + customNotificationButton.getId(), 0);

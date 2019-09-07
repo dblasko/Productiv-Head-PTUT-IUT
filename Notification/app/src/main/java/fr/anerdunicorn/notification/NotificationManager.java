@@ -20,11 +20,11 @@ import static android.content.Context.ALARM_SERVICE;
 
 public class NotificationManager {
 
-    public static void scheduleNotification(Context context, CustomNotificationButton customNotificationButton){
+    public static void scheduleNotification(Context context, int notificationId, String notificationContent){
         SharedPreferences settings = context.getSharedPreferences("notification", 0);
         SharedPreferences.Editor editor = settings.edit();
         Intent receiverIntent = new Intent(context, NotificationReceiverActivity.class);
-        long time = settings.getLong("alarmTime" + customNotificationButton.getId(), 0);
+        long time = settings.getLong("alarmTime" + notificationId, 0);
         Calendar alarm = Calendar.getInstance();
         alarm.setTimeInMillis(time);
         Calendar now = Calendar.getInstance();
@@ -33,19 +33,19 @@ public class NotificationManager {
         }
         alarm.setTimeInMillis(time);
 
-        receiverIntent.putExtra("notificationId", customNotificationButton.getId());
-        receiverIntent.putExtra("notificationContent", customNotificationButton.getContent());
-        PendingIntent receiverPendingIntent = PendingIntent.getBroadcast(context, customNotificationButton.getId(), receiverIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        receiverIntent.putExtra("notificationId", notificationId);
+        receiverIntent.putExtra("notificationContent", notificationContent);
+        PendingIntent receiverPendingIntent = PendingIntent.getBroadcast(context, notificationId, receiverIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(), AlarmManager.INTERVAL_DAY, receiverPendingIntent);
 
-        editor.putLong("alarmTime" + customNotificationButton.getId(), alarm.getTimeInMillis());
-        editor.putString("notificationContent" + customNotificationButton.getId(), customNotificationButton.getContent());
-        editor.putBoolean("alarm" + customNotificationButton.getId(), true);
+        editor.putLong("alarmTime" + notificationId, alarm.getTimeInMillis());
+        editor.putString("notificationContent" + notificationId, notificationContent);
+        editor.putBoolean("alarm" + notificationId, true);
         editor.commit();
     }
 
-    public static void cancelNotification(int notificationId, Context context) {
+    public static void cancelNotification(Context context, int notificationId) {
         //Initialisation variables
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         Intent receiverIntent = new Intent(context.getApplicationContext(), NotificationReceiverActivity.class);
