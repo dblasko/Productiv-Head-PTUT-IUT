@@ -1,10 +1,12 @@
 package fr.anerdunicorn.notification;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,14 +53,14 @@ public class MainActivity extends AppCompatActivity {
         blocSuiviHabitudes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ConfigDialog(MainActivity.this, notificationButtonSuiviHabitudes.getId()).show();
+                new ConfigDialog(MainActivity.this, notificationButtonSuiviHabitudes.getId(), switchSuiviHabitudes).show();
             }
         });
 
         blocHorairesTravail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ConfigDialog(MainActivity.this, notificationButtonHorairesTravail.getId()).show();
+                new ConfigDialog(MainActivity.this, notificationButtonHorairesTravail.getId(), switchHorairesTravail).show();
             }
         });
 
@@ -68,6 +70,27 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RappelsActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        //Activation ou annulation de la notification en fonction du changement d'état des switch
+        switchSuiviHabitudes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b)
+                    NotificationManager.scheduleNotification(getApplicationContext(), notificationIdHorairesTravail, "Horaires travail");
+                else
+                    NotificationManager.cancelNotification(getApplicationContext(), notificationIdHorairesTravail);
+            }
+        });
+
+        switchHorairesTravail.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b)
+                    NotificationManager.scheduleNotification(getApplicationContext(), notificationIdSuiviHabitudes, "Suivi Habitudes");
+                else
+                    NotificationManager.cancelNotification(getApplicationContext(), notificationIdSuiviHabitudes);
             }
         });
 

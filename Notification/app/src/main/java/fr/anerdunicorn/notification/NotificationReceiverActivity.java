@@ -17,15 +17,22 @@ import java.util.Calendar;
 
 public class NotificationReceiverActivity extends BroadcastReceiver {
 
+    //Variables
     private Intent repeatingIntent;
-    private PendingIntent repeatingPendingIntent;
-    private int notificationId;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        //Initialisation des SharedPreferences
         SharedPreferences settings = context.getSharedPreferences("notification", 0);
-        notificationId = intent.getIntExtra("notificationId", 0);
+
+        //Récupération de l'id de la notification
+        int notificationId = intent.getIntExtra("notificationId", 0);
+
+        //Instanciation d'un calendrier
         Calendar calendar = Calendar.getInstance();
+
+        //Récupération du jour actuel
         String jour = "";
         switch(calendar.get(Calendar.DAY_OF_WEEK)) {
             case Calendar.MONDAY:
@@ -50,6 +57,8 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
                 jour = "Dimanche";
                 break;
         }
+
+        //Création de l'intent en fonction de l'id de la notification
         if(notificationId == MainActivity.getNotificationIdSuiviHabitudes()) {
             repeatingIntent = new Intent(context, SuiviHabitudesActivity.class);
         }
@@ -58,8 +67,10 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
         }
         else
             repeatingIntent =  new Intent(context, RappelsActivity.class);
+
+        //Création de la notification si elle est plannifiée pour ce jour
         if(settings.getBoolean("notification" + notificationId + jour, false)) {
-            repeatingPendingIntent = PendingIntent.getActivity(context, 0, repeatingIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent repeatingPendingIntent = PendingIntent.getActivity(context, 0, repeatingIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationManager.createNotificationChannel(context);
             NotificationManager.createNotification(context, notificationId, repeatingPendingIntent);
             repeatingIntent = null;
