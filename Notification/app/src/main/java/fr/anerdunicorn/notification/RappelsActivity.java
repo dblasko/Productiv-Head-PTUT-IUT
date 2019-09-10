@@ -17,7 +17,7 @@ public class RappelsActivity extends AppCompatActivity {
 
     //Variables
     public ListView listView;
-    private CustomNotificationButtonAdapter adapter;
+    public CustomNotificationButtonAdapter adapter;
     public int id;
     public List<CustomNotificationButton> customNotifications;
     public List<Integer> notificationsId;

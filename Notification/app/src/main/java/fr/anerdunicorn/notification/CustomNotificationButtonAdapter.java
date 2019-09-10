@@ -8,10 +8,10 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -19,7 +19,6 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -100,14 +99,22 @@ public class CustomNotificationButtonAdapter extends ArrayAdapter<CustomNotifica
                             //Initialisation du EditText
                             final EditText input = new EditText(getContext());
                             input.setHint("Entrez le contenu de la notification");
+                            input.setText(customNotificationButton.getContent());
 
                             //Création du dialogue permettant d'entrer le contenu de la notification
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
-                            //Création du CustomNotificationButton lorsqu'on valide
+                            //Modification du CustomNotificationButton lorsqu'on valide
                             builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+
+                                    //Update du contenu du CustomNotificationButton
+                                    customNotificationButton.setContent(input.getText().toString());
+
+                                    //Annulation / plannification de la notification pour s'adapter au changement de contenu
+                                    NotificationManager.cancelNotification(getContext(), customNotificationButton.getId());
+                                    NotificationManager.scheduleNotification(getContext(), customNotificationButton.getId(), customNotificationButton.getContent());
 
                                     //Sauvegarde des données dans les SharedPreferences
                                     editor.putString("notificationContent" + customNotificationButton.getId(), customNotificationButton.getContent());

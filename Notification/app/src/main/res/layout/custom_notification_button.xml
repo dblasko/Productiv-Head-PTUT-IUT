@@ -28,6 +28,7 @@
         android:layout_height="21dp"
         android:layout_marginEnd="32dp"
         android:visibility="visible"
+        android:theme="@style/AppTheme"
         app:layout_constraintBottom_toBottomOf="@+id/imageButtonNotificationButton"
         app:layout_constraintEnd_toStartOf="@+id/imageButtonNotificationButton"
         app:layout_constraintTop_toTopOf="@+id/imageButtonNotificationButton" />

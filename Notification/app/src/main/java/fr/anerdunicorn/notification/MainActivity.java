@@ -1,6 +1,5 @@
 package fr.anerdunicorn.notification;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -22,9 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout blocHorairesTravail;
     private ConstraintLayout blocRappels;
 
-    private View layoutSuiviHabitudes;
-    private View layoutHorairesTravail;
-
     private static final int notificationIdSuiviHabitudes = 100;
     private static final int notificationIdHorairesTravail = 101;
 
@@ -45,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
         blocSuiviHabitudes = findViewById(R.id.blocSuiviHabitudes);
         blocHorairesTravail = findViewById(R.id.blocHorairesTravail);
         blocRappels = findViewById(R.id.blocRappels);
-
-        layoutSuiviHabitudes = getLayoutInflater().inflate(R.layout.notification_configuration_layout, null);
-        layoutHorairesTravail = getLayoutInflater().inflate(R.layout.notification_configuration_layout, null);
 
         //Affichage du dialogue de config en cliquant sur les blocs
         blocSuiviHabitudes.setOnClickListener(new View.OnClickListener() {
@@ -78,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b)
-                    NotificationManager.scheduleNotification(getApplicationContext(), notificationIdHorairesTravail, "Horaires travail");
+                    NotificationManager.scheduleNotification(getApplicationContext(), notificationIdSuiviHabitudes, "Suivi habitudes");
                 else
-                    NotificationManager.cancelNotification(getApplicationContext(), notificationIdHorairesTravail);
+                    NotificationManager.cancelNotification(getApplicationContext(), notificationIdSuiviHabitudes);
             }
         });
 
@@ -88,9 +81,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b)
-                    NotificationManager.scheduleNotification(getApplicationContext(), notificationIdSuiviHabitudes, "Suivi Habitudes");
+                    NotificationManager.scheduleNotification(getApplicationContext(), notificationIdHorairesTravail, "Horaires travail");
                 else
-                    NotificationManager.cancelNotification(getApplicationContext(), notificationIdSuiviHabitudes);
+                    NotificationManager.cancelNotification(getApplicationContext(), notificationIdHorairesTravail);
             }
         });
 
