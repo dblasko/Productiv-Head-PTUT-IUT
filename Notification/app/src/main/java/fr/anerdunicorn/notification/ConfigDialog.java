@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.Switch;
 import android.widget.TimePicker;
 import java.util.Calendar;
@@ -83,6 +85,7 @@ public class ConfigDialog {
                 //Sauvegarde des données dans les SharedPreferences
                 editor.putLong("alarmTime" + notificationId, alarm.getTimeInMillis());
                 editor.putString("notificationContent" + notificationId, notificationContent);
+                editor.putBoolean("notificationRepeatable" + notificationId, true);
                 editor.commit();
 
                 //Changement de l'état du switch (annulation et plannification automatique de la notification)
@@ -99,6 +102,28 @@ public class ConfigDialog {
         //Création du dialogue
         dialog = builder.create();
     }
+
+
+    /* PLANIFICATION DE LA NOTIFICATION UN JOUR DONNÉ
+
+        //Récupération du DatePicker
+        DatePicker datePicker = configView.findViewById(R.id.datePicker);
+
+        //Initialisation d'un calendrier à la date et a l'heure choisies
+        Calendar alarm = Calendar.getInstance();
+        alarm.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), timePicker.getHour(), timePicker.getMinute(), 0);
+
+        //Sauvegarde des données dans les SharedPreferences
+        editor.putLong("alarmTime" + notificationId, alarm.getTimeInMillis());
+        editor.putBoolean("notificationRepeatable" + notificationId, false);
+        editor.putString("notificationContent" + notificationId, notificationContent);
+        editor.commit();
+
+        //Changement de l'état du switch (annulation et plannification automatique de la notification)
+        aSwitch.setChecked(false);
+        aSwitch.setChecked(true);
+
+     */
 
     //Affichage du dialogue
     public void show() {

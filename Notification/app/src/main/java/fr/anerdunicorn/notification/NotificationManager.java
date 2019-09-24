@@ -37,8 +37,10 @@ public class NotificationManager {
         receiverIntent.putExtra("notificationContent", notificationContent);
         PendingIntent receiverPendingIntent = PendingIntent.getBroadcast(context, notificationId, receiverIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(), AlarmManager.INTERVAL_DAY, receiverPendingIntent);
-
+        if(settings.getBoolean("notificationRepeatable" + notificationId, false))
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(), AlarmManager.INTERVAL_DAY, receiverPendingIntent);
+        else
+            alarmManager.set(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(), receiverPendingIntent);
         editor.putLong("alarmTime" + notificationId, alarm.getTimeInMillis());
         editor.putString("notificationContent" + notificationId, notificationContent);
         editor.putBoolean("alarm" + notificationId, true);

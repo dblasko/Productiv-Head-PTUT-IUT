@@ -1,34 +1,35 @@
 package fr.anerdunicorn.notification;
 
-import android.app.NotificationChannel;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.widget.Toast;
 
 import java.util.Calendar;
 
 public class NotificationReceiverActivity extends BroadcastReceiver {
 
     //Variables
-    private Intent repeatingIntent;
+    private SharedPreferences settings;
+    private int notificationId;
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
         //Initialisation des SharedPreferences
-        SharedPreferences settings = context.getSharedPreferences("notification", 0);
+        settings = context.getSharedPreferences("notification", 0);
 
         //Récupération de l'id de la notification
-        int notificationId = intent.getIntExtra("notificationId", 0);
+        notificationId = intent.getIntExtra("notificationId", 0);
 
+        if(settings.getBoolean("notificationRepeatable" + notificationId, false))
+            handleRepeatingNotification(context);
+        else
+            handleNonRepeatingNotification(context);
+    }
+
+    private void handleRepeatingNotification(Context context) {
         //Instanciation d'un calendrier
         Calendar calendar = Calendar.getInstance();
 
@@ -58,6 +59,9 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
                 break;
         }
 
+        //Instanciation d'un intent
+        Intent repeatingIntent;
+
         //Création de l'intent en fonction de l'id de la notification
         if(notificationId == MainActivity.getNotificationIdSuiviHabitudes()) {
             repeatingIntent = new Intent(context, SuiviHabitudesActivity.class);
@@ -73,9 +77,28 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
             PendingIntent repeatingPendingIntent = PendingIntent.getActivity(context, 0, repeatingIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationManager.createNotificationChannel(context);
             NotificationManager.createNotification(context, notificationId, repeatingPendingIntent);
-            repeatingIntent = null;
         }
+    }
 
+    private void handleNonRepeatingNotification(Context context) {
+
+        //Instanciation d'un intent
+        Intent intent;
+
+        //Création de l'intent en fonction de l'id de la notification
+        if(notificationId == MainActivity.getNotificationIdSuiviHabitudes()) {
+            intent = new Intent(context, SuiviHabitudesActivity.class);
+        }
+        else if(notificationId == MainActivity.getNotificationIdHorairesTravail()) {
+            intent = new Intent(context, HorairesTravailActivity.class);
+        }
+        else
+            intent =  new Intent(context, RappelsActivity.class);
+
+        //Création de la notification
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationManager.createNotificationChannel(context);
+        NotificationManager.createNotification(context, notificationId, pendingIntent);
     }
 
 }
