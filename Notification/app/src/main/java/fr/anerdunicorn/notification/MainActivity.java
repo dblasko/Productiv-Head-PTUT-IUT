@@ -46,14 +46,18 @@ public class MainActivity extends AppCompatActivity {
         blocSuiviHabitudes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ConfigDialog(MainActivity.this, notificationButtonSuiviHabitudes.getId(), switchSuiviHabitudes).show();
+                Intent intent = new Intent(getApplicationContext(), ConfigActivity.class);
+                intent.putExtra("notificationId", notificationIdSuiviHabitudes);
+                startActivity(intent);
             }
         });
 
         blocHorairesTravail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ConfigDialog(MainActivity.this, notificationButtonHorairesTravail.getId(), switchHorairesTravail).show();
+                Intent intent = new Intent(getApplicationContext(), ConfigActivity.class);
+                intent.putExtra("notificationId", notificationIdHorairesTravail);
+                startActivity(intent);
             }
         });
 
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         blocRappels.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ConfigActivity.class);
+                Intent intent = new Intent(getApplicationContext(), RappelsActivity.class);
                 startActivity(intent);
             }
         });

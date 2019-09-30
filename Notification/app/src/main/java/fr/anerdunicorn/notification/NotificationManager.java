@@ -17,8 +17,10 @@ import static android.content.Context.ALARM_SERVICE;
 public class NotificationManager {
 
     public static void scheduleNotification(Context context, int notificationId, String notificationContent){
+        //Initialisation des SharedPreferences
         SharedPreferences settings = context.getSharedPreferences("notification", 0);
         SharedPreferences.Editor editor = settings.edit();
+
         Intent receiverIntent = new Intent(context, NotificationReceiverActivity.class);
         long time = settings.getLong("alarmTime" + notificationId, 0);
         Calendar alarm = Calendar.getInstance();
@@ -33,10 +35,15 @@ public class NotificationManager {
         receiverIntent.putExtra("notificationContent", notificationContent);
         PendingIntent receiverPendingIntent = PendingIntent.getBroadcast(context, notificationId, receiverIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+
+        //Si la notification est de type répétable
         if(settings.getBoolean("notificationRepeatable" + notificationId, false))
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(), AlarmManager.INTERVAL_DAY, receiverPendingIntent);
+        //Sinon
         else
             alarmManager.set(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(), receiverPendingIntent);
+
+        //Sauvegarde des données
         editor.putLong("alarmTime" + notificationId, alarm.getTimeInMillis());
         editor.putString("notificationContent" + notificationId, notificationContent);
         editor.putBoolean("alarm" + notificationId, true);

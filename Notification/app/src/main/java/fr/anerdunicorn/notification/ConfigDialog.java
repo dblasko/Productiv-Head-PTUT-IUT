@@ -39,7 +39,7 @@ public class ConfigDialog {
         TimePicker timePicker = configView.findViewById(R.id.choixHeureNotifications);
         timePicker.setIs24HourView(true);
 
-        //Si l'heure du calendier est a 0 ( = pas de notification prévue)
+        //Si l'heure du calendrier est a 0 ( = pas de notification prévue)
         if(time.getTimeInMillis() == 0){
 
             //Changement de l'heure du TimePicker a 08:00

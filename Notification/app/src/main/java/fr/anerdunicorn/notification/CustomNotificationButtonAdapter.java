@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -65,7 +66,9 @@ public class CustomNotificationButtonAdapter extends ArrayAdapter<CustomNotifica
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new ConfigDialog(activity, customNotificationButton.getId(), (Switch) view.findViewById(R.id.switchNotificationButton)).show();
+                    Intent intent = new Intent(getContext(), ConfigActivity.class);
+                    intent.putExtra("notificationId", customNotificationButton.getId());
+                    getContext().startActivity(intent);
                 }
             });
 
