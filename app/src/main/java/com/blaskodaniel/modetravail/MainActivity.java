@@ -18,6 +18,21 @@ public class MainActivity extends AppCompatActivity {
                 3. Personnaliser l'activation/désactivation ?
      */
 
+    public void promptUser(String content, boolean longLength){
+        int length = (longLength)? Toast.LENGTH_LONG : Toast.LENGTH_SHORT;
+        Toast.makeText(getApplicationContext(), content, length).show();
+    }
+
+    public void enableWifi(boolean enable) {
+        // Disables / enables the WiFi of the device if needed
+        WifiManager wifiManager = (WifiManager)getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if (enable && !wifiManager.isWifiEnabled()) {
+            wifiManager.setWifiEnabled(true);
+        } else if (!enable && wifiManager.isWifiEnabled()) {
+            wifiManager.setWifiEnabled(false);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,16 +43,13 @@ public class MainActivity extends AppCompatActivity {
         switchWorkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                WifiManager wifiManager = (WifiManager)getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                AudioManager mode = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+
                 if (b) { // checked - activate work mode
-                    if (wifiManager.isWifiEnabled()) wifiManager.setWifiEnabled(false);
-                    mode.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                    // if (mode.getRingerMode() == AudioManager.RINGER_MODE_NORMAL || mode.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE)
-                    Toast.makeText(getApplicationContext(), "Activation du mode travail...", Toast.LENGTH_LONG).show();
+                    enableWifi(false);
+                    promptUser("Activation du mode travail...", true);
                 } else { // unchecked - deactivate work mode
-                    if (!wifiManager.isWifiEnabled()) wifiManager.setWifiEnabled(true);
-                    Toast.makeText(getApplicationContext(), "Désactivation du mode travail...", Toast.LENGTH_LONG).show();
+                    enableWifi(true);
+                    promptUser("Désactivation du mode travail...", true);
                 }
             }
         });
