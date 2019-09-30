@@ -1,8 +1,12 @@
 package com.blaskodaniel.modetravail;
 
+import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.net.wifi.WifiManager;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.CompoundButton;
@@ -33,10 +37,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void doNotDisturb(boolean enable) {
+        final AudioManager mode = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+        if(enable) {
+            mode.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+        } else {
+            mode.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && !notificationManager.isNotificationPolicyAccessGranted()) {
+
+            Intent intent = new Intent(
+                    android.provider.Settings
+                            .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+
+            startActivity(intent);
+        }
+
+
 
         Switch switchWorkMode = findViewById(R.id.switch_work_mode);
 
@@ -46,9 +74,11 @@ public class MainActivity extends AppCompatActivity {
 
                 if (b) { // checked - activate work mode
                     enableWifi(false);
+                    doNotDisturb(true);
                     promptUser("Activation du mode travail...", true);
                 } else { // unchecked - deactivate work mode
                     enableWifi(true);
+                    doNotDisturb(false);
                     promptUser("Désactivation du mode travail...", true);
                 }
             }
