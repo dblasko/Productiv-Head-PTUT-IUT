@@ -16,10 +16,16 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     /*
+            ON NE PEUT PAS ETEINDRE LA 4G : https://stackoverflow.com/questions/31120082/latest-update-on-enabling-and-disabling-mobile-data-programmatically
+            Depuis lollipop (Android 5.0)
+            IDEM mode avion : https://stackoverflow.com/questions/13766909/how-to-programmatically-enable-and-disable-flight-mode-on-android-4-2
+            
             IDEES
                 1. Au lieu toast, belle animation chargement?
+                    // https://github.com/code-mc/loadtoast
+                    // https://www.youtube.com/watch?v=gIDJUuhrEIc
                 2. Ajouter partout à la navbar, créer une navbar pour tlm?
-                3. Personnaliser l'activation/désactivation ?
+                3. Personnaliser l'activation/désactivation ? -> un temps donné, dans la config° d'olivier? Avec son timer? Activer auto avec le timer de laurine?
      */
 
     public void promptUser(String content, boolean longLength){
@@ -46,11 +52,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public void enableWorkMode(boolean enable) {
+        if (enable) { // checked - activate work mode
+            enableWifi(false);
+            doNotDisturb(true);
+            promptUser("Activation du mode travail...", true);
+        } else { // unchecked - deactivate work mode
+            enableWifi(true);
+            doNotDisturb(false);
+            promptUser("Désactivation du mode travail...", true);
+        }
+    }
 
+    public void askForNotificationPermission() {
         NotificationManager notificationManager =
                 (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -64,27 +78,22 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+    }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        askForNotificationPermission();
 
         Switch switchWorkMode = findViewById(R.id.switch_work_mode);
 
         switchWorkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                if (b) { // checked - activate work mode
-                    enableWifi(false);
-                    doNotDisturb(true);
-                    promptUser("Activation du mode travail...", true);
-                } else { // unchecked - deactivate work mode
-                    enableWifi(true);
-                    doNotDisturb(false);
-                    promptUser("Désactivation du mode travail...", true);
-                }
+                enableWorkMode(b);
             }
         });
     }
-
-    // wifi : https://stackoverflow.com/questions/8863509/how-to-programmatically-turn-off-wifi-on-android-device
-
 }
