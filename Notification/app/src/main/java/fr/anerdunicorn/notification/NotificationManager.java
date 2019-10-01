@@ -26,6 +26,8 @@ public class NotificationManager {
         Calendar alarm = Calendar.getInstance();
         alarm.setTimeInMillis(time);
         Calendar now = Calendar.getInstance();
+
+        //Sets time to next day
         if(alarm.before(now)){
             time += 86400000L;
         }

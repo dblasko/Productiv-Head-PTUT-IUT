@@ -13,6 +13,7 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
 
     //Variables
     private SharedPreferences settings;
+    private SharedPreferences.Editor editor;
     private int notificationId;
 
     @Override
@@ -20,6 +21,7 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
 
         //Initialisation des SharedPreferences
         settings = context.getSharedPreferences("notification", 0);
+        editor = settings.edit();
 
         //Récupération de l'id de la notification
         notificationId = intent.getIntExtra("notificationId", 0);
@@ -100,6 +102,9 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationManager.createNotificationChannel(context);
         NotificationManager.createNotification(context, notificationId, pendingIntent);
+
+        //Suppression de la notification dans les rappels
+        editor.putBoolean("notificationButton" + notificationId, false);
     }
 
 }

@@ -8,10 +8,12 @@ import android.content.SharedPreferences;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -31,6 +33,8 @@ public class ConfigActivity extends AppCompatActivity {
     private Calendar calendar;
     private RadioButton radioButtonRepeatable;
     private RadioButton radioButtonDate;
+    private Calendar now;
+    private TextView textViewDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +56,15 @@ public class ConfigActivity extends AppCompatActivity {
         layoutRepeatable = findViewById(R.id.layoutRepeatable);
         layoutDate = findViewById(R.id.layoutDate);
 
+        //Initialisation de la TextView de la date
+        textViewDate = findViewById(R.id.textViewDate);
+
         //Initialisation d'un calendrier a l'heure de la notification
         Calendar time = Calendar.getInstance();
         time.setTimeInMillis(settings.getLong("alarmTime" + notificationId, 0));
+
+        //Initialisation d'un calendrier à l'instant t
+        now = Calendar.getInstance();
 
         //Initialisation du timepicker
         final TimePicker timePicker = findViewById(R.id.configTimePicker);
@@ -75,7 +85,9 @@ public class ConfigActivity extends AppCompatActivity {
         //Initialisation d'un calendrier pour gérer l'heure de la notification
         calendar = Calendar.getInstance();
 
-        if(settings.getBoolean("notificationRepeatable" + notificationId, false)) {
+        if(settings.getBoolean("notificationRepeatable" + notificationId, true)) {
+            layoutDate.setVisibility(View.INVISIBLE);
+
             //Setup de l'état des CheckBox du layout de répétition en fonction de leur valeur dans les SharedPreferences
             for(Days day : Days.values()) {
                 CheckBox checkBox = layoutRepeatable.findViewWithTag(day.toString());
@@ -92,12 +104,7 @@ public class ConfigActivity extends AppCompatActivity {
             //Setup du layout
             layoutRepeatable.setVisibility(View.INVISIBLE);
             layoutDate.setVisibility(View.VISIBLE);
-            TextView t = findViewById(R.id.textViewDate);
-            String date = getDateString();
-            if(!date.equals(""))
-                t.setText(getDateString());
-            else
-                t.setText("Cliquez sur le bouton pour choisir une date");
+            textViewDate.setText(getDateString());
         }
 
         Button buttonAccept = findViewById(R.id.configButtonAccept);
@@ -109,6 +116,7 @@ public class ConfigActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 final RadioButton radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+                textViewDate.setText(getDateString());
                 if(radioButton.getText().equals("Date")){
                     layoutRepeatable.setVisibility(View.INVISIBLE);
                     layoutDate.setVisibility(View.VISIBLE);
@@ -128,6 +136,14 @@ public class ConfigActivity extends AppCompatActivity {
                 //Création d'un intent vers la NotificationReceiverActivity
                 Intent receiverIntent = new Intent(getApplicationContext(), NotificationReceiverActivity.class);
 
+                //Création d'un boolean pour finir l'activité seulement si la date est bonne
+                boolean validated = true;
+
+                //Setup du calendar à l'heure choisie
+                calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
+                calendar.set(Calendar.MINUTE, timePicker.getMinute());
+                calendar.set(Calendar.SECOND, 0);
+
                 if(radioButtonRepeatable.isChecked()) {
                     for(Days day : Days.values()) {
                         CheckBox checkBox = layoutRepeatable.findViewWithTag(day.toString());
@@ -137,22 +153,27 @@ public class ConfigActivity extends AppCompatActivity {
                     editor.putBoolean("notificationRepeatable" + notificationId, true);
                 }
                 else {
-                    editor.putBoolean("notificationRepeatable" + notificationId, false);
+                    if (calendar.after(now)) {
+                        editor.putBoolean("notificationRepeatable" + notificationId, false);
+                    }
+                    else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Impossible de plannifier une notification pour une date antérieure", Toast.LENGTH_SHORT);
+                        ((TextView)((LinearLayout)toast.getView()).getChildAt(0)).setGravity(Gravity.CENTER_HORIZONTAL);
+                        toast.show();
+                        validated = false;
+                    }
                 }
 
-                //Setup du calendar à l'heure choisie
-                calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
-                calendar.set(Calendar.MINUTE, timePicker.getMinute());
-                calendar.set(Calendar.SECOND, 0);
+                if(validated) {
+                    //Sauvegarde des données dans les SharedPreferences
+                    editor.putLong("alarmTime" + notificationId, calendar.getTimeInMillis());
+                    editor.commit();
 
-                //Sauvegarde des données dans les SharedPreferences
-                editor.putLong("alarmTime" + notificationId, calendar.getTimeInMillis());
-                editor.commit();
-
-                //Changement de l'état du switch (annulation et plannification automatique de la notification)
+                    //Changement de l'état du switch (annulation et plannification automatique de la notification)
 
 
-                finish();
+                    finish();
+                }
             }
         });
 
@@ -182,19 +203,10 @@ public class ConfigActivity extends AppCompatActivity {
         DatePickerDialog dpd = new DatePickerDialog(ConfigActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                layoutRepeatable.setVisibility(View.INVISIBLE);
-                layoutDate.setVisibility(View.VISIBLE);
                 calendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
-                TextView t = findViewById(R.id.textViewDate);
-                t.setText(getDateString());
+                textViewDate.setText(getDateString());
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        dpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialogInterface) {
-                radioButtonRepeatable.setChecked(true);
-            }
-        });
         dpd.show();
     }
 
