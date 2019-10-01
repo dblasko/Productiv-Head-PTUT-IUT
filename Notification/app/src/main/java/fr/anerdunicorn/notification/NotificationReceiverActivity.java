@@ -105,6 +105,7 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
 
         //Suppression de la notification dans les rappels
         editor.putBoolean("notificationButton" + notificationId, false);
+        editor.commit();
     }
 
 }

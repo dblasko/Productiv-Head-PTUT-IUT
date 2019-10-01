@@ -101,6 +101,11 @@ public class ConfigActivity extends AppCompatActivity {
             //Setup du calendar à la date sauvegardée
             calendar.setTimeInMillis(settings.getLong("alarmTime" + notificationId, 0));
 
+            //Reglage du bug de l'année 1970
+            if(calendar.get(Calendar.YEAR) == 1970) {
+                calendar.setTimeInMillis(now.getTimeInMillis());
+            }
+
             //Setup du layout
             layoutRepeatable.setVisibility(View.INVISIBLE);
             layoutDate.setVisibility(View.VISIBLE);

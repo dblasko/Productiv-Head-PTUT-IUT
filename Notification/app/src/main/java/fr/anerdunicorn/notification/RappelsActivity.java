@@ -54,7 +54,7 @@ public class RappelsActivity extends AppCompatActivity {
         });
         listView.setAdapter(adapter);
 
-        //Initialisation des CustomNotificationButton déja existants
+        //Initialisation des CustomNotificationButton déjà existants
         for(int i = 1; i < 100; i++){
             if(settings.getBoolean("notificationButton" + i, false))
                 customNotifications.add(new CustomNotificationButton(i, settings.getString("notificationContent" + i, "")));
