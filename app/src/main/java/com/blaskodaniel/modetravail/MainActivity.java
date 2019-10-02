@@ -1,7 +1,9 @@
 package com.blaskodaniel.modetravail;
 
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.net.wifi.WifiManager;
@@ -9,6 +11,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -19,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
             ON NE PEUT PAS ETEINDRE LA 4G : https://stackoverflow.com/questions/31120082/latest-update-on-enabling-and-disabling-mobile-data-programmatically
             Depuis lollipop (Android 5.0)
             IDEM mode avion : https://stackoverflow.com/questions/13766909/how-to-programmatically-enable-and-disable-flight-mode-on-android-4-2
-            
+
             IDEES
                 1. Au lieu toast, belle animation chargement?
                     // https://github.com/code-mc/loadtoast
@@ -52,14 +55,47 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void accessCellularDataSettings() {
+        Intent intent = new Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS);
+        startActivity(intent);
+    }
+
+    public boolean isCellularDataEnabled() {
+        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        if (tm.getSimState() == TelephonyManager.SIM_STATE_READY) {
+            return (Settings.Global.getInt(getApplicationContext().getContentResolver(), "mobile_data", 1) == 1);
+        }
+        return false;
+    }
+
+    public void showCellularDataDialog(String message) {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_menu_info_details)
+                .setTitle("Données cellulaires")
+                .setMessage(message)
+                .setPositiveButton("Oui", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        accessCellularDataSettings();
+                        dialog.dismiss();
+                    }
+
+                })
+                .setNegativeButton("Non", null)
+                .show();
+    }
+
     public void enableWorkMode(boolean enable) {
         if (enable) { // checked - activate work mode
             enableWifi(false);
             doNotDisturb(true);
+            if (isCellularDataEnabled()) showCellularDataDialog("Voulez-vous aussi désactiver vos données mobiles ?");
             promptUser("Activation du mode travail...", true);
         } else { // unchecked - deactivate work mode
             enableWifi(true);
             doNotDisturb(false);
+            if (!isCellularDataEnabled()) showCellularDataDialog("Voulez-vous activer vos données mobiles aussi ?");
             promptUser("Désactivation du mode travail...", true);
         }
     }
