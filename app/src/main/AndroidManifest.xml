@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.blaskodaniel.charttest2">
+    package="com.example.timer">
 
     <application
         android:allowBackup="true"
@@ -9,9 +9,8 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HabitDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".HabitListActivity"
+        <activity android:name=".TimerActivity"
+            android:icon="@drawable/icon"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

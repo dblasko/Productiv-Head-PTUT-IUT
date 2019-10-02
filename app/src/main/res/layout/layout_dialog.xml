@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Personnalisé : "
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:textColor="#FFEB3B"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre de session : "
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"/>
+
+    <EditText
+        android:id="@+id/edit_nbSession"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="235dp"
+        android:layout_marginTop="45dp"
+        android:hint="illimité"
+        android:inputType="number"
+        android:maxLength="3"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="105dp"
+        android:layout_marginLeft="10dp"
+        android:text="Durée du travail : "
+        android:textSize="18dp" />
+
+    <EditText
+        android:id="@+id/edit_tpsTravail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="235dp"
+        android:layout_below="@+id/edit_nbSession"
+        android:hint="25 min"
+        android:inputType="number"
+        android:maxLength="2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Durée de la pause : "
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"/>
+
+    <EditText
+        android:id="@+id/edit_tpsPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="235dp"
+        android:layout_below="@+id/edit_tpsTravail"
+        android:hint="5 min"
+        android:inputType="number"
+        android:maxLength="2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Durée de la grande pause : "
+        android:layout_marginTop="195dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"/>
+
+    <EditText
+        android:id="@+id/edit_tpsGrandePause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="235dp"
+        android:layout_below="@+id/edit_tpsPause"
+        android:hint="20 min"
+        android:inputType="number"
+        android:maxLength="2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(4e Sessions) "
+        android:layout_marginTop="225dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="13dp"/>
+
+
+    <Button
+        android:id="@+id/buttonConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ok"
+        android:layout_marginTop="270dp"
+        android:layout_marginLeft="250dp"
+        android:textSize="18dp"
+        android:textColor="#FFEB3B"
+        android:background="@android:color/transparent"
+        />
+
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Annuler"
+        android:layout_marginTop="270dp"
+        android:layout_marginLeft="140dp"
+        android:textSize="18dp"
+        android:textColor="#FFEB3B"
+        android:background="@android:color/transparent"
+
+        />
+
+
+
+
+</RelativeLayout>
