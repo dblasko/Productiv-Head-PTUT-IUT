@@ -80,7 +80,6 @@ public class TimerActivity extends AppCompatActivity {
     private boolean modif =false;
 
 
-    private Button not;
 
 
 
@@ -100,18 +99,7 @@ public class TimerActivity extends AppCompatActivity {
 
 
 
-not=findViewById(R.id.buttonNotif);
-        not.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-
-             /*   creerNotficationChannel(getApplicationContext());
-                creerNotification(getApplicationContext(), getClass());
-*/
-
-            }
-        });
 
 
 
@@ -130,7 +118,7 @@ not=findViewById(R.id.buttonNotif);
         tNomTvl =findViewById(R.id.nomTvl);
         tNomRep =findViewById(R.id.nomRep);
 
- //*****
+        //*****
         tNbSession=findViewById(R.id.nbSessionPersonnalise);
 
         bStatistique=findViewById(R.id.buttonStatistique);
@@ -350,18 +338,18 @@ not=findViewById(R.id.buttonNotif);
             reset(view);
         }
         else{
-              nbTravail = nbTravail + 1;
-              if(sessionPersonnaliser && nbTpsTravail!=-1) debut= nbTpsTravail*60000;
-              else debut=8000;
-              resetPossible = true;
-              tSessionTravail.setText(String.valueOf(nbTravail));
-              decrementation.cancel();
+            nbTravail = nbTravail + 1;
+            if(sessionPersonnaliser && nbTpsTravail!=-1) debut= nbTpsTravail*60000;
+            else debut=8000;
+            resetPossible = true;
+            tSessionTravail.setText(String.valueOf(nbTravail));
+            decrementation.cancel();
 
-              tempsRestant = debut;
-              actualisationTimer();
-              son.reset();
-              sonActive = false;
-              startTravail(view);
+            tempsRestant = debut;
+            actualisationTimer();
+            son.reset();
+            sonActive = false;
+            startTravail(view);
         }
     }
 
@@ -452,28 +440,28 @@ not=findViewById(R.id.buttonNotif);
                     modif=true;
                 }
 
-               String recupTpsTravail = etTpsTravail.getText().toString();
-               if (recupTpsTravail.equals("")){
-                   nbTpsTravail=-1;
-                   affichageTpsTravail="";
-               }
-               else {
-                   nbTpsTravail = Integer.parseInt(recupTpsTravail);
-                   affichageTpsTravail =etTpsTravail.getText().toString();
-                   modif=true;
-                   debut=nbTpsTravail*6000;
-               }
+                String recupTpsTravail = etTpsTravail.getText().toString();
+                if (recupTpsTravail.equals("")){
+                    nbTpsTravail=-1;
+                    affichageTpsTravail="";
+                }
+                else {
+                    nbTpsTravail = Integer.parseInt(recupTpsTravail);
+                    affichageTpsTravail =etTpsTravail.getText().toString();
+                    modif=true;
+                    debut=nbTpsTravail*6000;
+                }
 
-               String recupTpsPause = etTpsPause.getText().toString();
-               if (recupTpsPause.equals("")){
-                   nbTpsPause=-1;
-                   affichageTpsPause="";
-               }
-               else {
-                   nbTpsPause = Integer.parseInt(recupTpsPause);
-                   affichageTpsPause =etTpsPause.getText().toString();
-                   modif=true;
-               }
+                String recupTpsPause = etTpsPause.getText().toString();
+                if (recupTpsPause.equals("")){
+                    nbTpsPause=-1;
+                    affichageTpsPause="";
+                }
+                else {
+                    nbTpsPause = Integer.parseInt(recupTpsPause);
+                    affichageTpsPause =etTpsPause.getText().toString();
+                    modif=true;
+                }
 
                 String recupTpsGrandePause = etTpsGrandePause.getText().toString();
                 if (recupTpsGrandePause.equals("")){
@@ -539,7 +527,8 @@ not=findViewById(R.id.buttonNotif);
 
     public void statistque(View view){
 
-
+        View sView = getLayoutInflater().inflate(R.layout.layout_stat, null);
+        setContentView(sView);
     }
 
     public void customizeActionBar(){
@@ -550,34 +539,5 @@ not=findViewById(R.id.buttonNotif);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
     }
 
-    public  void  creerNotification(Context context, Intent intent) {
-
-    NotificationManagerCompat nManager = NotificationManagerCompat.from(context);
-      NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context,"chanel_id")
-                .setSmallIcon(R.drawable.icon)
-                .setContentTitle("Productiv'head")
-                .setContentText("Hello World!")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true);
-
-/*Intent notifIntent = new Intent(this,TimerActivity.class);
-PendingIntent contentIntent = PendingIntent.getActivity(this,0,notifIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-nBuilder.setContentIntent(contentIntent);
-        NotificationManager notificationManager = (NotificationManager) getSystemService (Context.NOTIFICATION_SERVICE);
-        //NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);*/
-        nManager.notify(0,nBuilder.build());
-
-    }
-
-    public void creerNotficationChannel(Context context){
-        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
-            CharSequence name= "channel_name";
-            int importance= NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("channel_id",name,importance);
-            channel.setDescription("Description du channel");
-            NotificationManager nManager = context.getSystemService(NotificationManager.class);
-            nManager.createNotificationChannel(channel);
-        }
-    }
 
 }
