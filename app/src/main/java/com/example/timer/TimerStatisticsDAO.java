@@ -55,13 +55,13 @@ public class TimerStatisticsDAO {
         // If cursor fetches a line : there is an entry to update. Else, we insert
         if (c.moveToFirst()) {
             // UPDATE LES ATTR
-            db.execSQL("UPDATE timerStatistics SET tpsTravail = tpsTravail + " + stats.getTpsTravail() + " WHERE statDate = '" + stats.getDate() + "'", null);
-            db.execSQL("UPDATE timerStatistics SET tpsPause = tpsPause + " + stats.getTpsPause() + " WHERE statDate = '" + stats.getDate() + "'", null);
-            db.execSQL("UPDATE timerStatistics SET nbSessionsTravail = nbSessionsTravail + " + stats.getNbSessionsTravail() + " WHERE statDate = '" + stats.getDate() + "'", null);
+            db.execSQL("UPDATE timerStatistics SET tpsTravail = tpsTravail + " + stats.getTpsTravail() + " WHERE statDate = '" + stats.getDate() + "'");
+            db.execSQL("UPDATE timerStatistics SET tpsPause = tpsPause + " + stats.getTpsPause() + " WHERE statDate = '" + stats.getDate() + "'");
+            db.execSQL("UPDATE timerStatistics SET nbSessionsTravail = nbSessionsTravail + " + stats.getNbSessionsTravail() + " WHERE statDate = '" + stats.getDate() + "'");
             // TODO IMPORTANT : penser à bien recréer un stats neuf après ajout -> DANS LE METIER BIEN LE REMETTRE À LA DATE ETC OU IDEALEMENT RECREER A CHAQUE APPEL
             stats = new TimerStatistics(0, 0, 0, "");
         } else {
-            db.execSQL("INSERT INTO timerStatistics VALUES (" + stats.getTpsTravail() + ", " + stats.getTpsPause() + ", " + stats.getNbSessionsTravail() + ", " + stats.getDate() + ")", null);
+                db.execSQL("INSERT INTO timerStatistics VALUES (" + Float.toString(stats.getTpsTravail()) + ", " + Float.toString(stats.getTpsPause()) + ", " + Integer.toString(stats.getNbSessionsTravail()) + ", '" + stats.getDate() + "')");
         }
         c.close();
     }

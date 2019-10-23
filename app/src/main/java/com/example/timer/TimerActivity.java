@@ -20,8 +20,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
-
+import java.util.TimeZone;
 
 
 public class TimerActivity extends AppCompatActivity {
@@ -201,7 +203,23 @@ public class TimerActivity extends AppCompatActivity {
 
 
         /* TESTS BD */
-        TimerStatisticsDAO tsDAO = new TimerStatisticsDAO(getApplicationContext());
+        TimerStatisticsDAO tsDAO = new TimerStatisticsDAO(this);
+        tsDAO.open();
+        // TODO - laulau précise explicitement l'unité de tpsTravail/tpsPause
+
+        // EXEMPLE POUR TES DATES LAULAU :
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        sdf.setTimeZone(TimeZone.getDefault());
+
+        TimerStatistics tsInser = new TimerStatistics(10.5f, 3.4f, 10, sdf.format(new Date()));
+        TimerStatistics tsInser2 = new TimerStatistics(20.5f, 3.4f, 10, sdf.format(new Date()));
+        tsDAO.saveSessionStatistics(tsInser);
+        tsDAO.saveSessionStatistics(tsInser2); // devrait update et pas insert
+        tsInser = new TimerStatistics(0f, 0f, 0, sdf.format(new Date())); // IMPORTANT -> réinitialise le tjr après la sauvegarde
+        tsInser2 = new TimerStatistics(0f, 0f, 0, sdf.format(new Date()));
+
+        TimerStatistics donneesDuJour = tsDAO.getTimerStatistics(sdf.format(new Date()));
+        System.out.println("FLAG RECHERCHE " + donneesDuJour.getTpsTravail() + " " + donneesDuJour.getDate()); // devrait être date ajd et temps travail somme des 2
     }
 
 

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 // CF https://fr.jeffprod.com/blog/2015/utilisation-d-une-base-sqlite-sous-android/
+// TODO -> au rassemblement, 1 pour tous
 public class MySQLite extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "db.sqlite";
