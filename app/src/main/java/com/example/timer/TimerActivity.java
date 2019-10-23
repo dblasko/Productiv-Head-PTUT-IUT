@@ -199,6 +199,9 @@ public class TimerActivity extends AppCompatActivity {
         tNbSession.setText(String.valueOf(nbSession));
         actualisationTimer();
 
+
+        /* TESTS BD */
+        TimerStatisticsDAO tsDAO = new TimerStatisticsDAO(getApplicationContext());
     }
 
 
