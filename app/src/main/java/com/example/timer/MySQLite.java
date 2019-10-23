@@ -27,7 +27,7 @@ public class MySQLite extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // S'exécute à la création de la BD
         // => Donc on exécute la/les requêtes pour créer la table
-        sqLiteDatabase.execSQL(TimerStatistiqueDAO.CREATE_TABLE_TIMERSTATISTIQUE); // Exécute create table Timerstatistique
+        sqLiteDatabase.execSQL(TimerStatisticsDAO.CREATE_TABLE_TIMERSTATISTIQUE); // Exécute create table Timerstatistique
     }
 
     @Override
