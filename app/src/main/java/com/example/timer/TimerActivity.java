@@ -1,17 +1,8 @@
 package com.example.timer;
 
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.CountDownTimer;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +13,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -80,6 +72,10 @@ public class TimerActivity extends AppCompatActivity {
     private String affichageTpsPause="";
     private String affichageTpsGrandePause ="";
     private boolean modif =false;
+    TimerStatisticsDAO tsDAO = new TimerStatisticsDAO(this);
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    TimerStatistics tsInser = new TimerStatistics(0f, 0f, 0, sdf.format(new Date()));
+
 
 
 
@@ -98,7 +94,12 @@ public class TimerActivity extends AppCompatActivity {
 
 
 
-
+       // TimerStatisticsDAO tsDAO = new TimerStatisticsDAO(this);
+        tsDAO.open();
+        // TODO - laulau précise explicitement l'unité de tpsTravail/tpsPause
+        // EXEMPLE POUR TES DATES LAULAU :
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        sdf.setTimeZone(TimeZone.getDefault());
 
 
 
@@ -203,16 +204,15 @@ public class TimerActivity extends AppCompatActivity {
 
 
         /* TESTS BD */
-        TimerStatisticsDAO tsDAO = new TimerStatisticsDAO(this);
-        tsDAO.open();
-        // TODO - laulau précise explicitement l'unité de tpsTravail/tpsPause
 
-        // EXEMPLE POUR TES DATES LAULAU :
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        sdf.setTimeZone(TimeZone.getDefault());
+/*
 
-        TimerStatistics tsInser = new TimerStatistics(10.5f, 3.4f, 10, sdf.format(new Date()));
+        TimerStatistics tsInser = new TimerStatistics(0f, 0f, 0, sdf.format(new Date()));
         TimerStatistics tsInser2 = new TimerStatistics(20.5f, 3.4f, 10, sdf.format(new Date()));
+        tsInser.setNbSessionsTravail(tsInser.getNbSessionsTravail()+1);
+        tsDAO.saveSessionStatistics(tsInser);
+        tsInser = new TimerStatistics(0f, 0f, 0, sdf.format(new Date()));
+
         tsDAO.saveSessionStatistics(tsInser);
         tsDAO.saveSessionStatistics(tsInser2); // devrait update et pas insert
         tsInser = new TimerStatistics(0f, 0f, 0, sdf.format(new Date())); // IMPORTANT -> réinitialise le tjr après la sauvegarde
@@ -220,15 +220,23 @@ public class TimerActivity extends AppCompatActivity {
 
         TimerStatistics donneesDuJour = tsDAO.getTimerStatistics(sdf.format(new Date()));
         System.out.println("FLAG RECHERCHE " + donneesDuJour.getTpsTravail() + " " + donneesDuJour.getDate()); // devrait être date ajd et temps travail somme des 2
-    }
+*/
+}
 
+    public void saveStatistics() {
+
+        tsDAO.saveSessionStatistics(tsInser);
+        tsInser = new TimerStatistics(0f, 0f, 0, sdf.format(new Date())); // IMPORTANT -> réinitialise le tjr après la sauvegarde
+
+    }
 
 
 
 
     public void startTravail(View view){
 
-
+        tsInser.setTpsPause(tsInser.getTpsPause()+nbTpsPause);
+        tsInser.setTpsPause(tsInser.getTpsPause()+nbTpsGrandePause);
         sessionTravail=true;
         resetPossible=true;
         tNomTvl.setVisibility(View.VISIBLE);
@@ -321,6 +329,7 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     public void initTpsRepos(View view){
+
         // debut=4000; // 300000 millis exemple 4000
         resetPossible=true;
         if (nbPause ==3) {
@@ -353,6 +362,11 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     public void initTpsTravail(View view){
+        // TODO-        BDD TRAVAIL 
+        tsInser.setTpsTravail(tsInser.getTpsTravail() + debut);
+        tsInser.setNbSessionsTravail(tsInser.getNbSessionsTravail()+nbSession);
+        System.out.println("tps t" + debut);
+        System.out.println("tps tvail : " +  tsInser.getTpsTravail());
 
         if(nbSession>0 && nbTravail==nbSession){
             resetPossible=true;

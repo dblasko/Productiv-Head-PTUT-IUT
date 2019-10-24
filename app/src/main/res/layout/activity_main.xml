@@ -8,17 +8,6 @@
 
 
 
-
-    <Button
-        android:id="@+id/buttonNotif"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:background="@color/colorPrimary"
-            android:text="Notif"
-         android:textColor="#fffffc"
-        android:textSize="18dp" />
-
     <Button
         android:id="@+id/buttonStatistique"
         android:layout_width="match_parent"
