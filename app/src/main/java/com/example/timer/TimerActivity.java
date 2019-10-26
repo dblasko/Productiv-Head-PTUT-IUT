@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -45,8 +44,8 @@ public class TimerActivity extends AppCompatActivity {
     private boolean sessionRepos = false;
     private boolean sessionPersonnaliser= false;
 
-    private int nbPause =0;
-    private int nbTravail=1;
+    //private int nbPause =0;
+    private int nbTravail=0;
 
     private long tempsRestant=debut; //****************************************************private long tempsRestant = debut;
 
@@ -57,9 +56,9 @@ public class TimerActivity extends AppCompatActivity {
     private TextView tNomRep;
 
     private int nbSession=0;
-    private TextView tNbSession;
-    private int nbTpsTravail=0;
-    private int nbTpsPause=0;
+    private TextView tNbSessionPersonnalise;
+    private int tpsTravailPerso =0;
+    private int tpsPausePerso =0;
     private int nbTpsGrandePause =0;
 
 
@@ -77,14 +76,16 @@ public class TimerActivity extends AppCompatActivity {
     TimerStatistics tsInser = new TimerStatistics(0f, 0f, 0, sdf.format(new Date()));
 
 
-
+    private TextView tStatSession;
+    private TextView tStatTravail;
+    private TextView tStatRepos;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.layout_timer_activity);
         customizeActionBar();
 
 
@@ -122,7 +123,7 @@ public class TimerActivity extends AppCompatActivity {
         tNomRep =findViewById(R.id.nomRep);
 
         //*****
-        tNbSession=findViewById(R.id.nbSessionPersonnalise);
+        tNbSessionPersonnalise =findViewById(R.id.nbSessionPersonnalise);
 
         bStatistique=findViewById(R.id.buttonStatistique);
         bPersonnaliser=findViewById(R.id.buttonPersonnaliser);
@@ -133,7 +134,7 @@ public class TimerActivity extends AppCompatActivity {
         bStartTravail.setVisibility(View.VISIBLE);
         bInitTpsTravail.setVisibility(View.INVISIBLE);
         bReset.setVisibility(View.VISIBLE);
-        tNomTvl.setVisibility(View.INVISIBLE);
+        tNomTvl.setVisibility(View.VISIBLE);
         tNomRep.setVisibility(View.INVISIBLE);
 
 
@@ -188,7 +189,7 @@ public class TimerActivity extends AppCompatActivity {
         bStatistique.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                statistque(view);
+                statistiques(view);
             }
         });
 
@@ -199,7 +200,7 @@ public class TimerActivity extends AppCompatActivity {
             }
         });
 
-        tNbSession.setText(String.valueOf(nbSession));
+        tNbSessionPersonnalise.setText(String.valueOf(nbSession));
         actualisationTimer();
 
 
@@ -234,15 +235,13 @@ public class TimerActivity extends AppCompatActivity {
 
 
     public void startTravail(View view){
-
-        tsInser.setTpsPause(tsInser.getTpsPause()+nbTpsPause);
-        tsInser.setTpsPause(tsInser.getTpsPause()+nbTpsGrandePause);
         sessionTravail=true;
         resetPossible=true;
         tNomTvl.setVisibility(View.VISIBLE);
         tNomRep.setVisibility(View.INVISIBLE);
         tSessionTravail.setText(String.valueOf(nbTravail));
-        tNbSession.setText(String.valueOf(nbSession));
+        tNbSessionPersonnalise.setText(String.valueOf(nbSession));
+
 
 
 
@@ -276,6 +275,24 @@ public class TimerActivity extends AppCompatActivity {
                 bPauseRepos.setVisibility(View.INVISIBLE);
                 bStartRepos.setVisibility(View.VISIBLE);
                 bInitTpsTravail.setVisibility(View.INVISIBLE);
+
+                nbTravail = nbTravail + 1;
+                tSessionTravail.setText(String.valueOf(nbTravail));
+
+                // TODO -        BDD TEMPS TRAVAIL avec var debut
+                tsInser.setTpsTravail(tsInser.getTpsTravail() + debut);
+                saveStatistics();
+
+                // TODO -       TESTS
+                System.out.println("temps du debut: " + debut);
+                System.out.println("temps de travail : " +  tsInser.getTpsTravail());
+
+                // TODO -       BDD NB SESSIONS
+                tsInser.setNbSessionsTravail(tsInser.getNbSessionsTravail()+ 1);
+                saveStatistics();
+
+                // TODO -       TESTS
+                System.out.println("nombre de session : " + tsInser.getNbSessionsTravail());
             }
 
         }.start();
@@ -284,6 +301,7 @@ public class TimerActivity extends AppCompatActivity {
 
 
     public void startRepos(View view){
+
         sessionRepos =true;
         tNomRep.setVisibility(View.VISIBLE);
         tNomTvl.setVisibility(View.INVISIBLE);
@@ -316,6 +334,16 @@ public class TimerActivity extends AppCompatActivity {
                 bPauseTravail.setVisibility(View.INVISIBLE);
                 bPauseRepos.setVisibility(View.INVISIBLE);
                 bInitTpsTravail.setVisibility(View.VISIBLE);
+
+
+                //TODO-         BDD TEMPS DE PAUSE
+                tsInser.setTpsPause(tsInser.getTpsPause()+debut);
+                saveStatistics();
+                tsInser.setTpsPause(tsInser.getTpsPause()+nbTpsGrandePause);
+                saveStatistics();
+
+                //TODO-         TESTS
+                System.out.println("temps de pause : " + tsInser.getTpsPause());
             }
 
         }.start();
@@ -330,24 +358,25 @@ public class TimerActivity extends AppCompatActivity {
 
     public void initTpsRepos(View view){
 
+
         // debut=4000; // 300000 millis exemple 4000
         resetPossible=true;
-        if (nbPause ==3) {
-            if(sessionPersonnaliser && nbTpsGrandePause!=1){
+        if (nbTravail==4) {
+            if(sessionPersonnaliser && nbTpsGrandePause!=-1){
                 debut=nbTpsGrandePause*60000;
-                nbPause=0;
+                //nbPause=0;
             }
             else {
                 debut=6000;
-                nbPause =0;
+                //nbPause =0;
             }
 
         }
         else{
-            nbPause++;
-            if(sessionPersonnaliser && nbTpsPause!=-1){
+            //nbPause++;
+            if(sessionPersonnaliser && tpsPausePerso !=-1){
                 System.out.println("dans la boucle if ");
-                debut= nbTpsPause*60000;
+                debut= tpsPausePerso *60000;
             }
             else{
                 debut=4000;
@@ -362,19 +391,15 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     public void initTpsTravail(View view){
-        // TODO-        BDD TRAVAIL 
-        tsInser.setTpsTravail(tsInser.getTpsTravail() + debut);
-        tsInser.setNbSessionsTravail(tsInser.getNbSessionsTravail()+nbSession);
-        System.out.println("tps t" + debut);
-        System.out.println("tps tvail : " +  tsInser.getTpsTravail());
+
 
         if(nbSession>0 && nbTravail==nbSession){
             resetPossible=true;
             reset(view);
         }
         else{
-            nbTravail = nbTravail + 1;
-            if(sessionPersonnaliser && nbTpsTravail!=-1) debut= nbTpsTravail*60000;
+            //nbTravail = nbTravail + 1;
+            if(sessionPersonnaliser && tpsTravailPerso !=-1) debut= tpsTravailPerso *60000;
             else debut=8000;
             resetPossible = true;
             tSessionTravail.setText(String.valueOf(nbTravail));
@@ -412,12 +437,17 @@ public class TimerActivity extends AppCompatActivity {
 
     public void reset(View view) {
         if (resetPossible) {
-            nbTravail = 1;
-            nbPause = 0;
+            nbTravail = 0;
+
+            //nbPause = 0;
             tSessionTravail.setText(String.valueOf(nbTravail));
-            tNbSession.setText(String.valueOf(nbSession));
+            tNbSessionPersonnalise.setText(String.valueOf(nbSession));
             if(sessionTravail || sessionRepos) decrementation.cancel();
-            //debut=8000;
+            if(modif){
+                if(tpsTravailPerso !=-1) debut=tpsTravailPerso*60000;
+                else debut=8000;
+            }
+            else debut=8000;
             tempsRestant = debut;
             actualisationTimer();
             bStartRepos.setVisibility(View.INVISIBLE);
@@ -426,7 +456,8 @@ public class TimerActivity extends AppCompatActivity {
             bPauseTravail.setVisibility(View.INVISIBLE);
             bInitTpsTravail.setVisibility(View.INVISIBLE);
             if (sonActive) son.reset();
-
+            tNomTvl.setVisibility(View.VISIBLE);
+            tNomRep.setVisibility(View.INVISIBLE);
 
         }
     }
@@ -454,6 +485,7 @@ public class TimerActivity extends AppCompatActivity {
         sessionPersonnaliser=true;
 
         if(modif){
+            // affichage dans le dialog
             etNbSession.setText(affichageNbSession);
             etTpsTravail.setText(affichageTpsTravail);
             etTpsPause.setText(affichageTpsPause);
@@ -477,23 +509,22 @@ public class TimerActivity extends AppCompatActivity {
 
                 String recupTpsTravail = etTpsTravail.getText().toString();
                 if (recupTpsTravail.equals("")){
-                    nbTpsTravail=-1;
+                    tpsTravailPerso =-1;
                     affichageTpsTravail="";
                 }
                 else {
-                    nbTpsTravail = Integer.parseInt(recupTpsTravail);
+                    tpsTravailPerso = Integer.parseInt(recupTpsTravail);
                     affichageTpsTravail =etTpsTravail.getText().toString();
                     modif=true;
-                    debut=nbTpsTravail*6000;
                 }
 
                 String recupTpsPause = etTpsPause.getText().toString();
                 if (recupTpsPause.equals("")){
-                    nbTpsPause=-1;
+                    tpsPausePerso =-1;
                     affichageTpsPause="";
                 }
                 else {
-                    nbTpsPause = Integer.parseInt(recupTpsPause);
+                    tpsPausePerso = Integer.parseInt(recupTpsPause);
                     affichageTpsPause =etTpsPause.getText().toString();
                     modif=true;
                 }
@@ -509,18 +540,21 @@ public class TimerActivity extends AppCompatActivity {
                     modif=true;
                 }
 
-                if(nbTpsTravail!=-1) {
-                    debut=nbTpsTravail*60000;
+                if(tpsTravailPerso !=-1) {
+                    debut= tpsTravailPerso *60000;
+                    tempsRestant = debut;
+                    actualisationTimer();
                     resetPossible=true;
-                    reset(view);
+                    //reset(view);
                 }
                 else {
                     debut=8000;
+                    System.out.println("d else");
                     resetPossible=true;
                     reset(view);
                 }
 
-                tNbSession.setText(String.valueOf(nbSession));
+                tNbSessionPersonnalise.setText(String.valueOf(nbSession));
                 actualisationTimer();
                 dialog.cancel();
             }
@@ -558,12 +592,18 @@ public class TimerActivity extends AppCompatActivity {
 
     }
 
-    //*************************************************************************************
 
-    public void statistque(View view){
+    public void statistiques(View view){
 
         View sView = getLayoutInflater().inflate(R.layout.layout_stat, null);
         setContentView(sView);
+        tStatSession= sView.findViewById(R.id.texteSession);
+        tStatTravail= sView.findViewById(R.id.texteTravail);
+        tStatRepos= sView.findViewById(R.id.texteRepos);
+
+        tStatSession.setText(tsInser.getNbSessionsTravail());
+       // tStatTravail.setText(tsInser.getTpsTravail());
+        //tStatTravail.setText(tsInser.getTpsPause());
     }
 
     public void customizeActionBar(){

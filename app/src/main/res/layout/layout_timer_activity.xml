@@ -7,15 +7,14 @@
     tools:context=".TimerActivity">
 
 
-
     <Button
         android:id="@+id/buttonStatistique"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
-        android:text="Statistique"
-        android:textColor="#fffffc"
+        android:text="Statistiques"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="18dp" />
 
 

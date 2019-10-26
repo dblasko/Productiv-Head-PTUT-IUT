@@ -12,10 +12,65 @@
         android:layout_height="200dp"
         card_view:cardCornerRadius="4dp">
 
-        <Button
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="COUCOU"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10sp"
+            android:text="Statistique du jour : "
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40sp"
+            android:text="Nombre de sessions total : "
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/texteSession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="310sp"
+            android:layout_marginTop="40sp"
+            android:textSize="15sp"
+            />
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60sp"
+        android:text="Temps de travail total : "
+        android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/texteTravail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="310sp"
+            android:layout_marginTop="60sp"
+            android:textSize="15sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80sp"
+            android:text="Temps de pause total : "
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/texteRepos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="310sp"
+            android:layout_marginTop="80sp"
+            android:textSize="15sp"
+            />
+
     </android.support.v7.widget.CardView>
 
 </LinearLayout>
