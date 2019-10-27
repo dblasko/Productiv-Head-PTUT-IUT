@@ -1,6 +1,7 @@
 package com.example.timer;
 
 import android.app.AlertDialog;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +12,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import lecho.lib.hellocharts.model.PieChartData;
+import lecho.lib.hellocharts.model.SliceValue;
+import lecho.lib.hellocharts.view.PieChartView;
 
 
 public class TimerActivity extends AppCompatActivity {
@@ -76,9 +84,16 @@ public class TimerActivity extends AppCompatActivity {
     TimerStatistics tsInser = new TimerStatistics(0f, 0f, 0, sdf.format(new Date()));
 
 
-    private TextView tStatSession;
-    private TextView tStatTravail;
-    private TextView tStatRepos;
+    private TextView tStatSessionJour;
+    private TextView tStatTravailJour;
+    private TextView tStatReposJour;
+
+    private TextView tStatDateJour;
+    private TextView tStatDateMois;
+
+    private TextView tStatSessionMois;
+    private TextView tStatTravailMois;
+    private TextView tStatReposMois;
 
 
 
@@ -597,13 +612,56 @@ public class TimerActivity extends AppCompatActivity {
 
         View sView = getLayoutInflater().inflate(R.layout.layout_stat, null);
         setContentView(sView);
-        tStatSession= sView.findViewById(R.id.texteSession);
-        tStatTravail= sView.findViewById(R.id.texteTravail);
-        tStatRepos= sView.findViewById(R.id.texteRepos);
+        tStatSessionJour = sView.findViewById(R.id.texteSessionJour);
+        tStatTravailJour = sView.findViewById(R.id.texteTravailJour);
+        tStatReposJour = sView.findViewById(R.id.texteReposJour);
 
-        tStatSession.setText(tsInser.getNbSessionsTravail());
-       // tStatTravail.setText(tsInser.getTpsTravail());
-        //tStatTravail.setText(tsInser.getTpsPause());
+        tStatDateJour = sView.findViewById(R.id.texteDateJour);
+
+        tStatSessionMois = sView.findViewById(R.id.texteSessionMois);
+        tStatTravailMois = sView.findViewById(R.id.texteTravailMois);
+        tStatReposMois = sView.findViewById(R.id.texteReposMois);
+
+
+        tStatDateJour.setText(tsDAO.getDate(getDate()));
+       //tStatDateMois.setText(tsDAO.getM);
+        //tsDAO.open();         On ouvre la BDD en haut
+
+        DecimalFormat dfs = new DecimalFormat("###.##");
+        DecimalFormat df = new DecimalFormat("###.##");
+        tStatSessionJour.setText(String.valueOf(dfs.format(tsDAO.getNbSession(getDate()))));
+        tStatTravailJour.setText(String.valueOf((df.format(tsDAO.getTpsTravail(getDate())/60000))));
+        tStatReposJour.setText(String.valueOf((df.format(tsDAO.getTpsPause(getDate())/60000))));
+
+
+        PieChartView pieChartView = findViewById(R.id.chart);
+        List< SliceValue > pieData = new ArrayList<>();
+        PieChartData pieChartData = new PieChartData(pieData);
+
+        pieData.add(new SliceValue(tsDAO.getTpsTravail("2019-10-27")/60000, Color.GREEN).setLabel("Travail"));
+        pieData.add(new SliceValue(tsDAO.getTpsPause("2019-10-27")/60000, Color.YELLOW).setLabel("Pause"));
+        pieChartData.setHasLabels(true).setValueLabelTextSize(14);
+        pieChartData.setHasCenterCircle(true);
+        pieChartView.setPieChartData(pieChartData);
+
+
+//*****************************todo - FAIRE AVEC MOIS*************************************************************************************
+        tStatSessionMois.setText(String.valueOf(dfs.format(tsDAO.getNbSession("2019-10-27"))));
+        tStatTravailMois.setText(String.valueOf((df.format(tsDAO.getTpsTravail("2019-10-27")/60000))));
+        tStatReposMois.setText(String.valueOf((df.format(tsDAO.getTpsPause("2019-10-27")/60000))));
+
+        PieChartView pieChartView2 = findViewById(R.id.chart2);
+        List< SliceValue > pieData2 = new ArrayList<>();
+        PieChartData pieChartData2 = new PieChartData(pieData);
+
+        pieData2.add(new SliceValue(tsDAO.getTpsTravail("2019-10-27")/60000, Color.GREEN).setLabel("Travail"));
+        pieData2.add(new SliceValue(tsDAO.getTpsPause("2019-10-27")/60000, Color.YELLOW).setLabel("Pause"));
+        pieChartData2.setHasLabels(true).setValueLabelTextSize(14);
+        pieChartData2.setHasCenterCircle(true);
+        pieChartView2.setPieChartData(pieChartData);
+
+
+
     }
 
     public void customizeActionBar(){
@@ -612,6 +670,17 @@ public class TimerActivity extends AppCompatActivity {
         getSupportActionBar().setLogo(R.drawable.icon);
         getSupportActionBar().setSubtitle("Timer");
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
+
+    public String getDate(){
+        return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+    }
+
+    public String getMoisAnnee(){
+        return new SimpleDateFormat("MM-dd", Locale.getDefault()).format(new Date());
     }
 
 

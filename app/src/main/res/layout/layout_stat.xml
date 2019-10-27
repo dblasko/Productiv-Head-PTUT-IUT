@@ -1,76 +1,263 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:fillViewport="true"
     android:layout_height="match_parent">
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grey">
 
 
     <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         card_view:cardCornerRadius="4dp">
 
-        <TextView
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10sp"
-            android:text="Statistique du jour : "
+            android:layout_marginTop="15sp"
+            android:layout_marginLeft="10sp"
+            android:text="Statistiques du jour : "
             android:textSize="20sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40sp"
+            android:layout_marginTop="55sp"
+            android:layout_marginLeft="10sp"
             android:text="Nombre de sessions total : "
-            android:textSize="15sp" />
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/texteSession"
+            android:id="@+id/texteSessionJour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="310sp"
-            android:layout_marginTop="40sp"
-            android:textSize="15sp"
-            />
+            android:layout_marginLeft="260sp"
+            android:layout_marginTop="55sp"
+            android:textSize="18sp" />
 
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60sp"
+        android:layout_marginTop="80sp"
+        android:layout_marginLeft="10sp"
         android:text="Temps de travail total : "
-        android:textSize="15sp" />
+        android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/texteTravail"
+            android:id="@+id/texteTravailJour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="310sp"
-            android:layout_marginTop="60sp"
-            android:textSize="15sp"
-            />
+            android:layout_marginLeft="260sp"
+            android:layout_marginTop="80sp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/texteTravailJourMin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300sp"
+            android:layout_marginTop="80sp"
+            android:text="min"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="105sp"
+            android:layout_marginLeft="10sp"
+            android:text="Temps de pause total : "
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/texteReposJour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="260sp"
+            android:layout_marginTop="105sp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/texteReposJourMin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300sp"
+            android:layout_marginTop="105sp"
+            android:text="min"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/texteDateJour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300sp"
+            android:layout_marginTop="10sp"
+            android:text="min"
+            android:textSize="18sp" />
+
+    </android.support.v7.widget.CardView>
+
+
+   <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view2"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="320dp"
+        card_view:cardCornerRadius="4dp">
+
+       <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
+       android:layout_marginTop="15sp"
+       android:layout_marginLeft="10sp"
+       android:text="Graphique du jour : "
+       android:textSize="20sp" />
+
+       <lecho.lib.hellocharts.view.PieChartView
+           android:id="@+id/chart"
+           android:layout_width="match_parent"
+           android:layout_height="240dp"
+           android:layout_marginTop="60dp"/>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/card_view3"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="150dp"
+        card_view:cardCornerRadius="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15sp"
+            android:layout_marginLeft="10sp"
+            android:text="Statistiques du mois : "
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="55sp"
+            android:layout_marginLeft="10sp"
+            android:text="Nombre de sessions total : "
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/texteSessionMois"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="260sp"
+            android:layout_marginTop="55sp"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="80sp"
-            android:text="Temps de pause total : "
-            android:textSize="15sp" />
+            android:layout_marginLeft="10sp"
+            android:text="Temps de travail total : "
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/texteRepos"
+            android:id="@+id/texteTravailMois"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="310sp"
+            android:layout_marginLeft="260sp"
             android:layout_marginTop="80sp"
-            android:textSize="15sp"
-            />
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/texteTravailMoisMin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300sp"
+            android:layout_marginTop="80sp"
+            android:text="min"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="105sp"
+            android:layout_marginLeft="10sp"
+            android:text="Temps de pause total : "
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/texteReposMois"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="260sp"
+            android:layout_marginTop="105sp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/texteReposMoisMin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300sp"
+            android:layout_marginTop="105sp"
+            android:text="min"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/texteDateMois"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300sp"
+            android:layout_marginTop="10sp"
+            android:text="min"
+            android:textSize="18sp" />
 
     </android.support.v7.widget.CardView>
 
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view4"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="320dp"
+        card_view:cardCornerRadius="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15sp"
+            android:layout_marginLeft="10sp"
+            android:text="Graphique du jour : "
+            android:textSize="20sp" />
+
+        <lecho.lib.hellocharts.view.PieChartView
+            android:id="@+id/chart2"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_marginTop="60dp"/>
+
+    </android.support.v7.widget.CardView>
+
+
 </LinearLayout>
+</ScrollView>

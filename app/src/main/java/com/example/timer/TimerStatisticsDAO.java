@@ -81,4 +81,72 @@ public class TimerStatisticsDAO {
         }
     }
     // TODO : laisser laulau faire fonctions dérivées de getStat pour avoir ce qu'elle veut
+
+
+    public float getNbSession(String date) {
+        // RETOURNE LES STATISTIQUES D'UN JOUR DONNE OU NULL SI PAS D'ENTREE
+        Cursor c = db.rawQuery("SELECT nbSessionsTravail, statDate FROM timerStatistics WHERE statDate = '" + date + "'", null);
+        if (c.moveToFirst()) { // on l'a mis en primary key, sûr qu'une ou 0 lignes
+            int nbSessionsTravail = c.getInt(c.getColumnIndex(KEY_NB_SESSION_TVAIL));
+            c.close();
+            return (nbSessionsTravail);
+        } else {
+            c.close();
+            return 0;
+        }
+    }
+
+    public float getTpsTravail(String date) {
+        // RETOURNE LES STATISTIQUES D'UN JOUR DONNE OU NULL SI PAS D'ENTREE
+        Cursor c = db.rawQuery("SELECT tpsTravail,statDate FROM timerStatistics WHERE statDate = '" + date + "'", null);
+        if (c.moveToFirst()) { // on l'a mis en primary key, sûr qu'une ou 0 lignes
+            float tpsTravail = c.getFloat(c.getColumnIndex(KEY_TPS_TRAVAIL));
+            c.close();
+            return (tpsTravail);
+        } else {
+            c.close();
+            return 0;
+        }
+    }
+
+    public float getTpsPause(String date) {
+        // RETOURNE LES STATISTIQUES D'UN JOUR DONNE OU NULL SI PAS D'ENTREE
+        Cursor c = db.rawQuery("SELECT tpsPause, statDate FROM timerStatistics WHERE statDate = '" + date + "'", null);
+        if (c.moveToFirst()) { // on l'a mis en primary key, sûr qu'une ou 0 lignes
+            float tpsPause = c.getFloat(c.getColumnIndex(KEY_TPS_PAUSE));
+            c.close();
+            return (tpsPause);
+        } else {
+            c.close();
+            return 0;
+        }
+    }
+
+    public String getDate(String date) {
+        // RETOURNE LES STATISTIQUES D'UN JOUR DONNE OU NULL SI PAS D'ENTREE
+        Cursor c = db.rawQuery("SELECT statDate FROM timerStatistics WHERE statDate = '" + date + "'", null);
+        if (c.moveToFirst()) { // on l'a mis en primary key, sûr qu'une ou 0 lignes
+            String stateDate = c.getString(c.getColumnIndex(KEY_DATE));
+            c.close();
+            return (stateDate);
+        } else {
+            c.close();
+            return null;
+        }
+    }
+
+    public String getDateMoisAnnee(String date) {
+        // RETOURNE LES STATISTIQUES D'UN JOUR DONNE OU NULL SI PAS D'ENTREE
+        Cursor c = db.rawQuery("SELECT statDate FROM timerStatistics WHERE statDate = '" + date + "'", null);
+        if (c.moveToFirst()) { // on l'a mis en primary key, sûr qu'une ou 0 lignes
+            String stateDate = c.getString(c.getColumnIndex(KEY_DATE));
+            c.close();
+            return ("YY-MM");
+        } else {
+            c.close();
+            return null;
+        }
+    }
+
+
 }
