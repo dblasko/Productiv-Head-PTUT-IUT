@@ -122,31 +122,48 @@ public class TimerStatisticsDAO {
         }
     }
 
-    public String getDate(String date) {
-        // RETOURNE LES STATISTIQUES D'UN JOUR DONNE OU NULL SI PAS D'ENTREE
-        Cursor c = db.rawQuery("SELECT statDate FROM timerStatistics WHERE statDate = '" + date + "'", null);
-        if (c.moveToFirst()) { // on l'a mis en primary key, sûr qu'une ou 0 lignes
-            String stateDate = c.getString(c.getColumnIndex(KEY_DATE));
-            c.close();
-            return (stateDate);
-        } else {
-            c.close();
-            return null;
-        }
+   //**********************************************************************************************************************************************************************************
+
+
+    public int getNbSessionsMoisAnnee(String date) {
+        String dateRech = date.substring(0, 7); // 7 exclus
+        Cursor c = db.rawQuery("SELECT nbSessionsTravail, statDate FROM timerStatistics WHERE statDate LIKE '" + dateRech + "%'", null);
+        int nb = 0;
+        while(c.moveToNext()) {
+            int nbSessionsTravail = c.getInt(c.getColumnIndex(KEY_NB_SESSION_TVAIL));
+            nb = nb + nbSessionsTravail; // du jour
+        } // si pas de tuple, vaudra 0
+        c.close();
+        return nb;
     }
 
-    public String getDateMoisAnnee(String date) {
-        // RETOURNE LES STATISTIQUES D'UN JOUR DONNE OU NULL SI PAS D'ENTREE
-        Cursor c = db.rawQuery("SELECT statDate FROM timerStatistics WHERE statDate = '" + date + "'", null);
-        if (c.moveToFirst()) { // on l'a mis en primary key, sûr qu'une ou 0 lignes
-            String stateDate = c.getString(c.getColumnIndex(KEY_DATE));
-            c.close();
-            return ("YY-MM");
-        } else {
-            c.close();
-            return null;
-        }
+    public float getTpsTravailMoisAnnee(String date) {
+        String dateRech = date.substring(0, 7); // 7 exclus
+        Cursor c = db.rawQuery("SELECT tpsTravail, statDate FROM timerStatistics WHERE statDate LIKE '" + dateRech + "%'", null);
+        int tps = 0;
+        while(c.moveToNext()) {
+            int tpsTravail= c.getInt(c.getColumnIndex(KEY_TPS_TRAVAIL));
+            tps = tps + tpsTravail; // du jour
+        } // si pas de tuple, vaudra 0
+        c.close();
+        return tps;
     }
+
+    public float getTpsPauseMoisAnnee(String date) {
+        String dateRech = date.substring(0, 7); // 7 exclus
+        Cursor c = db.rawQuery("SELECT tpsPause, statDate FROM timerStatistics WHERE statDate LIKE '" + dateRech + "%'", null);
+        int tps = 0;
+        while(c.moveToNext()) {
+            int tpsPause= c.getInt(c.getColumnIndex(KEY_TPS_PAUSE));
+            tps = tps + tpsPause; // du jour
+        } // si pas de tuple, vaudra 0
+        c.close();
+        return tps;
+    }
+
+
+
+
 
 
 }
