@@ -11,34 +11,36 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import es.dmoral.toasty.Toasty;
 
-    /*
-            ON NE PEUT PAS ETEINDRE LA 4G : https://stackoverflow.com/questions/31120082/latest-update-on-enabling-and-disabling-mobile-data-programmatically
-            Depuis lollipop (Android 5.0)
-            IDEM mode avion : https://stackoverflow.com/questions/13766909/how-to-programmatically-enable-and-disable-flight-mode-on-android-4-2
+public class WorkModeManager {
 
-            IDEES
-                1. Au lieu toast, belle animation chargement?
-                    // https://github.com/code-mc/loadtoast
-                    // https://www.youtube.com/watch?v=gIDJUuhrEIc
-                2. Ajouter partout à la navbar, créer une navbar pour tlm?
-                3. Personnaliser l'activation/désactivation ? -> un temps donné, dans la config° d'olivier? Avec son timer? Activer auto avec le timer de laurine?
-     */
+    private Context context;
 
-    public void promptUser(String content, boolean longLength){
-        int length = (longLength)? Toast.LENGTH_LONG : Toast.LENGTH_SHORT;
-        Toast.makeText(getApplicationContext(), content, length).show();
+    public WorkModeManager(Context context) {
+        this.context = context;
+    }
+
+    /* */
+
+    public void promptUser(String content){
+        /*int length = (longLength)? Toast.LENGTH_LONG : Toast.LENGTH_SHORT;
+        Toast.makeText(getApplicationContext(), content, length).show();*/
+        Toasty.custom(context, content, R.drawable.ic_work_mode, R.color.colorAccent, 2000, true,
+                true).show();
     }
 
     public void enableWifi(boolean enable) {
         // Disables / enables the WiFi of the device if needed
-        WifiManager wifiManager = (WifiManager)getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
         if (enable && !wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
         } else if (!enable && wifiManager.isWifiEnabled()) {
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_menu_info_details)
                 .setTitle("Données cellulaires")
-                .setMessage(message)
+                .setMessage(message)  // Pour s'adapter à l'activation/désactivation
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener()
                 {
                     @Override
@@ -91,12 +93,12 @@ public class MainActivity extends AppCompatActivity {
             enableWifi(false);
             doNotDisturb(true);
             if (isCellularDataEnabled()) showCellularDataDialog("Voulez-vous aussi désactiver vos données mobiles ?");
-            promptUser("Activation du mode travail...", true);
+            promptUser("Activation du mode travail...");
         } else { // unchecked - deactivate work mode
             enableWifi(true);
             doNotDisturb(false);
             if (!isCellularDataEnabled()) showCellularDataDialog("Voulez-vous activer vos données mobiles aussi ?");
-            promptUser("Désactivation du mode travail...", true);
+            promptUser("Désactivation du mode travail...");
         }
     }
 
@@ -115,11 +117,41 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+}
 
+public class MainActivity extends AppCompatActivity {
+
+    /*
+            ON NE PEUT PAS ETEINDRE LA 4G : https://stackoverflow.com/questions/31120082/latest-update-on-enabling-and-disabling-mobile-data-programmatically
+            Depuis lollipop (Android 5.0)
+            IDEM mode avion : https://stackoverflow.com/questions/13766909/how-to-programmatically-enable-and-disable-flight-mode-on-android-4-2
+
+            IDEES
+                2. Ajouter partout à la navbar, créer une navbar pour tlm?
+                    // https://stackoverflow.com/questions/31231609/creating-a-button-in-android-toolbar
+                3. Bottom bar
+                // Fonctions DAO laulau !
+                3. Personnaliser l'activation/désactivation ? -> un temps donné, dans la config° d'olivier? Avec son timer? Activer auto avec le timer de laurine?
+     */
+
+        // TODO MAVEN PREREQUISITS POUR FUSION : https://github.com/GrenderG/Toasty
+
+
+
+
+    private Toolbar toolbar; // à intégrer !
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // à intégrer !
+        toolbar = findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        TextView titre_barre = findViewById(R.id.nav_bar_title);
+        titre_barre.setText("Productiv'Head");
+        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
         askForNotificationPermission();
 
@@ -132,4 +164,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
