@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,12 +25,16 @@ public class MainActivity extends AppCompatActivity {
     private static final int notificationIdSuiviHabitudes = 100;
     private static final int notificationIdHorairesTravail = 101;
 
+    private static MySQLite db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //getSharedPreferences("notification", 0).edit().clear().commit(); //Pour delete toutes les SharedPreferences
+        //Initialisation de la base de données
+        NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(this);
+        notificationDatabaseManager.open();
 
         //Initialisation des variables
         switchSuiviHabitudes = findViewById(R.id.switchSuiviHabitudes);
@@ -92,8 +97,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Setup de l'état des switchs en fonction de si la notification est activée ou non
-        switchSuiviHabitudes.setChecked(getSharedPreferences("notification", 0).getBoolean("alarm" + notificationIdSuiviHabitudes, false));
-        switchHorairesTravail.setChecked(getSharedPreferences("notification", 0).getBoolean("alarm" + notificationIdHorairesTravail, false));
+        switchSuiviHabitudes.setChecked((notificationDatabaseManager.getNotification(notificationIdSuiviHabitudes).getActive()) == 1);
+        switchHorairesTravail.setChecked((notificationDatabaseManager.getNotification(notificationIdHorairesTravail).getActive()) == 1);
+
+        //Fermeture de la base de données
+        notificationDatabaseManager.close();
     }
 
     //Getters

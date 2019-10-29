@@ -41,12 +41,14 @@ public class ConfigActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
 
-        //Initialisation des SharedPreferences
-        final SharedPreferences settings = getApplicationContext().getSharedPreferences("notification", 0);
-        final SharedPreferences.Editor editor = settings.edit();
-
         //Récupération de l'id de la notification
         notificationId = getIntent().getIntExtra("notificationId", 0);
+
+        //Récupération de la notification correspondante dans la base de données
+        NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(this);
+        notificationDatabaseManager.open();
+        Notification notification = notificationDatabaseManager.getNotification(notificationId);
+        notificationDatabaseManager.close();
 
         //Initialisation des RadioButtons
         radioButtonRepeatable = findViewById(R.id.radioButtonRepeatable);
@@ -61,7 +63,7 @@ public class ConfigActivity extends AppCompatActivity {
 
         //Initialisation d'un calendrier a l'heure de la notification
         Calendar time = Calendar.getInstance();
-        time.setTimeInMillis(settings.getLong("alarmTime" + notificationId, 0));
+        time.set(notification.getYear(), notification.getMonth(), notification.getDay(), notification.getHour(), notification.getMinute());
 
         //Initialisation d'un calendrier à l'instant t
         now = Calendar.getInstance();
@@ -85,13 +87,17 @@ public class ConfigActivity extends AppCompatActivity {
         //Initialisation d'un calendrier pour gérer l'heure de la notification
         calendar = Calendar.getInstance();
 
-        if(settings.getBoolean("notificationRepeatable" + notificationId, true)) {
+        if(notification.getRepeatable() == 1) {
             layoutDate.setVisibility(View.INVISIBLE);
 
+            //Conversion de l'entier days en tableau de booleans
+            boolean[] days = intToDays(notification.getDays());
+
             //Setup de l'état des CheckBox du layout de répétition en fonction de leur valeur dans les SharedPreferences
+            int i = 0;
             for(Days day : Days.values()) {
                 CheckBox checkBox = layoutRepeatable.findViewWithTag(day.toString());
-                checkBox.setChecked(settings.getBoolean("notification" + notificationId + day, false));
+                checkBox.setChecked(days[i++]);
             }
         }
         else {
@@ -99,7 +105,7 @@ public class ConfigActivity extends AppCompatActivity {
             radioButtonDate.setChecked(true);
 
             //Setup du calendar à la date sauvegardée
-            calendar.setTimeInMillis(settings.getLong("alarmTime" + notificationId, 0));
+            calendar.setTimeInMillis(calendar.getTimeInMillis());
 
             //Reglage du bug de l'année 1970
             if(calendar.get(Calendar.YEAR) == 1970) {
@@ -213,6 +219,20 @@ public class ConfigActivity extends AppCompatActivity {
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         dpd.show();
+    }
+
+    private boolean[] intToDays(int days) {
+        boolean[] result = new boolean[7];
+        int i = 0;
+        int value = 64;
+        for(i = 0; i < 7; i++) {
+            result[i] = (days - value >= 0);
+            if(result[i]) {
+                days -= value;
+            }
+            value /= 2;
+        }
+        return result;
     }
 
 }
