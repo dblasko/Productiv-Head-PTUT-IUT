@@ -19,6 +19,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.github.GrenderG:Toasty:1.4.2'
+
     implementation 'oxim.digital:rxanim:0.9.1'
     implementation 'io.reactivex:rxandroid:1.2.1'
     implementation 'io.reactivex:rxjava:1.2.5'

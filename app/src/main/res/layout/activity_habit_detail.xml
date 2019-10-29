@@ -7,6 +7,10 @@
     tools:context=".HabitDetailActivity"
     android:background="@color/grey">
 
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"

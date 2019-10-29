@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: oxim.digital:rxanim:0.9.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-rxanim-0.9.1.aar/55ccaef0370e6bad7167ad710ddc9d33/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-rxanim-0.9.1.aar/55ccaef0370e6bad7167ad710ddc9d33/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-rxanim-0.9.1.aar/6598780e944f9e968484f3390ee041a1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-rxanim-0.9.1.aar/6598780e944f9e968484f3390ee041a1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

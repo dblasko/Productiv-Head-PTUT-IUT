@@ -2,6 +2,7 @@ package com.blaskodaniel.charttest2;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import oxim.digital.rxanim.RxAnimationBuilder;
@@ -16,8 +17,10 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.astritveliu.boom.Boom;
@@ -201,12 +204,33 @@ public class HabitListActivity extends AppCompatActivity {
         });
     }
 
+    private Toolbar toolbar;
+    private WorkModeManager wmm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_list);
 
-        customizeActionBar();
+        /* */
+        toolbar = findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        TextView titre_barre = findViewById(R.id.nav_bar_title);
+        titre_barre.setText("Productiv'Head");
+
+        wmm = new WorkModeManager(this);
+        wmm.askForNotificationPermission();
+        Switch switchWorkMode = findViewById(R.id.switch_work_mode);
+        switchWorkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                wmm.enableWorkMode(b);
+            }
+        });
+
+        /* */
+
+        //customizeActionBar();
 
         setupMonthNavigation();
 
