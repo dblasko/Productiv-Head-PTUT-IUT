@@ -216,7 +216,7 @@ public class HabitListActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         TextView titre_barre = findViewById(R.id.nav_bar_title);
-        titre_barre.setText("Productiv'Head");
+        titre_barre.setText("Habitudes");
 
         wmm = new WorkModeManager(this);
         wmm.askForNotificationPermission();

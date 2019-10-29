@@ -446,6 +446,8 @@ public class HabitDetailActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setSubtitle("Détail sur l'habitude " + habitName);
+        TextView tw = findViewById(R.id.nav_bar_title);
+        tw.setText(habitName);
     }
 
     private Toolbar toolbar;
