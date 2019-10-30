@@ -595,12 +595,14 @@ public class TimerActivity extends AppCompatActivity {
         if (tsDAO.getTpsTravail(date) == 0.0 && tsDAO.getTpsPause(date) == 0.0)
             pieData.add(new SliceValue(100, Color.GRAY).setLabel("Aucune sesssion effectuée"));
         else if (tsDAO.getTpsTravail(date) == 0.0 && tsDAO.getTpsPause(date) != 0.0)
-            pieData.add(new SliceValue(100, Color.YELLOW).setLabel("Pause"));
+            pieData.add(new SliceValue(100, Color.YELLOW).setLabel("Pause [100%]"));
         else if (tsDAO.getTpsPause(date) == 0.0 && tsDAO.getTpsTravail(date) != 0.0)
-            pieData.add(new SliceValue(100, Color.GREEN).setLabel("Travail"));
+            pieData.add(new SliceValue(100, Color.GREEN).setLabel("Travail [100%]"));
         else {
-            pieData.add(new SliceValue(tsDAO.getTpsTravail(date) / 60000, Color.GREEN).setLabel("Travail"));
-            pieData.add(new SliceValue(tsDAO.getTpsPause(date) / 60000, Color.YELLOW).setLabel("Pause"));
+            float pourcentageTvail = (100*(tsDAO.getTpsTravail(date)/60000))/((tsDAO.getTpsTravail(date)/60000)+(tsDAO.getTpsPause(date)/60000));
+            float pourcentageRepos = (100*(tsDAO.getTpsPause(date)/60000))/((tsDAO.getTpsTravail(date)/60000)+(tsDAO.getTpsPause(date)/60000));
+            pieData.add(new SliceValue(tsDAO.getTpsTravail(date) / 60000, Color.GREEN).setLabel("Travail " + "[" + String.valueOf(df.format(pourcentageTvail))+ "%]"));
+            pieData.add(new SliceValue(tsDAO.getTpsPause(date) / 60000, Color.YELLOW).setLabel("Pause " + "[" + String.valueOf(df.format(pourcentageRepos))+ "%]"));
         }
             pieChartData.setHasLabels(true).setValueLabelTextSize(14);
             pieChartData.setHasCenterCircle(true);
@@ -619,16 +621,20 @@ public class TimerActivity extends AppCompatActivity {
             if (tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7)) == 0 && tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7)) == 0)
                 pieData2.add(new SliceValue(100, Color.GRAY).setLabel("Aucune sesssion effectuée"));
             else if (tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7)) == 0 && tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7)) != 0)
-                pieData2.add(new SliceValue(100, Color.YELLOW).setLabel("Pause"));
+                pieData2.add(new SliceValue(100, Color.YELLOW).setLabel("Pause [100%]"));
             else if (tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7)) == 0 && tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7)) != 0)
-                pieData2.add(new SliceValue(100, Color.GREEN).setLabel("Travail"));
+                pieData2.add(new SliceValue(100, Color.GREEN).setLabel("Travail [100%]"));
             else {
-                pieData2.add(new SliceValue((tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7))) / 60000, Color.GREEN).setLabel("Travail"));
-                pieData2.add(new SliceValue((tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7))) / 60000, Color.YELLOW).setLabel("Pause"));
+                float pourcentageTravailMois = (100*(tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7))/60000))/((tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7))/60000)+(tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7))/60000));
+                float pourcentageReposMois = (100*(tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7))/60000))/((tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7))/60000)+(tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7))/60000));
+                pieData2.add(new SliceValue((tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7))) / 60000, Color.GREEN).setLabel("Travail " + "[" + String.valueOf(df.format(pourcentageTravailMois))+ "%]"));
+                pieData2.add(new SliceValue((tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7))) / 60000, Color.YELLOW).setLabel("Pause " + "[" + String.valueOf(df.format(pourcentageReposMois))+ "%]"));
             }
 
             pieChartData2.setHasLabels(true).setValueLabelTextSize(14);
             pieChartData2.setHasCenterCircle(true);
             pieChartView2.setPieChartData(pieChartData2);
     }
+
+
 }
