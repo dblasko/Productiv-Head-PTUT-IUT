@@ -25,9 +25,10 @@ class Notification {
         this.year = -1;
         this.month = -1;
         this.day = -1;
+        this.active = -1;
     }
 
-    public Notification(int id, String title, String content, int repeatable, int hour, int minute, int days, int year, int month, int day) {
+    public Notification(int id, String title, String content, int repeatable, int hour, int minute, int days, int year, int month, int day, int active) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -38,6 +39,7 @@ class Notification {
         this.year = year;
         this.month = month;
         this.day = day;
+        this.active = active;
     }
 
     public int getId() {
@@ -126,5 +128,32 @@ class Notification {
 
     public void setActive(int active) {
         this.day = active;
+    }
+
+    public static boolean[] intToDays(int days) {
+        boolean[] result = new boolean[7];
+        int value = 64;
+        for(int i = 0; i < 7; i++) {
+            result[i] = (days - value >= 0);
+            if(result[i]) {
+                days -= value;
+            }
+            value /= 2;
+        }
+        return result;
+    }
+
+    public static int daysToInt(boolean[] days) {
+        int result = 0;
+        for(int i = 0; i < 7; i++) {
+            if(days[i]) {
+                result += Math.pow(2, i + 1);
+            }
+        }
+        return result;
+    }
+
+    public static boolean isDayChosen(Notification notification, int day) {
+        return notification.getDays() - Math.pow(2, day - 1) >= 0;
     }
 }

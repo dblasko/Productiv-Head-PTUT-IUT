@@ -16,40 +16,42 @@ import static android.content.Context.ALARM_SERVICE;
 
 public class NotificationManager {
 
-    public static void scheduleNotification(Context context, int notificationId, String notificationContent){
-        //Initialisation des SharedPreferences
-        SharedPreferences settings = context.getSharedPreferences("notification", 0);
-        SharedPreferences.Editor editor = settings.edit();
+    public static void scheduleNotification(Context context, int notificationId){
+
+        //Connexion à la base de données et récupération de la notification
+        NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(context);
+        notificationDatabaseManager.open();
+        Notification notification = notificationDatabaseManager.getNotification(notificationId);
 
         Intent receiverIntent = new Intent(context, NotificationReceiverActivity.class);
-        long time = settings.getLong("alarmTime" + notificationId, 0);
         Calendar alarm = Calendar.getInstance();
-        alarm.setTimeInMillis(time);
+        alarm.set(notification.getYear(), notification.getMonth(), notification.getDay(), notification.getHour(), notification.getMinute());
         Calendar now = Calendar.getInstance();
 
+        /* SHOULDNT HAPPEN -> TECHNICALLY CHECKED BEFORE
         //Sets time to next day
         if(alarm.before(now)){
-            time += 86400000L;
-        }
-        alarm.setTimeInMillis(time);
+            alarm.setTimeInMillis(alarm.getTimeInMillis() + 86400000L);
+        }*/
 
         receiverIntent.putExtra("notificationId", notificationId);
-        receiverIntent.putExtra("notificationContent", notificationContent);
         PendingIntent receiverPendingIntent = PendingIntent.getBroadcast(context, notificationId, receiverIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
         //Si la notification est de type répétable
-        if(settings.getBoolean("notificationRepeatable" + notificationId, false))
+        if(notification.getRepeatable() == 1)
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(), AlarmManager.INTERVAL_DAY, receiverPendingIntent);
         //Sinon
         else
             alarmManager.set(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(), receiverPendingIntent);
 
-        //Sauvegarde des données
-        editor.putLong("alarmTime" + notificationId, alarm.getTimeInMillis());
-        editor.putString("notificationContent" + notificationId, notificationContent);
-        editor.putBoolean("alarm" + notificationId, true);
-        editor.commit();
+        //Sauvegarde de l'état de la notification dans la base de données
+        notification.setActive(1);
+        notificationDatabaseManager.deleteNotification(notificationId);
+        notificationDatabaseManager.addNotification(notification);
+
+        //Fermeture de l'accès à la base de données
+        notificationDatabaseManager.close();
     }
 
     public static void cancelNotification(Context context, int notificationId) {
@@ -62,15 +64,17 @@ public class NotificationManager {
         alarmManager.cancel(pendingIntent);
 
         //Sauvegarde de l'état de la notification
-        SharedPreferences settings = context.getSharedPreferences("notification", 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean("alarm" + notificationId, false);
-        editor.commit();
+        NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(context);
+        notificationDatabaseManager.open();
+        Notification notification = notificationDatabaseManager.getNotification(notificationId);
+        notification.setActive(0);
+        notificationDatabaseManager.deleteNotification(notificationId);
+        notificationDatabaseManager.addNotification(notification);
+        notificationDatabaseManager.close();
     }
 
     //Création d'un channel de notification (obligatoire sur les dernières versions android), a appeler avant de créer une notification
     public static void createNotificationChannel(Context context) {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "channel_name";
             int importance = android.app.NotificationManager.IMPORTANCE_DEFAULT;
@@ -83,8 +87,11 @@ public class NotificationManager {
 
     public static void createNotification(Context context, int notificationId, PendingIntent repeatingPendingIntent){
         //Récupération du contenu de la notification
-        SharedPreferences settings = context.getSharedPreferences("notification", 0);
-        String notificationContent = settings.getString("notificationContent" + notificationId, "");
+        NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(context);
+        notificationDatabaseManager.open();
+        Notification notification = notificationDatabaseManager.getNotification(notificationId);
+        notificationDatabaseManager.close();
+        String notificationContent = notification.getContent();
 
         //Contenu par défaut si notificationContent est vide
         if(notificationContent.length() == 0) {

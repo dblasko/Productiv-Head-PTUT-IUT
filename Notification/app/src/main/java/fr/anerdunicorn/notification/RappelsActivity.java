@@ -29,10 +29,11 @@ public class RappelsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rappels);
 
-        //Initialisation des variables
-        final SharedPreferences settings = getApplicationContext().getSharedPreferences("notification", 0);
-        final SharedPreferences.Editor editor = settings.edit();
+        //Connexion à la base de données
+        final NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(this);
+        notificationDatabaseManager.open();
 
+        //Initialisation des variables
         notificationsId = new ArrayList<>();
         listView = findViewById(R.id.listView);
         Button buttonAdd = findViewById(R.id.buttonAdd);
@@ -56,8 +57,9 @@ public class RappelsActivity extends AppCompatActivity {
 
         //Initialisation des CustomNotificationButton déjà existants
         for(int i = 1; i < 100; i++){
-            if(settings.getBoolean("notificationButton" + i, false))
-                customNotifications.add(new CustomNotificationButton(i, settings.getString("notificationContent" + i, "")));
+            Notification notification = notificationDatabaseManager.getNotification(i);
+            if(notification.getId() != -1)
+                customNotifications.add(new CustomNotificationButton(i, notification.getContent()));
         }
         adapter.notifyDataSetChanged();
 
@@ -94,10 +96,12 @@ public class RappelsActivity extends AppCompatActivity {
                         //Ajout du CustomNotificationButton à la liste
                         customNotifications.add(customNotificationButton);
 
-                        //Sauvegarde des données dans les SharedPreferences
-                        editor.putBoolean("notificationButton" + id, true);
-                        editor.putString("notificationContent" + id, customNotificationButton.getContent());
-                        editor.commit();
+                        //Sauvegarde des données dans la base de données
+                        Notification notification = new Notification(id, "Notification", customNotificationButton.getContent(), 1, 8, 0, 0, -1, -1, -1, -1);
+                        NotificationDatabaseManager notificationDatabaseManager1 = new NotificationDatabaseManager(getApplicationContext());
+                        notificationDatabaseManager.open();
+                        notificationDatabaseManager.addNotification(notification);
+                        notificationDatabaseManager.close();
 
                         //Refresh de l'adapter
                         adapter.notifyDataSetChanged();
@@ -118,6 +122,8 @@ public class RappelsActivity extends AppCompatActivity {
             }
         });
 
+        //Fermeture de l'accès à la base de données
+        notificationDatabaseManager.close();
     }
 
 }

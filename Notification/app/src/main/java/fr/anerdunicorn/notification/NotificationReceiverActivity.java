@@ -11,54 +11,51 @@ import java.util.Calendar;
 
 public class NotificationReceiverActivity extends BroadcastReceiver {
 
-    //Variables
-    private SharedPreferences settings;
-    private SharedPreferences.Editor editor;
-    private int notificationId;
-
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        //Initialisation des SharedPreferences
-        settings = context.getSharedPreferences("notification", 0);
-        editor = settings.edit();
-
         //Récupération de l'id de la notification
-        notificationId = intent.getIntExtra("notificationId", 0);
+        int notificationId = intent.getIntExtra("notificationId", 0);
 
-        if(settings.getBoolean("notificationRepeatable" + notificationId, false))
-            handleRepeatingNotification(context);
+        //Récupération de la notification dans la base de données
+        NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(context);
+        notificationDatabaseManager.open();
+        Notification notification = notificationDatabaseManager.getNotification(notificationId);
+        notificationDatabaseManager.close();
+
+        if(notification.getRepeatable() == 1)
+            handleRepeatingNotification(context, notification);
         else
-            handleNonRepeatingNotification(context);
+            handleNonRepeatingNotification(context, notification);
     }
 
-    private void handleRepeatingNotification(Context context) {
+    private void handleRepeatingNotification(Context context, Notification notification) {
         //Instanciation d'un calendrier
         Calendar calendar = Calendar.getInstance();
 
         //Récupération du jour actuel
-        String jour = "";
+        int jour = 0;
         switch(calendar.get(Calendar.DAY_OF_WEEK)) {
             case Calendar.MONDAY:
-                jour = "Lundi";
+                jour = 1;
                 break;
             case Calendar.TUESDAY:
-                jour = "Mardi";
+                jour = 2;
                 break;
             case Calendar.WEDNESDAY:
-                jour = "Mercredi";
+                jour = 3;
                 break;
             case Calendar.THURSDAY:
-                jour = "Jeudi";
+                jour = 4;
                 break;
             case Calendar.FRIDAY:
-                jour = "Vendredi";
+                jour = 5;
                 break;
             case Calendar.SATURDAY:
-                jour = "Samedi";
+                jour = 6;
                 break;
             case Calendar.SUNDAY:
-                jour = "Dimanche";
+                jour = 7;
                 break;
         }
 
@@ -66,33 +63,33 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
         Intent repeatingIntent;
 
         //Création de l'intent en fonction de l'id de la notification
-        if(notificationId == MainActivity.getNotificationIdSuiviHabitudes()) {
+        if(notification.getId() == MainActivity.getNotificationIdSuiviHabitudes()) {
             repeatingIntent = new Intent(context, SuiviHabitudesActivity.class);
         }
-        else if(notificationId == MainActivity.getNotificationIdHorairesTravail()) {
+        else if(notification.getId() == MainActivity.getNotificationIdHorairesTravail()) {
             repeatingIntent = new Intent(context, HorairesTravailActivity.class);
         }
         else
             repeatingIntent =  new Intent(context, RappelsActivity.class);
 
         //Création de la notification si elle est plannifiée pour ce jour
-        if(settings.getBoolean("notification" + notificationId + jour, false)) {
+        if(Notification.isDayChosen(notification, jour)) {
             PendingIntent repeatingPendingIntent = PendingIntent.getActivity(context, 0, repeatingIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationManager.createNotificationChannel(context);
-            NotificationManager.createNotification(context, notificationId, repeatingPendingIntent);
+            NotificationManager.createNotification(context, notification.getId(), repeatingPendingIntent);
         }
     }
 
-    private void handleNonRepeatingNotification(Context context) {
+    private void handleNonRepeatingNotification(Context context, Notification notification) {
 
         //Instanciation d'un intent
         Intent intent;
 
         //Création de l'intent en fonction de l'id de la notification
-        if(notificationId == MainActivity.getNotificationIdSuiviHabitudes()) {
+        if(notification.getId() == MainActivity.getNotificationIdSuiviHabitudes()) {
             intent = new Intent(context, SuiviHabitudesActivity.class);
         }
-        else if(notificationId == MainActivity.getNotificationIdHorairesTravail()) {
+        else if(notification.getId() == MainActivity.getNotificationIdHorairesTravail()) {
             intent = new Intent(context, HorairesTravailActivity.class);
         }
         else
@@ -101,11 +98,15 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
         //Création de la notification
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationManager.createNotificationChannel(context);
-        NotificationManager.createNotification(context, notificationId, pendingIntent);
+        NotificationManager.createNotification(context, notification.getId(), pendingIntent);
 
-        //Suppression de la notification dans les rappels
-        editor.putBoolean("notificationButton" + notificationId, false);
-        editor.commit();
+        //Suppression de la notification dans la base de données si c'est un rappel
+        if(notification.getId() != MainActivity.getNotificationIdSuiviHabitudes() && notification.getId() != MainActivity.getNotificationIdHorairesTravail()){
+            NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(context);
+            notificationDatabaseManager.open();
+            notificationDatabaseManager.deleteNotification(notification.getId());
+            notificationDatabaseManager.close();
+        }
     }
 
 }

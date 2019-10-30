@@ -37,10 +37,6 @@ public class CustomNotificationButtonAdapter extends ArrayAdapter<CustomNotifica
 
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        //Initialisation des SharedPreferences
-        final SharedPreferences settings = getContext().getSharedPreferences("notification", 0);
-        final SharedPreferences.Editor editor = settings.edit();
-
         //Récupération du CustomNotificationButton
         final CustomNotificationButton customNotificationButton = getItem(position);
 
@@ -77,7 +73,7 @@ public class CustomNotificationButtonAdapter extends ArrayAdapter<CustomNotifica
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if(b)
-                        NotificationManager.scheduleNotification(getContext(), customNotificationButton.getId(), customNotificationButton.getContent());
+                        NotificationManager.scheduleNotification(getContext(), customNotificationButton.getId());
                     else
                         NotificationManager.cancelNotification(getContext(), customNotificationButton.getId());
                 }
@@ -117,11 +113,16 @@ public class CustomNotificationButtonAdapter extends ArrayAdapter<CustomNotifica
 
                                     //Annulation / plannification de la notification pour s'adapter au changement de contenu
                                     NotificationManager.cancelNotification(getContext(), customNotificationButton.getId());
-                                    NotificationManager.scheduleNotification(getContext(), customNotificationButton.getId(), customNotificationButton.getContent());
+                                    NotificationManager.scheduleNotification(getContext(), customNotificationButton.getId());
 
-                                    //Sauvegarde des données dans les SharedPreferences
-                                    editor.putString("notificationContent" + customNotificationButton.getId(), customNotificationButton.getContent());
-                                    editor.commit();
+                                    //Sauvegarde des données dans la base de données
+                                    NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(getContext());
+                                    notificationDatabaseManager.open();
+                                    Notification notification = notificationDatabaseManager.getNotification(customNotificationButton.getId());
+                                    notification.setContent(customNotificationButton.getContent());
+                                    notificationDatabaseManager.deleteNotification(customNotificationButton.getId());
+                                    notificationDatabaseManager.addNotification(notification);
+                                    notificationDatabaseManager.close();
                                 }
                             });
 
@@ -145,11 +146,10 @@ public class CustomNotificationButtonAdapter extends ArrayAdapter<CustomNotifica
                             NotificationManager.cancelNotification(getContext(), customNotificationButton.getId());
 
                             //Sauvegarde de l'état de la notification
-                            editor.putBoolean("notificationButton" + customNotificationButton.getId(), false);
-                            for(Days day : Days.values())
-                                editor.putBoolean("notification" + customNotificationButton.getId() + day, false);
-                            editor.putLong("alarmTime" + customNotificationButton.getId(), 0);
-                            editor.commit();
+                            NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(getContext());
+                            notificationDatabaseManager.open();
+                            notificationDatabaseManager.deleteNotification(customNotificationButton.getId());
+                            notificationDatabaseManager.close();
 
                             //Suppression du boutton dans la liste
                             customNotificationButtons.remove(position);
@@ -174,7 +174,11 @@ public class CustomNotificationButtonAdapter extends ArrayAdapter<CustomNotifica
         }
 
         //Setup de l'état du switch en fonction de si la notification est activée ou non
-        viewHolder.aSwitch.setChecked(settings.getBoolean("alarm" + customNotificationButton.getId(), false));
+        NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(getContext());
+        notificationDatabaseManager.open();
+        Notification notification = notificationDatabaseManager.getNotification(customNotificationButton.getId());
+        notificationDatabaseManager.close();
+        viewHolder.aSwitch.setChecked(notification.getActive() == 1);
 
         //Mise en place du texte du boutton
         viewHolder.content.setText(customNotificationButton.getContent());

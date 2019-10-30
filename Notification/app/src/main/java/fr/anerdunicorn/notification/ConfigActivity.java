@@ -72,17 +72,9 @@ public class ConfigActivity extends AppCompatActivity {
         final TimePicker timePicker = findViewById(R.id.configTimePicker);
         timePicker.setIs24HourView(true);
 
-        //Si l'heure du calendrier est a 0 ( = pas de notification prévue)
-        if(time.getTimeInMillis() == 0){
-            //Changement de l'heure du TimePicker a 08:00
-            timePicker.setHour(8);
-            timePicker.setMinute(0);
-        }
-        else{
-            //Sinon, changement de l'heure du TimePicker a celle du calendrier
-            timePicker.setHour(time.get(Calendar.HOUR_OF_DAY));
-            timePicker.setMinute(time.get(Calendar.MINUTE));
-        }
+        //Changement de l'heure du TimePicker a celle du calendrier
+        timePicker.setHour(time.get(Calendar.HOUR_OF_DAY));
+        timePicker.setMinute(time.get(Calendar.MINUTE));
 
         //Initialisation d'un calendrier pour gérer l'heure de la notification
         calendar = Calendar.getInstance();
@@ -91,7 +83,7 @@ public class ConfigActivity extends AppCompatActivity {
             layoutDate.setVisibility(View.INVISIBLE);
 
             //Conversion de l'entier days en tableau de booleans
-            boolean[] days = intToDays(notification.getDays());
+            boolean[] days = Notification.intToDays(notification.getDays());
 
             //Setup de l'état des CheckBox du layout de répétition en fonction de leur valeur dans les SharedPreferences
             int i = 0;
@@ -105,12 +97,13 @@ public class ConfigActivity extends AppCompatActivity {
             radioButtonDate.setChecked(true);
 
             //Setup du calendar à la date sauvegardée
-            calendar.setTimeInMillis(calendar.getTimeInMillis());
+            calendar.setTimeInMillis(time.getTimeInMillis());
+            Toast.makeText(this, calendar.get(Calendar.DAY_OF_MONTH), Toast.LENGTH_SHORT).show();
 
-            //Reglage du bug de l'année 1970
+            /*//Reglage du bug de l'année 1970 // SHOULDNT HAPPEN ANYMORE
             if(calendar.get(Calendar.YEAR) == 1970) {
                 calendar.setTimeInMillis(now.getTimeInMillis());
-            }
+            }*/
 
             //Setup du layout
             layoutRepeatable.setVisibility(View.INVISIBLE);
@@ -144,11 +137,13 @@ public class ConfigActivity extends AppCompatActivity {
         buttonAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Création d'un intent vers la NotificationReceiverActivity
-                Intent receiverIntent = new Intent(getApplicationContext(), NotificationReceiverActivity.class);
-
                 //Création d'un boolean pour finir l'activité seulement si la date est bonne
                 boolean validated = true;
+
+                //Connexion à la base de données
+                NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(getApplicationContext());
+                notificationDatabaseManager.open();
+                Notification notification = notificationDatabaseManager.getNotification(notificationId);
 
                 //Setup du calendar à l'heure choisie
                 calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
@@ -156,16 +151,19 @@ public class ConfigActivity extends AppCompatActivity {
                 calendar.set(Calendar.SECOND, 0);
 
                 if(radioButtonRepeatable.isChecked()) {
+                    boolean[] days = new boolean[7];
+                    int i = 0;
                     for(Days day : Days.values()) {
                         CheckBox checkBox = layoutRepeatable.findViewWithTag(day.toString());
-                        editor.putBoolean("notification" + notificationId + day, checkBox.isChecked());
-                        receiverIntent.putExtra("notification" + notificationId + day, checkBox.isChecked());
+                        days[i] = checkBox.isChecked();
+                        i++;
                     }
-                    editor.putBoolean("notificationRepeatable" + notificationId, true);
+                    notification.setDays(Notification.daysToInt(days));
+                    notification.setRepeatable(1);
                 }
                 else {
-                    if (calendar.after(now)) {
-                        editor.putBoolean("notificationRepeatable" + notificationId, false);
+                    if(calendar.after(now)) {
+                        notification.setRepeatable(0);
                     }
                     else {
                         Toast toast = Toast.makeText(getApplicationContext(), "Impossible de plannifier une notification pour une date antérieure", Toast.LENGTH_SHORT);
@@ -176,15 +174,28 @@ public class ConfigActivity extends AppCompatActivity {
                 }
 
                 if(validated) {
-                    //Sauvegarde des données dans les SharedPreferences
-                    editor.putLong("alarmTime" + notificationId, calendar.getTimeInMillis());
-                    editor.commit();
+                    //Modification de la notification
+                    notification.setHour(calendar.get(Calendar.HOUR_OF_DAY));
+                    notification.setMinute(calendar.get(Calendar.MINUTE));
+                    notification.setYear(calendar.get(Calendar.YEAR));
+                    notification.setMonth(calendar.get(Calendar.MONTH));
+                    notification.setDay(calendar.get(Calendar.DAY_OF_MONTH));
+
+                    //Modification de la notification dans la base de données
+                    notificationDatabaseManager.deleteNotification(notificationId);
+                    notificationDatabaseManager.addNotification(notification);
 
                     //Changement de l'état du switch (annulation et plannification automatique de la notification)
 
 
+                    //Fermeture de l'accès à la base de données
+                    notificationDatabaseManager.close();
+
                     finish();
                 }
+
+                //Fermeture de l'accès à la base de données
+                notificationDatabaseManager.close();
             }
         });
 
@@ -219,20 +230,6 @@ public class ConfigActivity extends AppCompatActivity {
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         dpd.show();
-    }
-
-    private boolean[] intToDays(int days) {
-        boolean[] result = new boolean[7];
-        int i = 0;
-        int value = 64;
-        for(i = 0; i < 7; i++) {
-            result[i] = (days - value >= 0);
-            if(result[i]) {
-                days -= value;
-            }
-            value /= 2;
-        }
-        return result;
     }
 
 }

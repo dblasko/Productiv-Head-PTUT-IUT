@@ -36,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
         NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(this);
         notificationDatabaseManager.open();
 
+        if(notificationDatabaseManager.getNotification(100) == null) {
+            notificationDatabaseManager.addNotification(new Notification(notificationIdSuiviHabitudes, "Notification", "Suivi des habitudes", 1, 8, 0, 0, -1, -1, -1, 0));
+        }
+        if(notificationDatabaseManager.getNotification(101) == null) {
+            notificationDatabaseManager.addNotification(new Notification(notificationIdHorairesTravail, "Notification", "Horaires de travail", 1, 8, 0, 0, -1, -1, -1, 0));
+        }
+
         //Initialisation des variables
         switchSuiviHabitudes = findViewById(R.id.switchSuiviHabitudes);
         switchHorairesTravail = findViewById(R.id.switchHorairesTravail);
@@ -80,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b)
-                    NotificationManager.scheduleNotification(getApplicationContext(), notificationIdSuiviHabitudes, "Suivi habitudes");
+                    NotificationManager.scheduleNotification(getApplicationContext(), notificationIdSuiviHabitudes);
                 else
                     NotificationManager.cancelNotification(getApplicationContext(), notificationIdSuiviHabitudes);
             }
@@ -90,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b)
-                    NotificationManager.scheduleNotification(getApplicationContext(), notificationIdHorairesTravail, "Horaires travail");
+                    NotificationManager.scheduleNotification(getApplicationContext(), notificationIdHorairesTravail);
                 else
                     NotificationManager.cancelNotification(getApplicationContext(), notificationIdHorairesTravail);
             }

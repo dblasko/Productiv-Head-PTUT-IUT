@@ -24,7 +24,7 @@ public class BootReceiverActivity extends BroadcastReceiver {
         for(int i = 1; i <= 101; i++) {
             Notification notification = notificationDatabaseManager.getNotification(i);
             if(notification.getActive() == 1) {
-                NotificationManager.scheduleNotification(context, i, notification.getContent());
+                NotificationManager.scheduleNotification(context, i);
             }
         }
 

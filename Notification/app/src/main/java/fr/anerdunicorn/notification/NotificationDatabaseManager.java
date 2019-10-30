@@ -64,8 +64,10 @@ public class NotificationDatabaseManager {
             notification.setActive(c.getInt(10));
         }
         c.close();
-
-        return notification;
+        if(notification.getId() != -1)
+            return notification;
+        else
+            return null;
     }
 
 }
