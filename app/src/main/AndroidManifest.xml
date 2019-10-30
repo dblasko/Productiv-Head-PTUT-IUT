@@ -9,6 +9,9 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".StatisticsActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".TimerActivity"
             android:icon="@drawable/icon"
             android:screenOrientation="portrait">
