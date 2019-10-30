@@ -30,7 +30,7 @@ public class ConfigActivity extends AppCompatActivity {
     private ConstraintLayout layoutRepeatable;
     private ConstraintLayout layoutDate;
     private int notificationId;
-    private Calendar calendar;
+    private Calendar time;
     private RadioButton radioButtonRepeatable;
     private RadioButton radioButtonDate;
     private Calendar now;
@@ -49,6 +49,8 @@ public class ConfigActivity extends AppCompatActivity {
         notificationDatabaseManager.open();
         Notification notification = notificationDatabaseManager.getNotification(notificationId);
         notificationDatabaseManager.close();
+        Toast.makeText(this, Integer.toString(notification.getMonth()), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, Integer.toString(notification.getDay()), Toast.LENGTH_SHORT).show();
 
         //Initialisation des RadioButtons
         radioButtonRepeatable = findViewById(R.id.radioButtonRepeatable);
@@ -62,8 +64,9 @@ public class ConfigActivity extends AppCompatActivity {
         textViewDate = findViewById(R.id.textViewDate);
 
         //Initialisation d'un calendrier a l'heure de la notification
-        Calendar time = Calendar.getInstance();
+        time = Calendar.getInstance();
         time.set(notification.getYear(), notification.getMonth(), notification.getDay(), notification.getHour(), notification.getMinute());
+        time.set(Calendar.DAY_OF_MONTH, notification.getMonth());
 
         //Initialisation d'un calendrier à l'instant t
         now = Calendar.getInstance();
@@ -73,11 +76,8 @@ public class ConfigActivity extends AppCompatActivity {
         timePicker.setIs24HourView(true);
 
         //Changement de l'heure du TimePicker a celle du calendrier
-        timePicker.setHour(time.get(Calendar.HOUR_OF_DAY));
+        timePicker.setHour(time.get(Calendar.HOUR));
         timePicker.setMinute(time.get(Calendar.MINUTE));
-
-        //Initialisation d'un calendrier pour gérer l'heure de la notification
-        calendar = Calendar.getInstance();
 
         if(notification.getRepeatable() == 1) {
             layoutDate.setVisibility(View.INVISIBLE);
@@ -95,10 +95,6 @@ public class ConfigActivity extends AppCompatActivity {
         else {
             //Changement du radioButton activé
             radioButtonDate.setChecked(true);
-
-            //Setup du calendar à la date sauvegardée
-            calendar.setTimeInMillis(time.getTimeInMillis());
-            Toast.makeText(this, calendar.get(Calendar.DAY_OF_MONTH), Toast.LENGTH_SHORT).show();
 
             /*//Reglage du bug de l'année 1970 // SHOULDNT HAPPEN ANYMORE
             if(calendar.get(Calendar.YEAR) == 1970) {
@@ -146,9 +142,9 @@ public class ConfigActivity extends AppCompatActivity {
                 Notification notification = notificationDatabaseManager.getNotification(notificationId);
 
                 //Setup du calendar à l'heure choisie
-                calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
-                calendar.set(Calendar.MINUTE, timePicker.getMinute());
-                calendar.set(Calendar.SECOND, 0);
+                time.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
+                time.set(Calendar.MINUTE, timePicker.getMinute());
+                time.set(Calendar.SECOND, 0);
 
                 if(radioButtonRepeatable.isChecked()) {
                     boolean[] days = new boolean[7];
@@ -162,7 +158,7 @@ public class ConfigActivity extends AppCompatActivity {
                     notification.setRepeatable(1);
                 }
                 else {
-                    if(calendar.after(now)) {
+                    if(time.after(now)) {
                         notification.setRepeatable(0);
                     }
                     else {
@@ -175,11 +171,11 @@ public class ConfigActivity extends AppCompatActivity {
 
                 if(validated) {
                     //Modification de la notification
-                    notification.setHour(calendar.get(Calendar.HOUR_OF_DAY));
-                    notification.setMinute(calendar.get(Calendar.MINUTE));
-                    notification.setYear(calendar.get(Calendar.YEAR));
-                    notification.setMonth(calendar.get(Calendar.MONTH));
-                    notification.setDay(calendar.get(Calendar.DAY_OF_MONTH));
+                    notification.setYear(time.get(Calendar.YEAR));
+                    notification.setMonth(time.get(Calendar.MONTH) + 1);
+                    notification.setDay(time.get(Calendar.DAY_OF_MONTH));
+                    notification.setHour(time.get(Calendar.HOUR_OF_DAY));
+                    notification.setMinute(time.get(Calendar.MINUTE));
 
                     //Modification de la notification dans la base de données
                     notificationDatabaseManager.deleteNotification(notificationId);
@@ -217,18 +213,18 @@ public class ConfigActivity extends AppCompatActivity {
 
     private String getDateString() {
         //Retourne la date choisie sous form de string
-        String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
-        return ("Date choisie : " + calendar.get(Calendar.DAY_OF_MONTH) + " " + month + " " + calendar.get(Calendar.YEAR));
+        String month = time.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+        return ("Date choisie : " + time.get(Calendar.DAY_OF_MONTH) + " " + month + " " + time.get(Calendar.YEAR));
     }
 
     private void changeDate() {
         DatePickerDialog dpd = new DatePickerDialog(ConfigActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                calendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
+                time.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
                 textViewDate.setText(getDateString());
             }
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        }, time.get(Calendar.YEAR), time.get(Calendar.MONTH), time.get(Calendar.DAY_OF_MONTH));
         dpd.show();
     }
 

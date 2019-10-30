@@ -9,6 +9,8 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
 
     //Variables
@@ -36,11 +38,13 @@ public class MainActivity extends AppCompatActivity {
         NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(this);
         notificationDatabaseManager.open();
 
+        //Initialisation d'un calendrier à l'instant t
+        Calendar now = Calendar.getInstance();
         if(notificationDatabaseManager.getNotification(100) == null) {
-            notificationDatabaseManager.addNotification(new Notification(notificationIdSuiviHabitudes, "Notification", "Suivi des habitudes", 1, 8, 0, 0, -1, -1, -1, 0));
+            notificationDatabaseManager.addNotification(new Notification(notificationIdSuiviHabitudes, "Notification", "Suivi des habitudes", 1, 8, 0, 0, now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1, now.get(Calendar.DAY_OF_MONTH), 0));
         }
         if(notificationDatabaseManager.getNotification(101) == null) {
-            notificationDatabaseManager.addNotification(new Notification(notificationIdHorairesTravail, "Notification", "Horaires de travail", 1, 8, 0, 0, -1, -1, -1, 0));
+            notificationDatabaseManager.addNotification(new Notification(notificationIdHorairesTravail, "Notification", "Horaires de travail", 1, 8, 0, 0, now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1, now.get(Calendar.DAY_OF_MONTH), 0));
         }
 
         //Initialisation des variables
