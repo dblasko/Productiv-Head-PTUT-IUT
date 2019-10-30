@@ -8,10 +8,30 @@
 
     <DatePicker
         android:id="@+id/calendarDatePicker"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:datePickerMode = "spinner">
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
     </DatePicker>
+
+    <Button
+        android:id="@+id/buttonOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ok"
+        android:layout_marginTop="400dp"
+        android:layout_marginLeft="280dp"
+        android:textColor="@color/colorAccent"
+        android:background="@android:color/transparent"/>
+
+
+    <Button
+        android:id="@+id/buttonAnnule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Annuler"
+        android:layout_marginTop="400dp"
+        android:layout_marginLeft="190dp"
+        android:textColor="@color/colorAccent"
+        android:background="@android:color/transparent"/>/>
 
 </RelativeLayout>

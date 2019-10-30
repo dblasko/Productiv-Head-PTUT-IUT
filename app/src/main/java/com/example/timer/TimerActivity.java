@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,9 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
-import lecho.lib.hellocharts.animation.ChartAnimationListener;
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;
@@ -59,10 +57,9 @@ public class TimerActivity extends AppCompatActivity {
     private boolean sessionRepos = false;
     private boolean sessionPersonnaliser = false;
     private boolean modif = false;
-    //private int nbPause =0;
 
 
-    private long tempsRestant = debut; //****************************************************private long tempsRestant = debut;
+    private long tempsRestant = debut;
 
     private MediaPlayer son;
     private AlertDialog dialog;
@@ -89,8 +86,6 @@ public class TimerActivity extends AppCompatActivity {
     private TextView tStatTravailJour;
     private TextView tStatReposJour;
 
-    private TextView tStatDate;
-    private TextView tStatDateMois;
 
     private TextView tStatSessionMois;
     private TextView tStatTravailMois;
@@ -98,11 +93,11 @@ public class TimerActivity extends AppCompatActivity {
 
     private Button bChangerDate;
     Calendar calendar;
-    DatePickerDialog datePicker;
     TextView tdatePicker;
     String recupDate;
+    DatePickerDialog datePicker;
 
-    private boolean changeDate = false;
+
 
     TimerStatisticsDAO tsDAO = new TimerStatisticsDAO(this);
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -115,19 +110,7 @@ public class TimerActivity extends AppCompatActivity {
         setContentView(R.layout.layout_timer_activity);
         customizeActionBar();
 
-
-//***************************************************************************************************************************
-
-
-        // TimerStatisticsDAO tsDAO = new TimerStatisticsDAO(this);
         tsDAO.open();
-        // TODO - laulau précise explicitement l'unité de tpsTravail/tpsPause
-        // EXEMPLE POUR TES DATES LAULAU :
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        //sdf.setTimeZone(TimeZone.getDefault());
-
-
-//***************************************************************************************************************************
 
         timer = findViewById(R.id.timer);
         bStartTravail = findViewById(R.id.buttonStartTravail);
@@ -139,13 +122,9 @@ public class TimerActivity extends AppCompatActivity {
         tSessionTravail = findViewById(R.id.sessionTravail);
         tNomTvl = findViewById(R.id.nomTvl);
         tNomRep = findViewById(R.id.nomRep);
-
-        //*****
         tNbSessionPersonnalise = findViewById(R.id.nbSessionPersonnalise);
-
         bStatistique = findViewById(R.id.buttonStatistique);
         bPersonnaliser = findViewById(R.id.buttonPersonnaliser);
-
         bPauseTravail.setVisibility(View.INVISIBLE);
         bPauseRepos.setVisibility(View.INVISIBLE);
         bStartRepos.setVisibility(View.INVISIBLE);
@@ -155,14 +134,12 @@ public class TimerActivity extends AppCompatActivity {
         tNomTvl.setVisibility(View.VISIBLE);
         tNomRep.setVisibility(View.INVISIBLE);
 
-
         bStartTravail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startTravail(view);
             }
         });
-
 
         bStartRepos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,14 +169,12 @@ public class TimerActivity extends AppCompatActivity {
             }
         });
 
-
         bInitTpsTravail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 initTpsTravail(view);
             }
         });
-
 
         bStatistique.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,7 +189,6 @@ public class TimerActivity extends AppCompatActivity {
                 personnaliser(view);
             }
         });
-
 
         tNbSessionPersonnalise.setText(String.valueOf(nbSession));
         actualisationTimer();
@@ -241,10 +215,8 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     public void saveStatistics() {
-
         tsDAO.saveSessionStatistics(tsInser);
         tsInser = new TimerStatistics(0f, 0f, 0, sdf.format(new Date())); // IMPORTANT -> réinitialise le tjr après la sauvegarde
-
     }
 
 
@@ -256,15 +228,11 @@ public class TimerActivity extends AppCompatActivity {
         tSessionTravail.setText(String.valueOf(nbTravail));
         tNbSessionPersonnalise.setText(String.valueOf(nbSession));
 
-
         decrementation = new CountDownTimer(tempsRestant, 1000) {          //compte à rembourd
             @Override
             public void onTick(long tempsNecessaire) {
-
-
                 tempsRestant = tempsNecessaire;
                 actualisationTimer();
-
 
                 bStartRepos.setVisibility(View.INVISIBLE);
                 bStartTravail.setVisibility(View.INVISIBLE);
@@ -277,7 +245,6 @@ public class TimerActivity extends AppCompatActivity {
             public void onFinish() {
                 alarme();
                 finSessionTravail = true;
-
 
                 bStartTravail.setVisibility(View.INVISIBLE);
                 bPauseTravail.setVisibility(View.INVISIBLE);
@@ -305,12 +272,10 @@ public class TimerActivity extends AppCompatActivity {
             }
 
         }.start();
-
     }
 
 
     public void startRepos(View view) {
-
         sessionRepos = true;
         tNomRep.setVisibility(View.VISIBLE);
         tNomTvl.setVisibility(View.INVISIBLE);
@@ -319,23 +284,18 @@ public class TimerActivity extends AppCompatActivity {
         decrementation = new CountDownTimer(tempsRestant, 1000) {          //compte à rembourd
             @Override
             public void onTick(long tempsNecessaire) {
-
-
                 tempsRestant = tempsNecessaire;
                 actualisationTimer();
-
 
                 bStartTravail.setVisibility(View.INVISIBLE);
                 bStartRepos.setVisibility(View.INVISIBLE);
                 bPauseRepos.setVisibility(View.VISIBLE);
                 bPauseTravail.setVisibility(View.INVISIBLE);
                 bInitTpsTravail.setVisibility(View.INVISIBLE);
-
             }
 
             @Override
             public void onFinish() {
-
                 alarme();
 
                 bStartRepos.setVisibility(View.INVISIBLE);
@@ -343,7 +303,6 @@ public class TimerActivity extends AppCompatActivity {
                 bPauseTravail.setVisibility(View.INVISIBLE);
                 bPauseRepos.setVisibility(View.INVISIBLE);
                 bInitTpsTravail.setVisibility(View.VISIBLE);
-
 
                 //TODO-         BDD TEMPS DE PAUSE
                 tsInser.setTpsPause(tsInser.getTpsPause() + debut);
@@ -358,7 +317,6 @@ public class TimerActivity extends AppCompatActivity {
         }.start();
     }
 
-
     public void alarme() {
         son = MediaPlayer.create(TimerActivity.this, R.raw.alarme);
         son.start();
@@ -366,8 +324,6 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     public void initTpsRepos(View view) {
-
-
         // debut=4000; // 300000 millis exemple 4000
         resetPossible = true;
         if (nbTravail == 4) {
@@ -378,16 +334,11 @@ public class TimerActivity extends AppCompatActivity {
                 debut = 6000;
                 //nbPause =0;
             }
-
         } else {
-            //nbPause++;
-            if (sessionPersonnaliser && tpsPausePerso != -1) {
-                System.out.println("dans la boucle if ");
+            if (sessionPersonnaliser && tpsPausePerso != -1)
                 debut = tpsPausePerso * 60000;
-            } else {
+            else
                 debut = 4000;
-                System.out.println("dans la boucle else");
-            }
         }
         tempsRestant = debut;
         decrementation.cancel();
@@ -397,19 +348,15 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     public void initTpsTravail(View view) {
-
-
         if (nbSession > 0 && nbTravail == nbSession) {
             resetPossible = true;
             reset(view);
         } else {
-            //nbTravail = nbTravail + 1;
             if (sessionPersonnaliser && tpsTravailPerso != -1) debut = tpsTravailPerso * 60000;
             else debut = 8000;
             resetPossible = true;
             tSessionTravail.setText(String.valueOf(nbTravail));
             decrementation.cancel();
-
             tempsRestant = debut;
             actualisationTimer();
             son.reset();
@@ -417,7 +364,6 @@ public class TimerActivity extends AppCompatActivity {
             startTravail(view);
         }
     }
-
 
     public void pauseTravail(View view) {
         resetPossible = true;
@@ -443,8 +389,6 @@ public class TimerActivity extends AppCompatActivity {
     public void reset(View view) {
         if (resetPossible) {
             nbTravail = 0;
-
-            //nbPause = 0;
             tSessionTravail.setText(String.valueOf(nbTravail));
             tNbSessionPersonnalise.setText(String.valueOf(nbSession));
             if (sessionTravail || sessionRepos) decrementation.cancel();
@@ -454,6 +398,7 @@ public class TimerActivity extends AppCompatActivity {
             } else debut = 8000;
             tempsRestant = debut;
             actualisationTimer();
+
             bStartRepos.setVisibility(View.INVISIBLE);
             bStartTravail.setVisibility(View.VISIBLE);
             bPauseRepos.setVisibility(View.INVISIBLE);
@@ -462,13 +407,10 @@ public class TimerActivity extends AppCompatActivity {
             if (sonActive) son.reset();
             tNomTvl.setVisibility(View.VISIBLE);
             tNomRep.setVisibility(View.INVISIBLE);
-
         }
     }
 
     public void actualisationTimer() {
-
-
         int minutes = (int) (tempsRestant / 1000) / 60;
         int secondes = (int) (tempsRestant / 1000) % 60;
 
@@ -576,7 +518,6 @@ public class TimerActivity extends AppCompatActivity {
         dBuilder.setView(dView);
         dialog = dBuilder.create();
 
-
         if (sessionTravail) {
             pauseTravail(view);
             dialog.show();
@@ -584,168 +525,51 @@ public class TimerActivity extends AppCompatActivity {
             pauseRepos(view);
             dialog.show();
         } else dialog.show();
-
     }
 
 
     public void statistiques(View view) {
-
-
         View sView = getLayoutInflater().inflate(R.layout.layout_stat, null);
         setContentView(sView);
         tStatSessionJour = sView.findViewById(R.id.texteSessionJour);
         tStatTravailJour = sView.findViewById(R.id.texteTravailJour);
         tStatReposJour = sView.findViewById(R.id.texteReposJour);
-
-//        tStatDate = sView.findViewById(R.id.texteDate);
-
         tStatSessionMois = sView.findViewById(R.id.texteSessionMois);
         tStatTravailMois = sView.findViewById(R.id.texteTravailMois);
         tStatReposMois = sView.findViewById(R.id.texteReposMois);
+        tdatePicker = sView.findViewById(R.id.texteDatePicker);
+        bChangerDate = sView.findViewById(R.id.buttonChangerDate);
 
-
-
+        tdatePicker.setText(getDate());
+        affichageStats(getDate());
 
 // TODO -       Dialog avec le DatePicker
-        bChangerDate = sView.findViewById(R.id.buttonChangerDate);
-        tdatePicker = sView.findViewById(R.id.texteDatePicker);
-
 
         bChangerDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changeDate=true;
                 calendar = Calendar.getInstance();
                 int cJour = calendar.get(Calendar.DAY_OF_MONTH);
                 int cMois = calendar.get(Calendar.MONTH);
                 int cAnnee = calendar.get(Calendar.YEAR);
-
-
                 datePicker = new DatePickerDialog(TimerActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         tdatePicker.setText(year + "-" + (month + 1) + "-" + day);
+                        recupDate = (String.valueOf(year) + "-" + String.valueOf(month+1) + "-" + String.valueOf(day));
+                        affichageStats(recupDate);
                     }
                 }, cAnnee, cMois, cJour);
                 datePicker.show();
-
-               
-
             }
-
-        });
-
-        if(!changeDate)
-            tdatePicker.setText(getDate());
-
-
-
-            recupDate = tdatePicker.getText().toString();
-
-
-
-//        tStatDate.setText(getDate());
-        //tsDAO.open();         On ouvre la BDD en haut
-
-        DecimalFormat dfs = new DecimalFormat("###.##");
-        DecimalFormat df = new DecimalFormat("###.##");
-
-        System.out.println("date " + tdatePicker);
-
-
-        PieChartView pieChartView = findViewById(R.id.chart);
-        List<SliceValue> pieData = new ArrayList<>();
-        PieChartData pieChartData = new PieChartData(pieData);
-/*
-        System.out.println("d mois " + tsDAO.getDateMois("2019-10"));
-        System.out.println("d mois " + tsDAO.getDateMois(getDate().substring(0, 7)));
-
-         String recupNbSession = etNbSession.getText().toString();
-                if (recupNbSession.equals("")) {
-                    nbSession = 0;
-                    affichageNbSession = "";
-                } else {
-                    nbSession = Integer.parseInt(recupNbSession);
-                    affichageNbSession = etNbSession.getText().toString();
-                    modif = true;
-                }
-*/
-        String recupDateDuJour = getDate();
-        System.out.println("j " + recupDateDuJour + " " + recupDate);
-       if(recupDate!=recupDateDuJour && recupDate!=null){
-           System.out.println("j dans if");
-        tStatSessionJour.setText(String.valueOf(df.format(tsDAO.getNbSession(recupDate))));
-        tStatTravailJour.setText(String.valueOf((df.format(tsDAO.getTpsTravail(recupDate) / 60000))));
-        tStatReposJour.setText(String.valueOf((df.format(tsDAO.getTpsPause(recupDate) / 60000))));
-
-        if (tsDAO.getTpsTravail(recupDate) == 0.0 && tsDAO.getTpsPause(recupDate) == 0.0)
-            pieData.add(new SliceValue(100, Color.GRAY).setLabel("Aucune sesssion effectuée"));
-        else if (tsDAO.getTpsTravail(recupDate) == 0.0 && tsDAO.getTpsPause(recupDate) != 0.0)
-            pieData.add(new SliceValue(100, Color.YELLOW).setLabel("Pause"));
-        else if (tsDAO.getTpsPause(recupDate) == 0.0 && tsDAO.getTpsTravail(recupDate) != 0.0)
-            pieData.add(new SliceValue(100, Color.GREEN).setLabel("Travail"));
-        else {
-            pieData.add(new SliceValue(tsDAO.getTpsTravail(getDate()) / 60000, Color.GREEN).setLabel("Travail"));
-            pieData.add(new SliceValue(tsDAO.getTpsPause(getDate()) / 60000, Color.YELLOW).setLabel("Pause"));
-        }
-    }else {
-        tStatSessionJour.setText(String.valueOf(dfs.format(tsDAO.getNbSession(getDate()))));
-        tStatTravailJour.setText(String.valueOf((df.format(tsDAO.getTpsTravail(getDate()) / 60000))));
-        tStatReposJour.setText(String.valueOf((df.format(tsDAO.getTpsPause(getDate()) / 60000))));
-
-        if (tsDAO.getTpsTravail(getDate()) == 0.0 && tsDAO.getTpsPause(getDate()) == 0.0)
-            pieData.add(new SliceValue(100, Color.GRAY).setLabel("Aucune sesssion effectuée"));
-        else if (tsDAO.getTpsTravail(getDate()) == 0.0 && tsDAO.getTpsPause(getDate()) != 0.0)
-            pieData.add(new SliceValue(100, Color.YELLOW).setLabel("Pause"));
-        else if (tsDAO.getTpsPause(getDate()) == 0.0 && tsDAO.getTpsTravail(getDate()) != 0.0)
-            pieData.add(new SliceValue(100, Color.GREEN).setLabel("Travail"));
-        else {
-            pieData.add(new SliceValue(tsDAO.getTpsTravail(getDate()) / 60000, Color.GREEN).setLabel("Travail"));
-            pieData.add(new SliceValue(tsDAO.getTpsPause(getDate()) / 60000, Color.YELLOW).setLabel("Pause"));
-        }
-    }
-        pieChartData.setHasLabels(true).setValueLabelTextSize(14);
-        pieChartData.setHasCenterCircle(true);
-        pieChartView.setPieChartData(pieChartData);
-
-       // System.out.println("date : " + getDate().substring(0, 7) + tsDAO.getDate(getDate().substring(0, 7)));
-        //System.out.println("date :  " + tsDAO.getDateMois(getDate().substring(0,7)));
-//*****************************todo - FAIRE AVEC MOIS*************************************************************************************
-        tStatSessionMois.setText(String.valueOf(dfs.format(tsDAO.getNbSessionsMoisAnnee(getDate().substring(0,7)))));
-        tStatTravailMois.setText(String.valueOf((df.format(tsDAO.getTpsTravailMoisAnnee(getDate().substring(0,7))/ 60000))));
-        tStatReposMois.setText(String.valueOf((df.format(tsDAO.getTpsPauseMoisAnnee(getDate().substring(0,7)) / 60000))));
-
-        PieChartView pieChartView2 = findViewById(R.id.chart2);
-        List<SliceValue> pieData2 = new ArrayList<>();
-        PieChartData pieChartData2 = new PieChartData(pieData2);
-
-        if (tsDAO.getTpsTravailMoisAnnee(getDate().substring(0,7)) == 0 && tsDAO.getTpsPauseMoisAnnee(getDate().substring(0,7)) == 0)
-            pieData2.add(new SliceValue(100, Color.GRAY).setLabel("Aucune sesssion effectuée"));
-        else if (tsDAO.getTpsTravailMoisAnnee(getDate().substring(0,7)) == 0 && tsDAO.getTpsPauseMoisAnnee(getDate().substring(0,7)) != 0)
-            pieData2.add(new SliceValue(100, Color.YELLOW).setLabel("Pause"));
-        else if (tsDAO.getTpsPauseMoisAnnee(getDate().substring(0,7)) == 0 && tsDAO.getTpsTravailMoisAnnee(getDate().substring(0,7)) != 0)
-            pieData2.add(new SliceValue(100, Color.GREEN).setLabel("Travail"));
-        else {
-            pieData2.add(new SliceValue((tsDAO.getTpsTravailMoisAnnee(getDate().substring(0,7))) / 60000, Color.GREEN).setLabel("Travail"));
-            pieData2.add(new SliceValue((tsDAO.getTpsPauseMoisAnnee(getDate().substring(0,7))) / 60000, Color.YELLOW).setLabel("Pause"));
-        }
-
-        pieChartData2.setHasLabels(true).setValueLabelTextSize(14);
-        pieChartData2.setHasCenterCircle(true);
-        pieChartView2.setPieChartData(pieChartData2);
-
-
-
-
+            });
     }
 
     public void customizeActionBar() {
-        // Customizes the actionbar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.icon);
         getSupportActionBar().setSubtitle("Timer");
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
@@ -754,6 +578,57 @@ public class TimerActivity extends AppCompatActivity {
         return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
     }
 
+    public void affichageStats(String date) {
+        DecimalFormat dfs = new DecimalFormat("###.##");
+        DecimalFormat df = new DecimalFormat("###.##");
+
+        //TODO -        STATISTIQUES DU JOUR
+
+        PieChartView pieChartView = findViewById(R.id.chart);
+        List<SliceValue> pieData = new ArrayList<>();
+        PieChartData pieChartData = new PieChartData(pieData);
+
+        tStatSessionJour.setText(String.valueOf(df.format(tsDAO.getNbSession(date))));
+        tStatTravailJour.setText(String.valueOf((df.format(tsDAO.getTpsTravail(date) / 60000))));
+        tStatReposJour.setText(String.valueOf((df.format(tsDAO.getTpsPause(date) / 60000))));
+
+        if (tsDAO.getTpsTravail(date) == 0.0 && tsDAO.getTpsPause(date) == 0.0)
+            pieData.add(new SliceValue(100, Color.GRAY).setLabel("Aucune sesssion effectuée"));
+        else if (tsDAO.getTpsTravail(date) == 0.0 && tsDAO.getTpsPause(date) != 0.0)
+            pieData.add(new SliceValue(100, Color.YELLOW).setLabel("Pause"));
+        else if (tsDAO.getTpsPause(date) == 0.0 && tsDAO.getTpsTravail(date) != 0.0)
+            pieData.add(new SliceValue(100, Color.GREEN).setLabel("Travail"));
+        else {
+            pieData.add(new SliceValue(tsDAO.getTpsTravail(date) / 60000, Color.GREEN).setLabel("Travail"));
+            pieData.add(new SliceValue(tsDAO.getTpsPause(date) / 60000, Color.YELLOW).setLabel("Pause"));
+        }
+            pieChartData.setHasLabels(true).setValueLabelTextSize(14);
+            pieChartData.setHasCenterCircle(true);
+            pieChartView.setPieChartData(pieChartData);
+
+         //TODO -        STATISTIQUES DU MOIS
+
+            tStatSessionMois.setText(String.valueOf(dfs.format(tsDAO.getNbSessionsMoisAnnee(date.substring(0, 7)))));
+            tStatTravailMois.setText(String.valueOf((df.format(tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7)) / 60000))));
+            tStatReposMois.setText(String.valueOf((df.format(tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7)) / 60000))));
+
+            PieChartView pieChartView2 = findViewById(R.id.chart2);
+            List<SliceValue> pieData2 = new ArrayList<>();
+            PieChartData pieChartData2 = new PieChartData(pieData2);
+
+            if (tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7)) == 0 && tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7)) == 0)
+                pieData2.add(new SliceValue(100, Color.GRAY).setLabel("Aucune sesssion effectuée"));
+            else if (tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7)) == 0 && tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7)) != 0)
+                pieData2.add(new SliceValue(100, Color.YELLOW).setLabel("Pause"));
+            else if (tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7)) == 0 && tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7)) != 0)
+                pieData2.add(new SliceValue(100, Color.GREEN).setLabel("Travail"));
+            else {
+                pieData2.add(new SliceValue((tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7))) / 60000, Color.GREEN).setLabel("Travail"));
+                pieData2.add(new SliceValue((tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7))) / 60000, Color.YELLOW).setLabel("Pause"));
+            }
+
+            pieChartData2.setHasLabels(true).setValueLabelTextSize(14);
+            pieChartData2.setHasCenterCircle(true);
+            pieChartView2.setPieChartData(pieChartData2);
+    }
 }
-
-
