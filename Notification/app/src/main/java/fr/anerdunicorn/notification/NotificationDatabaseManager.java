@@ -22,7 +22,7 @@ public class NotificationDatabaseManager {
         db.close();
     }
 
-    public long addNotification(Notification notification) {
+    public void addNotification(Notification notification) {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("id", notification.getId());
@@ -37,13 +37,30 @@ public class NotificationDatabaseManager {
         contentValues.put("day", notification.getDay());
         contentValues.put("active", notification.getActive());
 
-        return db.insert("Notifications",null, contentValues);
+        db.insert("Notifications",null, contentValues);
     }
 
-    public int deleteNotification(int id) {
-        String where = "id" + " = ?";
+    public void deleteNotification(int id) {
+        String where = "id = ?";
         String[] whereArgs = {id + ""};
-        return db.delete("Notifications", where, whereArgs);
+        db.delete("Notifications", where, whereArgs);
+    }
+
+    public void updateNotification(Notification notification) {
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("title", notification.getTitle());
+        contentValues.put("content", notification.getContent());
+        contentValues.put("repeatable", notification.getRepeatable());
+        contentValues.put("hour", notification.getHour());
+        contentValues.put("minute", notification.getMinute());
+        contentValues.put("days", notification.getDays());
+        contentValues.put("year", notification.getYear());
+        contentValues.put("month", notification.getMonth());
+        contentValues.put("day", notification.getDay());
+        contentValues.put("active", notification.getActive());
+
+        db.update("Notifications", contentValues, "id = " + notification.getId(), null);
     }
 
     public Notification getNotification(int id) {
