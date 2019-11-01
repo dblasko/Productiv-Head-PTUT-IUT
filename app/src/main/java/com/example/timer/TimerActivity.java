@@ -163,7 +163,7 @@ public class TimerActivity extends AppCompatActivity {
             }
         });
 
-        if(nbSession==0) tNbSessionPersonnalise.setText("?");
+        if(nbSession==0) tNbSessionPersonnalise.setText("∞");
         else tNbSessionPersonnalise.setText(String.valueOf(nbSession));
         actualisationTimer();
 
@@ -200,7 +200,7 @@ public class TimerActivity extends AppCompatActivity {
         tNomTvl.setVisibility(View.VISIBLE);
         tNomRep.setVisibility(View.INVISIBLE);
         tSessionTravail.setText(String.valueOf(nbTravail));
-        if(nbSession==0) tNbSessionPersonnalise.setText("?");
+        if(nbSession==0) tNbSessionPersonnalise.setText("∞");
         else tNbSessionPersonnalise.setText(String.valueOf(nbSession));
 
         decrementation = new CountDownTimer(tempsRestant, 1000) {          //compte à rembourd
@@ -365,7 +365,7 @@ public class TimerActivity extends AppCompatActivity {
         if (resetPossible) {
             nbTravail = 0;
             tSessionTravail.setText(String.valueOf(nbTravail));
-            if(nbSession==0) tNbSessionPersonnalise.setText("?");
+            if(nbSession==0) tNbSessionPersonnalise.setText("∞");
             else tNbSessionPersonnalise.setText(String.valueOf(nbSession));
             if (sessionTravail || sessionRepos) decrementation.cancel();
             if (modif) {
@@ -471,7 +471,7 @@ public class TimerActivity extends AppCompatActivity {
                     reset(view);
                 }
 
-                if(nbSession==0) tNbSessionPersonnalise.setText("?");
+                if(nbSession==0) tNbSessionPersonnalise.setText("∞");
                 else tNbSessionPersonnalise.setText(String.valueOf(nbSession));
                 actualisationTimer();
                 dialog.cancel();
