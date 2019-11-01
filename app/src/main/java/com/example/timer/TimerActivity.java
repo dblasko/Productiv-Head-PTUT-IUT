@@ -18,7 +18,7 @@ import java.util.Locale;
 
 public class TimerActivity extends AppCompatActivity {
 
-    private int debut = 8000;           // en millis    1500000  exemple 8000
+    private int debut = 1500000;           // en millis    1500000  exemple 8000
 
     private int nbSession = 0;
     private int nbTravail = 0;
@@ -306,14 +306,14 @@ public class TimerActivity extends AppCompatActivity {
                 debut = nbTpsGrandePause * 60000;
                 //nbPause=0;
             } else {
-                debut = 6000;
+                debut = 1200000;
                 //nbPause =0;
             }
         } else {
             if (sessionPersonnaliser && tpsPausePerso != -1)
                 debut = tpsPausePerso * 60000;
             else
-                debut = 4000;
+                debut = 300000;
         }
         tempsRestant = debut;
         decrementation.cancel();
@@ -328,7 +328,7 @@ public class TimerActivity extends AppCompatActivity {
             reset(view);
         } else {
             if (sessionPersonnaliser && tpsTravailPerso != -1) debut = tpsTravailPerso * 60000;
-            else debut = 8000;
+            else debut = 1500000;
             resetPossible = true;
             tSessionTravail.setText(String.valueOf(nbTravail));
             decrementation.cancel();
@@ -370,8 +370,8 @@ public class TimerActivity extends AppCompatActivity {
             if (sessionTravail || sessionRepos) decrementation.cancel();
             if (modif) {
                 if (tpsTravailPerso != -1) debut = tpsTravailPerso * 60000;
-                else debut = 8000;
-            } else debut = 8000;
+                else debut = 1500000;
+            } else debut = 1500000;
             tempsRestant = debut;
             actualisationTimer();
 
