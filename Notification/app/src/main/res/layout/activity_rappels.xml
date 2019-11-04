@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".RappelsActivity">
 
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar" />
+
     <TextView
         android:id="@+id/textViewNoCustomNotification"
         android:layout_width="270dp"

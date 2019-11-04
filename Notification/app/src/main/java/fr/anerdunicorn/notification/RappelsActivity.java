@@ -9,12 +9,16 @@ import android.database.DataSetObserver;
 import android.renderscript.ScriptGroup;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +32,31 @@ public class RappelsActivity extends AppCompatActivity {
     public List<CustomNotificationButton> customNotifications;
     public List<Integer> notificationsId;
 
+    private Toolbar toolbar; // à intégrer !
+    WorkModeManager wmm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rappels);
+
+        //Intégration de la toolbar
+        toolbar = findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        TextView titre_barre = findViewById(R.id.nav_bar_title);
+        titre_barre.setText("Productiv'Head");
+        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);*/
+
+        wmm = new WorkModeManager(this);
+        wmm.askForNotificationPermission();
+        Switch switchWorkMode = findViewById(R.id.switch_work_mode);
+        switchWorkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                wmm.enableWorkMode(b);
+            }
+        });
 
         //Connexion à la base de données
         final NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(this);

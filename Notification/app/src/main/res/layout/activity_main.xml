@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar" />
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/blocSuiviHabitudes"
         android:layout_width="match_parent"

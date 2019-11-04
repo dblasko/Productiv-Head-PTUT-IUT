@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -27,12 +29,31 @@ public class MainActivity extends AppCompatActivity {
     private static final int notificationIdSuiviHabitudes = 100;
     private static final int notificationIdHorairesTravail = 101;
 
-    private static MySQLite db;
+    private Toolbar toolbar; // à intégrer !
+    WorkModeManager wmm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Intégration de la toolbar
+        toolbar = findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        TextView titre_barre = findViewById(R.id.nav_bar_title);
+        titre_barre.setText("Productiv'Head");
+        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);*/
+
+        wmm = new WorkModeManager(this);
+        wmm.askForNotificationPermission();
+        Switch switchWorkMode = findViewById(R.id.switch_work_mode);
+        switchWorkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                wmm.enableWorkMode(b);
+            }
+        });
 
         //Initialisation de la base de données
         NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(this);

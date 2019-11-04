@@ -64,10 +64,10 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
 
         //Création de l'intent en fonction de l'id de la notification
         if(notification.getId() == MainActivity.getNotificationIdSuiviHabitudes()) {
-            repeatingIntent = new Intent(context, SuiviHabitudesActivity.class);
+            repeatingIntent = new Intent(context, MainActivity.class);
         }
         else if(notification.getId() == MainActivity.getNotificationIdHorairesTravail()) {
-            repeatingIntent = new Intent(context, HorairesTravailActivity.class);
+            repeatingIntent = new Intent(context, MainActivity.class);
         }
         else
             repeatingIntent =  new Intent(context, RappelsActivity.class);
@@ -87,10 +87,10 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
 
         //Création de l'intent en fonction de l'id de la notification
         if(notification.getId() == MainActivity.getNotificationIdSuiviHabitudes()) {
-            intent = new Intent(context, SuiviHabitudesActivity.class);
+            intent = new Intent(context, MainActivity.class);
         }
         else if(notification.getId() == MainActivity.getNotificationIdHorairesTravail()) {
-            intent = new Intent(context, HorairesTravailActivity.class);
+            intent = new Intent(context, MainActivity.class);
         }
         else
             intent =  new Intent(context, RappelsActivity.class);
