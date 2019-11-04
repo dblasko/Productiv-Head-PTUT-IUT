@@ -26,13 +26,6 @@ public class NotificationManager {
         Intent receiverIntent = new Intent(context, NotificationReceiverActivity.class);
         Calendar alarm = Calendar.getInstance();
         alarm.set(notification.getYear(), notification.getMonth(), notification.getDay(), notification.getHour(), notification.getMinute());
-        Calendar now = Calendar.getInstance();
-
-        /* SHOULDNT HAPPEN -> TECHNICALLY CHECKED BEFORE
-        //Sets time to next day
-        if(alarm.before(now)){
-            alarm.setTimeInMillis(alarm.getTimeInMillis() + 86400000L);
-        }*/
 
         receiverIntent.putExtra("notificationId", notificationId);
         PendingIntent receiverPendingIntent = PendingIntent.getBroadcast(context, notificationId, receiverIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -47,8 +40,7 @@ public class NotificationManager {
 
         //Sauvegarde de l'état de la notification dans la base de données
         notification.setActive(1);
-        notificationDatabaseManager.deleteNotification(notificationId);
-        notificationDatabaseManager.addNotification(notification);
+        notificationDatabaseManager.updateNotification(notification);
 
         //Fermeture de l'accès à la base de données
         notificationDatabaseManager.close();
@@ -68,8 +60,7 @@ public class NotificationManager {
         notificationDatabaseManager.open();
         Notification notification = notificationDatabaseManager.getNotification(notificationId);
         notification.setActive(0);
-        notificationDatabaseManager.deleteNotification(notificationId);
-        notificationDatabaseManager.addNotification(notification);
+        notificationDatabaseManager.updateNotification(notification);
         notificationDatabaseManager.close();
     }
 

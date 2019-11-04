@@ -64,27 +64,14 @@ public class NotificationDatabaseManager {
     }
 
     public Notification getNotification(int id) {
-        Notification notification = new Notification();
+        Notification notification = null;
 
         Cursor c = db.rawQuery("SELECT * FROM Notifications WHERE ID = " + id, null);
         if (c.moveToFirst()) {
-            notification.setId(c.getInt(0));
-            notification.setTitle(c.getString(1));
-            notification.setContent(c.getString(2));
-            notification.setRepeatable(c.getInt(3));
-            notification.setHour(c.getInt(4));
-            notification.setMinute(c.getInt(5));
-            notification.setDays(c.getInt(6));
-            notification.setYear(c.getInt(7));
-            notification.setMonth(c.getInt(8));
-            notification.setDay(c.getInt(9));
-            notification.setActive(c.getInt(10));
+            notification = new Notification(c.getInt(0), c.getString(1), c.getString(2), c.getInt(3), c.getInt(4), c.getInt(5), c.getInt(6), c.getInt(7), c.getInt(8), c.getInt(9), c.getInt(10));
         }
         c.close();
-        if(notification.getId() != -1)
-            return notification;
-        else
-            return null;
+        return notification;
     }
 
 }

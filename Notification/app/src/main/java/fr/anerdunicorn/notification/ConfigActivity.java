@@ -35,6 +35,7 @@ public class ConfigActivity extends AppCompatActivity {
     private RadioButton radioButtonDate;
     private Calendar now;
     private TextView textViewDate;
+    private Notification notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +48,9 @@ public class ConfigActivity extends AppCompatActivity {
         //Récupération de la notification correspondante dans la base de données
         NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(this);
         notificationDatabaseManager.open();
-        Notification notification = notificationDatabaseManager.getNotification(notificationId);
+        notification = notificationDatabaseManager.getNotification(notificationId);
         notificationDatabaseManager.close();
-        Toast.makeText(this, Integer.toString(notification.getYear()), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, Integer.toString(notification.getMonth()), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, Integer.toString(notification.getDay()), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, Integer.toString(notification.getHour()), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, Integer.toString(notification.getMinute()), Toast.LENGTH_SHORT).show();
+        System.out.println("DAY: " + notification.getDay());
 
         //Initialisation des RadioButtons
         radioButtonRepeatable = findViewById(R.id.radioButtonRepeatable);
@@ -77,8 +74,8 @@ public class ConfigActivity extends AppCompatActivity {
         time = Calendar.getInstance();
         if(notification.getYear() != -1) {
             time.set(notification.getYear(), notification.getMonth(), notification.getDay(), notification.getHour(), notification.getMinute());
-            timePicker.setHour(time.get(Calendar.HOUR));
-            timePicker.setMinute(time.get(Calendar.MINUTE));
+            timePicker.setHour(notification.getHour());
+            timePicker.setMinute(notification.getMinute());
         }
         else {
             time.setTimeInMillis(now.getTimeInMillis());
@@ -138,11 +135,6 @@ public class ConfigActivity extends AppCompatActivity {
                 //Création d'un boolean pour finir l'activité seulement si la date est bonne
                 boolean validated = true;
 
-                //Connexion à la base de données
-                NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(getApplicationContext());
-                notificationDatabaseManager.open();
-                Notification notification = notificationDatabaseManager.getNotification(notificationId);
-
                 //Setup du calendar à l'heure choisie
                 time.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
                 time.set(Calendar.MINUTE, timePicker.getMinute());
@@ -171,24 +163,18 @@ public class ConfigActivity extends AppCompatActivity {
                     }
                 }
 
-                //Fermeture de l'accès à la base de données
-                notificationDatabaseManager.close();
-
                 if(validated) {
-                    //Ouverture de l'accès à la base de données
-                    notificationDatabaseManager.open();
-
                     //Modification de la notification
                     notification.setYear(time.get(Calendar.YEAR));
-                    notification.setMonth(time.get(Calendar.MONTH) + 1);
+                    notification.setMonth(time.get(Calendar.MONTH));
                     notification.setDay(time.get(Calendar.DAY_OF_MONTH));
                     notification.setHour(time.get(Calendar.HOUR_OF_DAY));
                     notification.setMinute(time.get(Calendar.MINUTE));
 
                     //Modification de la notification dans la base de données
+                    NotificationDatabaseManager notificationDatabaseManager = new NotificationDatabaseManager(getApplicationContext());
+                    notificationDatabaseManager.open();
                     notificationDatabaseManager.updateNotification(notification);
-
-                    //Fermeture de l'accès à la base de données
                     notificationDatabaseManager.close();
 
                     //Changement de l'état du switch (annulation et plannification automatique de la notification)
