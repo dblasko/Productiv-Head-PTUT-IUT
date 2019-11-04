@@ -50,7 +50,6 @@ public class ConfigActivity extends AppCompatActivity {
         notificationDatabaseManager.open();
         notification = notificationDatabaseManager.getNotification(notificationId);
         notificationDatabaseManager.close();
-        System.out.println("DAY: " + notification.getDay());
 
         //Initialisation des RadioButtons
         radioButtonRepeatable = findViewById(R.id.radioButtonRepeatable);

@@ -127,7 +127,7 @@ class Notification {
     }
 
     public void setActive(int active) {
-        this.day = active;
+        this.active = active;
     }
 
     public static boolean[] intToDays(int days) {

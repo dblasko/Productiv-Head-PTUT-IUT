@@ -2,12 +2,16 @@ package fr.anerdunicorn.notification;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.DataSetObserver;
+import android.renderscript.ScriptGroup;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -71,6 +75,11 @@ public class RappelsActivity extends AppCompatActivity {
                 //Initialisation du EditText
                 final EditText input = new EditText(getApplicationContext());
                 input.setHint("Entrez le contenu de la notification");
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+                input.requestFocus();
+
+                //Affiche le clavier à l'ouverture de la fenetre de dialogue
+
 
                 //Création du dialogue permettant d'entrer le contenu de la notification
                 AlertDialog.Builder builder = new AlertDialog.Builder(RappelsActivity.this);
