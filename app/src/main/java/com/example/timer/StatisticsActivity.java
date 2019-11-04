@@ -4,9 +4,12 @@ import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -39,11 +42,38 @@ public class StatisticsActivity extends AppCompatActivity {
     TimerStatisticsDAO tsDAO = new TimerStatisticsDAO(this);
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
+    private Toolbar toolbar;
+    private WorkModeManager wmm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_stat);
+
+        /* BARRE */
+
+        toolbar = findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        TextView titre_barre = findViewById(R.id.nav_bar_title);
+        titre_barre.setText("Statistiques");
+
+        wmm = new WorkModeManager(this);
+        wmm.askForNotificationPermission();
+        Switch switchWorkMode = findViewById(R.id.switch_work_mode);
+        switchWorkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                wmm.enableWorkMode(b);
+            }
+        });
+
+        /* Flèche retour */
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        /* Fin flèche */
+
+        /* FIN BARRE */
 
         tsDAO.open();
 

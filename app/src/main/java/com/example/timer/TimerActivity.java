@@ -6,10 +6,13 @@ import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -75,12 +78,33 @@ public class TimerActivity extends AppCompatActivity {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     TimerStatistics tsInser = new TimerStatistics(0f, 0f, 0, sdf.format(new Date()));
 
+    private Toolbar toolbar;
+    private WorkModeManager wmm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_timer_activity);
-        customizeActionBar();
+        //customizeActionBar();
+
+        /* BARRE */
+
+        toolbar = findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        TextView titre_barre = findViewById(R.id.nav_bar_title);
+        titre_barre.setText("Timer");
+
+        wmm = new WorkModeManager(this);
+        wmm.askForNotificationPermission();
+        Switch switchWorkMode = findViewById(R.id.switch_work_mode);
+        switchWorkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                wmm.enableWorkMode(b);
+            }
+        });
+
+        /* FIN BARRE */
 
         tsDAO.open();
 
@@ -504,13 +528,13 @@ public class TimerActivity extends AppCompatActivity {
         } else dialog.show();
     }
 
-    public void customizeActionBar() {
+    /*public void customizeActionBar() {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.icon);
         getSupportActionBar().setSubtitle("Timer");
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-    }
+    }*/
 
 }
