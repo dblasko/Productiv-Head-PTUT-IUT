@@ -12,231 +12,257 @@
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar" />
 
-    <TimePicker
-        android:id="@+id/configTimePicker"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardViewConfigTimePicker"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:timePickerMode="spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#90909090"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/configTimePicker" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="horizontal"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view">
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar">
 
-        <RadioButton
-            android:id="@+id/radioButtonDate"
+        <TimePicker
+            android:id="@+id/configTimePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:text="Date" />
+            android:layout_gravity="center"
+            android:timePickerMode="spinner" />
 
-        <RadioButton
-            android:id="@+id/radioButtonRepeatable"
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewConfigTimePicker">
+
+        <android.support.constraint.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:checked="true"
-            android:text="Répéter" />
+            android:layout_height="wrap_content">
 
-    </RadioGroup>
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="293dp">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/layoutRepeatable"
-        android:layout_width="wrap_content"
+                <RadioButton
+                    android:id="@+id/radioButtonDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:text="Date" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonRepeatable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:checked="true"
+                    android:text="Répéter" />
+
+            </RadioGroup>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layoutRepeatable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="Quels jours ?"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintEnd_toEndOf="@+id/checkBoxJeudi"
+                    app:layout_constraintStart_toStartOf="@+id/checkBoxLundi"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxLundi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:tag="Lundi"
+                    android:text="L"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxMardi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:tag="Mardi"
+                    android:text="M"
+                    app:layout_constraintBottom_toBottomOf="@+id/checkBoxLundi"
+                    app:layout_constraintStart_toEndOf="@+id/checkBoxLundi" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxMercredi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:tag="Mercredi"
+                    android:text="M"
+                    app:layout_constraintBottom_toBottomOf="@+id/checkBoxMardi"
+                    app:layout_constraintStart_toEndOf="@+id/checkBoxMardi" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxJeudi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:tag="Jeudi"
+                    android:text="J"
+                    app:layout_constraintBottom_toBottomOf="@+id/checkBoxMercredi"
+                    app:layout_constraintStart_toEndOf="@+id/checkBoxMercredi" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxVendredi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:tag="Vendredi"
+                    android:text="V"
+                    app:layout_constraintStart_toStartOf="@+id/checkBoxLundi"
+                    app:layout_constraintTop_toBottomOf="@+id/checkBoxLundi" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxSamedi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:tag="Samedi"
+                    android:text="S"
+                    app:layout_constraintBottom_toBottomOf="@+id/checkBoxVendredi"
+                    app:layout_constraintStart_toEndOf="@+id/checkBoxVendredi" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxDimanche"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:tag="Dimanche"
+                    android:text="D"
+                    app:layout_constraintBottom_toBottomOf="@+id/checkBoxSamedi"
+                    app:layout_constraintStart_toEndOf="@+id/checkBoxSamedi" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layoutDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+
+                <TextView
+                    android:id="@+id/textViewDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintBottom_toTopOf="@+id/configButtonChangeDate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Sélectionnez la date de la notification" />
+
+                <Button
+                    android:id="@+id/configButtonChangeDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTintMode="src_over"
+                    android:text="Changer la date"
+                    android:textColor="@color/grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/view2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Quels jours ?"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="@+id/checkBoxJeudi"
-            app:layout_constraintStart_toStartOf="@+id/checkBoxLundi"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <CheckBox
-            android:id="@+id/checkBoxLundi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:tag="Lundi"
-            android:text="L"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-        <CheckBox
-            android:id="@+id/checkBoxMardi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:tag="Mardi"
-            android:text="M"
-            app:layout_constraintBottom_toBottomOf="@+id/checkBoxLundi"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxLundi" />
-
-        <CheckBox
-            android:id="@+id/checkBoxMercredi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:tag="Mercredi"
-            android:text="M"
-            app:layout_constraintBottom_toBottomOf="@+id/checkBoxMardi"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxMardi" />
-
-        <CheckBox
-            android:id="@+id/checkBoxJeudi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:tag="Jeudi"
-            android:text="J"
-            app:layout_constraintBottom_toBottomOf="@+id/checkBoxMercredi"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxMercredi" />
-
-        <CheckBox
-            android:id="@+id/checkBoxVendredi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:tag="Vendredi"
-            android:text="V"
-            app:layout_constraintStart_toStartOf="@+id/checkBoxLundi"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxLundi" />
-
-        <CheckBox
-            android:id="@+id/checkBoxSamedi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:tag="Samedi"
-            android:text="S"
-            app:layout_constraintBottom_toBottomOf="@+id/checkBoxVendredi"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxVendredi" />
-
-        <CheckBox
-            android:id="@+id/checkBoxDimanche"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:tag="Dimanche"
-            android:text="D"
-            app:layout_constraintBottom_toBottomOf="@+id/checkBoxSamedi"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxSamedi" />
-
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/layoutDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/view2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
-
-        <TextView
-            android:id="@+id/textViewDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:textColor="@android:color/black"
-            app:layout_constraintBottom_toTopOf="@+id/configButtonChangeDate"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Sélectionnez la date de la notification" />
-
-        <Button
-            android:id="@+id/configButtonChangeDate"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Changer la date"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="#90909090"
-        app:layout_constraintBottom_toTopOf="@+id/configButtonAccept"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/configButtonAccept"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
-        android:text="Accepter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/configButtonCancel" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <Button
-        android:id="@+id/configButtonCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="8dp"
-        android:text="Annuler"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/configButtonAccept"
-        app:layout_constraintStart_toStartOf="parent" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/configButtonAccept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/colorAccent"
+                android:backgroundTintMode="src_over"
+                android:text="Accepter"
+                android:textColor="@color/grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/configButtonCancel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/configButtonCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/colorAccent"
+                android:backgroundTintMode="src_over"
+                android:text="Annuler"
+                android:textColor="@color/grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
 
 </android.support.constraint.ConstraintLayout>
