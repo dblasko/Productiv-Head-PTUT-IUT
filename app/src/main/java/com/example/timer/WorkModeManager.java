@@ -8,6 +8,7 @@ import android.media.AudioManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
 
@@ -54,6 +55,7 @@ public class WorkModeManager {
         context.startActivity(intent);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public boolean isCellularDataEnabled() {
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         if (tm.getSimState() == TelephonyManager.SIM_STATE_READY) {
@@ -80,7 +82,9 @@ public class WorkModeManager {
                 .show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void enableWorkMode(boolean enable) {
+        askForNotificationPermission();
         if (enable) { // checked - activate work mode
             enableWifi(false);
             doNotDisturb(true);
@@ -88,7 +92,11 @@ public class WorkModeManager {
             promptUser("Activation du mode travail...");
         } else { // unchecked - deactivate work mode
             enableWifi(true);
-            doNotDisturb(false);
+            try {
+                doNotDisturb(false);
+            } catch (Exception e) {
+                Toasty.error(context, "Permissions non données.");
+            }
             if (!isCellularDataEnabled()) showCellularDataDialog("Voulez-vous activer vos données mobiles aussi ?");
             promptUser("Désactivation du mode travail...");
         }
