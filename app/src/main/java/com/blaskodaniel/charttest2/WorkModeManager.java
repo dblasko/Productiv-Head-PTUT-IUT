@@ -80,6 +80,7 @@ public class WorkModeManager {
     }
 
     public void enableWorkMode(boolean enable) {
+        askForNotificationPermission();
         if (enable) { // checked - activate work mode
             enableWifi(false);
             doNotDisturb(true);
@@ -87,7 +88,11 @@ public class WorkModeManager {
             promptUser("Activation du mode travail...");
         } else { // unchecked - deactivate work mode
             enableWifi(true);
-            doNotDisturb(false);
+            try {
+                doNotDisturb(false);
+            } catch (Exception e) {
+                Toasty.error(context, "Permissions non données.");
+            }
             if (!isCellularDataEnabled()) showCellularDataDialog("Voulez-vous activer vos données mobiles aussi ?");
             promptUser("Désactivation du mode travail...");
         }
