@@ -67,6 +67,7 @@ public class CustomNotificationButtonAdapter extends ArrayAdapter<CustomNotifica
                 public void onClick(View view) {
                     Intent intent = new Intent(getContext(), ConfigActivity.class);
                     intent.putExtra("notificationId", customNotificationButton.getId());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     c.startActivity(intent);
                 }
             });
