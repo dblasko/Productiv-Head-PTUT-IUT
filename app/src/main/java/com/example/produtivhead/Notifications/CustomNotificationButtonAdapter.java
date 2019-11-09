@@ -29,10 +29,12 @@ public class CustomNotificationButtonAdapter extends ArrayAdapter<CustomNotifica
     //Variables
     private Activity activity;
     private List<CustomNotificationButton> customNotificationButtons;
+    private Context c;
 
     public CustomNotificationButtonAdapter(Activity activity, Context context, List<CustomNotificationButton> customNotificationButtons) {
         super(context, 0, customNotificationButtons);
         this.activity = activity;
+        this.c = context;
         this.customNotificationButtons = customNotificationButtons;
     }
 
@@ -65,7 +67,7 @@ public class CustomNotificationButtonAdapter extends ArrayAdapter<CustomNotifica
                 public void onClick(View view) {
                     Intent intent = new Intent(getContext(), ConfigActivity.class);
                     intent.putExtra("notificationId", customNotificationButton.getId());
-                    getContext().startActivity(intent);
+                    c.startActivity(intent);
                 }
             });
 
