@@ -1,8 +1,0 @@
-<menu>
-    <item android:id="@+id/mInfo"
-        android:title="Info"
-        android:icon="@drawable/info"
-        app:showAsAction="always"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android" />
-</menu>
