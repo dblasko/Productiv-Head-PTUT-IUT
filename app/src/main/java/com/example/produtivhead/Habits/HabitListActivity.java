@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.astritveliu.boom.Boom;
 import com.example.produtivhead.DB.HabitDao;
+import com.example.produtivhead.Notifications.ConfigActivity;
 import com.example.produtivhead.Notifications.NotificationActivity;
 import com.example.produtivhead.R;
 import com.example.produtivhead.WorkMode.WorkModeManager;
@@ -365,6 +366,8 @@ public class HabitListActivity extends AppCompatActivity implements NavigationVi
 
         } else if (id == R.id.nav_notifications) {
             Intent i = new Intent(this, NotificationActivity.class);
+            //Intent i = new Intent(this, ConfigActivity.class);
+            //i.putExtra("notificationId", 101);
             this.startActivity(i);
         }
 
