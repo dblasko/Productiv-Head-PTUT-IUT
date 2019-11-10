@@ -33,6 +33,8 @@ public class RappelsActivity extends AppCompatActivity {
     public List<CustomNotificationButton> customNotifications;
     public List<Integer> notificationsId;
 
+    private NotificationDAO notificationDAO;
+
     private Toolbar toolbar; // à intégrer !
     WorkModeManager wmm;
 
@@ -59,9 +61,8 @@ public class RappelsActivity extends AppCompatActivity {
             }
         });
 
-        //Connexion à la base de données
-        final NotificationDAO notificationDAO = new NotificationDAO(this);
-        notificationDAO.open();
+        //Instanciation à la base de données
+        notificationDAO = new NotificationDAO(this);
 
         //Initialisation des variables
         notificationsId = new ArrayList<>();
@@ -85,6 +86,9 @@ public class RappelsActivity extends AppCompatActivity {
         });
         listView.setAdapter(adapter);
 
+        //Fermeture de l'accès à la base de données
+        notificationDAO.open();
+
         //Initialisation des CustomNotificationButton déjà existants
         for(int i = 1; i < 100; i++){
             Notification notification = notificationDAO.getNotification(i);
@@ -92,6 +96,9 @@ public class RappelsActivity extends AppCompatActivity {
                 customNotifications.add(new CustomNotificationButton(i, notification.getContent()));
         }
         adapter.notifyDataSetChanged();
+
+        //Fermeture de l'accès à la base de données
+        notificationDAO.close();
 
         //Création d'un CustomNotificationButton quand on clique sur le bouton d'ajout
         buttonAdd.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +140,6 @@ public class RappelsActivity extends AppCompatActivity {
 
                         //Sauvegarde des données dans la base de données
                         Notification notification = new Notification(id, "Notification", customNotificationButton.getContent(), 1, 8, 0, 0, -1, -1, -1, -1);
-                        NotificationDAO notificationDAO1 = new NotificationDAO(getApplicationContext());
                         notificationDAO.open();
                         notificationDAO.addNotification(notification);
                         notificationDAO.close();
@@ -156,9 +162,6 @@ public class RappelsActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-
-        //Fermeture de l'accès à la base de données
-        notificationDAO.close();
     }
 
 }
