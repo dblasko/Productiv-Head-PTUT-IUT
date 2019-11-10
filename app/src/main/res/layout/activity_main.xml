@@ -1,205 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Notifications.NotificationActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/tool_bar"
-        layout="@layout/tool_bar" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/blocSuiviHabitudes"
+    <Button
+        android:id="@+id/button5"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintTop_toBottomOf="@+id/tool_bar"
-        tools:layout_editor_absoluteX="0dp">
+        android:layout_height="118dp"
+        android:onClick="liste_taches"
+        android:background="@drawable/border"
+        android:text="liste tâche" />
 
-        <TextView
-            android:id="@+id/textViewSuiviHabitudes1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Suivi des habitudes"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.08"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewSuiviHabitudes2"
-            android:layout_width="258dp"
-            android:layout_height="35dp"
-            android:layout_marginBottom="16dp"
-            android:text="Configurez les notifications relatives au suivi des habitudes"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/blocSuiviHabitudes"
-            app:layout_constraintStart_toStartOf="@+id/textViewSuiviHabitudes1"
-            app:layout_constraintTop_toBottomOf="@+id/textViewSuiviHabitudes1" />
-
-        <View
-            android:id="@+id/viewSeparateurSuiviHabitudes"
-            android:layout_width="1dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="#90909090"
-            app:layout_constraintBottom_toBottomOf="@+id/switchSuiviHabitudes"
-            app:layout_constraintEnd_toStartOf="@+id/switchSuiviHabitudes"
-            app:layout_constraintStart_toEndOf="@+id/textViewSuiviHabitudes2"
-            app:layout_constraintTop_toTopOf="@+id/switchSuiviHabitudes" />
-
-        <Switch
-            android:id="@+id/switchSuiviHabitudes"
-            android:layout_width="wrap_content"
-            android:layout_height="21dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewSuiviHabitudes2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.516"
-            app:layout_constraintStart_toEndOf="@+id/textViewSuiviHabitudes2"
-            app:layout_constraintTop_toTopOf="@+id/textViewSuiviHabitudes1" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <View
-        android:id="@+id/viewSeparateur1"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#90909090"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blocSuiviHabitudes" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/blocHorairesTravail"
+    <Button
+        android:id="@+id/button3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/selectableItemBackground"
-        app:layout_constraintTop_toBottomOf="@+id/viewSeparateur1"
-        tools:layout_editor_absoluteX="16dp">
+        android:layout_height="116dp"
+        android:onClick="acceuil_todolist"
+        android:background="@drawable/border"
+        android:text="ajouter une tâche"
+        />
 
-        <TextView
-            android:id="@+id/textViewHorairesTravail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Horaires de travail"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.08"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewSuiviHabitudes"
-            android:layout_width="258dp"
-            android:layout_height="36dp"
-            android:layout_marginBottom="16dp"
-            android:text="Configurez les notifications relatives aux horaires de travail"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textViewHorairesTravail"
-            app:layout_constraintTop_toBottomOf="@+id/textViewHorairesTravail"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <View
-            android:id="@+id/viewSeparateurrHorairesTravail"
-            android:layout_width="1dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="#90909090"
-            app:layout_constraintBottom_toBottomOf="@+id/switchHorairesTravail"
-            app:layout_constraintEnd_toStartOf="@+id/switchHorairesTravail"
-            app:layout_constraintStart_toEndOf="@+id/textViewSuiviHabitudes"
-            app:layout_constraintTop_toTopOf="@+id/switchHorairesTravail" />
-
-        <Switch
-            android:id="@+id/switchHorairesTravail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewSuiviHabitudes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.546"
-            app:layout_constraintStart_toEndOf="@+id/textViewSuiviHabitudes"
-            app:layout_constraintTop_toTopOf="@+id/textViewHorairesTravail" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <View
-        android:id="@+id/viewSeparateur2"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#90909090"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blocHorairesTravail" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/blocRappels"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/selectableItemBackground"
-        app:layout_constraintTop_toBottomOf="@+id/viewSeparateur2"
-        tools:layout_editor_absoluteX="0dp">
-
-        <TextView
-            android:id="@+id/textViewRappels1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Rappels"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.06"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewRappels2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Configurez vos rappels"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textViewRappels1"
-            app:layout_constraintTop_toBottomOf="@+id/textViewRappels1"
-            app:layout_constraintVertical_bias="0.0" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

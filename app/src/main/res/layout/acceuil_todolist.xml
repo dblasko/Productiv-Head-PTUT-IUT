@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity">
+
+<LinearLayout
+    android:layout_width="393dp"
+    android:layout_height="720dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.454">
+
+    <EditText
+        android:id="@+id/nomTache"
+        android:layout_width="174dp"
+        android:layout_height="71dp"
+        android:ems="10"
+        android:hint="Nom de la tâche"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/debut"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="date de début de tâche"
+        android:inputType="date" />
+
+    <TextView
+        android:id="@+id/fin"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="date de fin de tâche"
+        android:inputType="date"
+        tools:layout_editor_absoluteX="-257dp"
+        tools:layout_editor_absoluteY="212dp" />
+
+    <TextView
+        android:id="@+id/heure"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="heure de début de tâche"
+        android:inputType="time" />
+
+    <RadioButton
+        android:id="@+id/notificationb"
+        android:layout_width="128dp"
+        android:layout_height="65dp"
+        android:onClick="obtenirCalend"
+        android:text="Me notifier ?"
+        tools:layout_editor_absoluteX="150dp"
+        tools:layout_editor_absoluteY="527dp" />
+
+
+
+    <Button
+        android:id="@+id/valideur"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:onClick="envoyer"
+        android:text="Ajouter"
+        tools:layout_editor_absoluteX="171dp"
+        tools:layout_editor_absoluteY="598dp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="161dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="170dp"
+        android:onClick="liste_taches"
+        android:text="Voir mes tâches" />
+
+</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
