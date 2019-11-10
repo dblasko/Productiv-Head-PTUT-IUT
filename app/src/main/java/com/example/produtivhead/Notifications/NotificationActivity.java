@@ -2,22 +2,30 @@ package com.example.produtivhead.Notifications;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.produtivhead.DB.NotificationDAO;
+import com.example.produtivhead.Habits.HabitListActivity;
 import com.example.produtivhead.R;
 import com.example.produtivhead.WorkMode.WorkModeManager;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.Calendar;
 
-public class NotificationActivity extends AppCompatActivity {
+public class NotificationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //Variables
     private Switch switchSuiviHabitudes;
@@ -39,7 +47,7 @@ public class NotificationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.notification_activity);
 
         //Intégration de la toolbar
         toolbar = findViewById(R.id.tool_bar);
@@ -58,6 +66,25 @@ public class NotificationActivity extends AppCompatActivity {
                 wmm.enableWorkMode(b);
             }
         });
+
+        // PARTIE DRAWER
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+
+        ImageView icone = findViewById(R.id.toolbarIcon);
+        icone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(Gravity.LEFT);
+            }
+        });
+
+        /* */
 
         //Initialisation de la base de données
         NotificationDAO notificationDAO = new NotificationDAO(this);
@@ -147,6 +174,47 @@ public class NotificationActivity extends AppCompatActivity {
 
     public static int getNotificationIdHorairesTravail() {
         return notificationIdHorairesTravail;
+    }
+
+    // POUR DRAWER
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_home) {
+
+        } else if (id == R.id.nav_timer) {
+
+        } else if (id == R.id.nav_habits) {
+            Intent i = new Intent(this, HabitListActivity.class);
+            this.startActivity(i);
+        } else if (id == R.id.nav_work_mode) {
+
+        } else if (id == R.id.nav_todo_list) {
+
+        } else if (id == R.id.nav_notifications) {
+            Intent i = new Intent(this, NotificationActivity.class);
+            //Intent i = new Intent(this, ConfigActivity.class);
+            //i.putExtra("notificationId", 101);
+            this.startActivity(i);
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
 }

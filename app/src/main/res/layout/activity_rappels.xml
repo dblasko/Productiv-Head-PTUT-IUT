@@ -32,6 +32,8 @@
         android:layout_marginBottom="16dp"
         android:paddingBottom="4dp"
         android:visibility="visible"
+        android:dividerHeight="0dp"
+        android:divider="@null"
         app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
