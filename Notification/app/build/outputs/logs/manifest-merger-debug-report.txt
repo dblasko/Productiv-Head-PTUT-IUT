@@ -1,0 +1,212 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:2:1-40:12
+INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:2:1-40:12
+INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:2:1-40:12
+INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:2:1-40:12
+MERGED from [com.github.GrenderG:Toasty:1.4.2] /home/daniel/.gradle/caches/transforms-2/files-2.1/60a830498697abf96bcd296e976d19db/AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:appcompat-v7:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/93744be2978aa4c36ff3f9adaa6d24a4/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/daniel/.gradle/caches/transforms-2/files-2.1/885d19b01ae45c921da9e51151147a14/AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:cardview-v7:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/f37891ae70738d939c9cd0b3ffa5a0df/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/84c8a34c11288dd48ea7cd55b1c84941/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/efafe0070ebdd299a0aa9b1dacbd8a54/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/efd3584b078ad925fa29262cb8f550ff/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/c94785a87840be7ac857502c5bdea43e/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/3581cf4314b7be9c5a005746d129dfc4/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:loader:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/50a4ffbba60823f9c18acc3878861b66/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:viewpager:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/7c4161324bc8571cfb58fe53b3c68c42/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/19e61b7ed07b147eb8fdb71f21081ad2/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:drawerlayout:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/f9bb3111f0e82ee5ed5079fb2442f4b9/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/0fec18d3596bbef417d838c49f9cefe3/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customview:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4664cd2a0f95c6dcb2e1132cd5e6d27a/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4943899873d3106a291236e1c26dfd38/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/0ff7a308232049116f14c1edb64f3211/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4ee8dc0092a81b48584aec4da43ac003/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:versionedparcelable:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4b4229d60c8f34f8fbdb159189e14ea8/AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:cursoradapter:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/62819ff871ea5b9ba8417188b7e9d36c/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /home/daniel/.gradle/caches/transforms-2/files-2.1/944a8b9bf38c13110daf9d7987c88e0b/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:documentfile:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/b183126e1152f1f4812e0b34701a80f3/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/ec20b46ec22bf35b28858da28da118c3/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:print:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/8378ac7930e62a02cf1a6d44d60b39e0/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/daniel/.gradle/caches/transforms-2/files-2.1/c3ad46b4bf7425ffbf5627bbad097d52/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /home/daniel/.gradle/caches/transforms-2/files-2.1/6ece1813b93f9f4b8d49225da4d750c8/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /home/daniel/.gradle/caches/transforms-2/files-2.1/502c728f5482a3c087e1c735eec69fb9/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] /home/daniel/.gradle/caches/transforms-2/files-2.1/10e11abffe0e84035a3bdb0b77028f8f/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:interpolator:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/9b954ae42d44e9712bab9a6ee8f7ff7b/AndroidManifest.xml:17:1-22:12
+INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:2:1-40:12
+INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:2:1-40:12
+INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:2:1-40:12
+	package
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:3:5-43
+		INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml
+		INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:2:1-40:12
+		INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:2:1-40:12
+		INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.SET_ALARM
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:5:5-68
+	android:name
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:5:22-65
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:6:5-81
+	android:name
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:6:22-78
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:7:5-75
+	android:name
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:7:22-73
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:8:5-75
+	android:name
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:8:22-73
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:9:5-78
+	android:name
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:9:22-76
+uses-permission#android.permission.CHANGE_NETWORK_STATE
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:10:5-78
+	android:name
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:10:22-76
+uses-permission#android.permission.ACCESS_NOTIFICATION_POLICY
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:11:5-85
+	android:name
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:11:22-82
+application
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:13:5-38:19
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/daniel/.gradle/caches/transforms-2/files-2.1/885d19b01ae45c921da9e51151147a14/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/daniel/.gradle/caches/transforms-2/files-2.1/885d19b01ae45c921da9e51151147a14/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:support-compat:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4ee8dc0092a81b48584aec4da43ac003/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:support-compat:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4ee8dc0092a81b48584aec4da43ac003/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:versionedparcelable:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4b4229d60c8f34f8fbdb159189e14ea8/AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:versionedparcelable:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4b4229d60c8f34f8fbdb159189e14ea8/AndroidManifest.xml:22:5-23:19
+	android:appComponentFactory
+		ADDED from [com.android.support:support-compat:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4ee8dc0092a81b48584aec4da43ac003/AndroidManifest.xml:22:18-91
+	android:supportsRtl
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:18:9-35
+	android:label
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:16:9-41
+	android:roundIcon
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:17:9-57
+	android:icon
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:15:9-46
+	android:allowBackup
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:14:9-35
+	android:theme
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:19:9-40
+activity#fr.anerdunicorn.notification.ConfigActivity
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:20:9-61
+	android:name
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:20:19-49
+activity#fr.anerdunicorn.notification.RappelsActivity
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:21:9-53
+	android:name
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:21:19-50
+activity#fr.anerdunicorn.notification.MainActivity
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:22:9-28:20
+	android:name
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:22:19-47
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:23:13-27:29
+action#android.intent.action.MAIN
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:24:17-69
+	android:name
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:24:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:26:17-77
+	android:name
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:26:27-74
+receiver#fr.anerdunicorn.notification.NotificationReceiverActivity
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:30:9-66
+	android:name
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:30:19-63
+receiver#fr.anerdunicorn.notification.BootReceiverActivity
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:31:9-37:20
+	android:enabled
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:33:13-35
+	android:name
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:32:13-49
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:34:13-36:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:35:17-79
+	android:name
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml:35:25-76
+uses-sdk
+INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml
+INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml
+MERGED from [com.github.GrenderG:Toasty:1.4.2] /home/daniel/.gradle/caches/transforms-2/files-2.1/60a830498697abf96bcd296e976d19db/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.GrenderG:Toasty:1.4.2] /home/daniel/.gradle/caches/transforms-2/files-2.1/60a830498697abf96bcd296e976d19db/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/93744be2978aa4c36ff3f9adaa6d24a4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/93744be2978aa4c36ff3f9adaa6d24a4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/daniel/.gradle/caches/transforms-2/files-2.1/885d19b01ae45c921da9e51151147a14/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/daniel/.gradle/caches/transforms-2/files-2.1/885d19b01ae45c921da9e51151147a14/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:cardview-v7:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/f37891ae70738d939c9cd0b3ffa5a0df/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/f37891ae70738d939c9cd0b3ffa5a0df/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/84c8a34c11288dd48ea7cd55b1c84941/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/84c8a34c11288dd48ea7cd55b1c84941/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/efafe0070ebdd299a0aa9b1dacbd8a54/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/efafe0070ebdd299a0aa9b1dacbd8a54/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/efd3584b078ad925fa29262cb8f550ff/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/efd3584b078ad925fa29262cb8f550ff/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/c94785a87840be7ac857502c5bdea43e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/c94785a87840be7ac857502c5bdea43e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/3581cf4314b7be9c5a005746d129dfc4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/3581cf4314b7be9c5a005746d129dfc4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/50a4ffbba60823f9c18acc3878861b66/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/50a4ffbba60823f9c18acc3878861b66/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/7c4161324bc8571cfb58fe53b3c68c42/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/7c4161324bc8571cfb58fe53b3c68c42/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/19e61b7ed07b147eb8fdb71f21081ad2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/19e61b7ed07b147eb8fdb71f21081ad2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/f9bb3111f0e82ee5ed5079fb2442f4b9/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/f9bb3111f0e82ee5ed5079fb2442f4b9/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/0fec18d3596bbef417d838c49f9cefe3/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/0fec18d3596bbef417d838c49f9cefe3/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4664cd2a0f95c6dcb2e1132cd5e6d27a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4664cd2a0f95c6dcb2e1132cd5e6d27a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4943899873d3106a291236e1c26dfd38/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4943899873d3106a291236e1c26dfd38/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/0ff7a308232049116f14c1edb64f3211/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/0ff7a308232049116f14c1edb64f3211/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4ee8dc0092a81b48584aec4da43ac003/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4ee8dc0092a81b48584aec4da43ac003/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4b4229d60c8f34f8fbdb159189e14ea8/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/4b4229d60c8f34f8fbdb159189e14ea8/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/62819ff871ea5b9ba8417188b7e9d36c/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/62819ff871ea5b9ba8417188b7e9d36c/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /home/daniel/.gradle/caches/transforms-2/files-2.1/944a8b9bf38c13110daf9d7987c88e0b/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /home/daniel/.gradle/caches/transforms-2/files-2.1/944a8b9bf38c13110daf9d7987c88e0b/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/b183126e1152f1f4812e0b34701a80f3/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/b183126e1152f1f4812e0b34701a80f3/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/ec20b46ec22bf35b28858da28da118c3/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/ec20b46ec22bf35b28858da28da118c3/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/8378ac7930e62a02cf1a6d44d60b39e0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/8378ac7930e62a02cf1a6d44d60b39e0/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/daniel/.gradle/caches/transforms-2/files-2.1/c3ad46b4bf7425ffbf5627bbad097d52/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/daniel/.gradle/caches/transforms-2/files-2.1/c3ad46b4bf7425ffbf5627bbad097d52/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /home/daniel/.gradle/caches/transforms-2/files-2.1/6ece1813b93f9f4b8d49225da4d750c8/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /home/daniel/.gradle/caches/transforms-2/files-2.1/6ece1813b93f9f4b8d49225da4d750c8/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /home/daniel/.gradle/caches/transforms-2/files-2.1/502c728f5482a3c087e1c735eec69fb9/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /home/daniel/.gradle/caches/transforms-2/files-2.1/502c728f5482a3c087e1c735eec69fb9/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /home/daniel/.gradle/caches/transforms-2/files-2.1/10e11abffe0e84035a3bdb0b77028f8f/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /home/daniel/.gradle/caches/transforms-2/files-2.1/10e11abffe0e84035a3bdb0b77028f8f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/9b954ae42d44e9712bab9a6ee8f7ff7b/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /home/daniel/.gradle/caches/transforms-2/files-2.1/9b954ae42d44e9712bab9a6ee8f7ff7b/AndroidManifest.xml:20:5-44
+INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml
+INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml
+		INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml
+		ADDED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml
+		INJECTED from /home/daniel/OLIVIER_LE_BG/PTUT_IUT/Notification/app/src/main/AndroidManifest.xml

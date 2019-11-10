@@ -16,8 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:screenOrientation="portrait">
-        <activity android:name=".Habits.HabitDetailActivity"/>
-        <activity android:name=".Habits.HabitListActivity">
+        <activity android:name=".Habits.HabitDetailActivity"
+            android:launchMode="singleInstance"/>
+        <activity android:name=".Habits.HabitListActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,17 +28,20 @@
         </activity>
 
 
-        <activity android:name=".Notifications.ConfigActivity">
+        <activity android:name=".Notifications.ConfigActivity"
+            android:launchMode="singleInstance">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Notifications.RappelsActivity"/>
         </activity>
-        <activity android:name=".Notifications.RappelsActivity">
+        <activity android:name=".Notifications.RappelsActivity"
+            android:launchMode="singleInstance">
             <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".Notifications.NotificationActivity"/>
         </activity>
-        <activity android:name=".Notifications.NotificationActivity"></activity>
+        <activity android:name=".Notifications.NotificationActivity"
+            android:launchMode="singleInstance"></activity>
 
         <receiver android:name=".Notifications.NotificationReceiverActivity" />
         <receiver
