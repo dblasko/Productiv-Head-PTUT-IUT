@@ -21,7 +21,7 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
         NotificationDAO notificationDAO = new NotificationDAO(context);
         notificationDAO.open();
         Notification notification = notificationDAO.getNotification(notificationId);
-        notificationDAO.close();
+        //notificationDAO.close();
 
         if(notification.getRepeatable() == 1)
             handleRepeatingNotification(context, notification);
@@ -105,7 +105,14 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
             NotificationDAO notificationDAO = new NotificationDAO(context);
             notificationDAO.open();
             notificationDAO.deleteNotification(notification.getId());
-            notificationDAO.close();
+            //notificationDAO.close();
+
+            //Update la RappelsActivity lorsque on supprime la notification
+            for(CustomNotificationButton customNotificationButton : RappelsActivity.customNotifications) {
+                if(customNotificationButton.getId() == notification.getId())
+                    RappelsActivity.customNotifications.remove(customNotificationButton);
+            }
+            RappelsActivity.adapter.notifyDataSetChanged();
         }
     }
 

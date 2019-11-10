@@ -55,7 +55,10 @@ public class ConfigActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         TextView titre_barre = findViewById(R.id.nav_bar_title);
-        titre_barre.setText("Productiv'Head");
+        titre_barre.setText("Rappels");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
@@ -76,7 +79,7 @@ public class ConfigActivity extends AppCompatActivity {
         NotificationDAO notificationDAO = new NotificationDAO(this);
         notificationDAO.open();
         notification = notificationDAO.getNotification(notificationId);
-        notificationDAO.close();
+        //notificationDAO.close();
 
         //Initialisation des RadioButtons
         radioButtonRepeatable = findViewById(R.id.radioButtonRepeatable);
@@ -201,7 +204,7 @@ public class ConfigActivity extends AppCompatActivity {
                     NotificationDAO notificationDAO = new NotificationDAO(getApplicationContext());
                     notificationDAO.open();
                     notificationDAO.updateNotification(notification);
-                    notificationDAO.close();
+                    //notificationDAO.close();
 
                     //Changement de l'état du switch (annulation et plannification automatique de la notification)
 

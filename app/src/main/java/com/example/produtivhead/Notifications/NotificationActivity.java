@@ -45,7 +45,7 @@ public class NotificationActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         TextView titre_barre = findViewById(R.id.nav_bar_title);
-        titre_barre.setText("Productiv'Head");
+        titre_barre.setText("Notifications");
         /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
@@ -136,8 +136,8 @@ public class NotificationActivity extends AppCompatActivity {
         switchSuiviHabitudes.setChecked((notificationDAO.getNotification(notificationIdSuiviHabitudes).getActive()) == 1);
         switchHorairesTravail.setChecked((notificationDAO.getNotification(notificationIdHorairesTravail).getActive()) == 1);
 
-        //Fermeture de la base de données
-        notificationDAO.close();
+        /*//Fermeture de la base de données
+        notificationDAO.close();*/
     }
 
     //Getters

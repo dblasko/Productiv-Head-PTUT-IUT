@@ -28,9 +28,9 @@ public class RappelsActivity extends AppCompatActivity {
 
     //Variables
     public ListView listView;
-    public CustomNotificationButtonAdapter adapter;
+    public static CustomNotificationButtonAdapter adapter;
     public int id;
-    public List<CustomNotificationButton> customNotifications;
+    public static List<CustomNotificationButton> customNotifications;
     public List<Integer> notificationsId;
 
     private NotificationDAO notificationDAO;
@@ -47,7 +47,10 @@ public class RappelsActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         TextView titre_barre = findViewById(R.id.nav_bar_title);
-        titre_barre.setText("Productiv'Head");
+        titre_barre.setText("Rappels");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
@@ -98,7 +101,7 @@ public class RappelsActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
         //Fermeture de l'accès à la base de données
-        notificationDAO.close();
+        //notificationDAO.close();
 
         //Création d'un CustomNotificationButton quand on clique sur le bouton d'ajout
         buttonAdd.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +145,7 @@ public class RappelsActivity extends AppCompatActivity {
                         Notification notification = new Notification(id, "Notification", customNotificationButton.getContent(), 1, 8, 0, 0, -1, -1, -1, -1);
                         notificationDAO.open();
                         notificationDAO.addNotification(notification);
-                        notificationDAO.close();
+                        //notificationDAO.close();
 
                         //Refresh de l'adapter
                         adapter.notifyDataSetChanged();

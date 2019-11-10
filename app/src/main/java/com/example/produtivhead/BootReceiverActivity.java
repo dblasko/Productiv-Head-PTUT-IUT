@@ -23,7 +23,7 @@ public class BootReceiverActivity extends BroadcastReceiver {
             }
         }
 
-        notificationDAO.close();
+        //notificationDAO.close();
     }
 
 }

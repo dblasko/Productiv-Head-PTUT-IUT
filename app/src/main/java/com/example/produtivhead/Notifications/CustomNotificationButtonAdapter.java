@@ -126,7 +126,7 @@ public class CustomNotificationButtonAdapter extends ArrayAdapter<CustomNotifica
                                     notification.setContent(customNotificationButton.getContent());
                                     notificationDAO.deleteNotification(customNotificationButton.getId());
                                     notificationDAO.addNotification(notification);
-                                    notificationDAO.close();
+                                    //notificationDAO.close();
                                 }
                             });
 
@@ -153,7 +153,7 @@ public class CustomNotificationButtonAdapter extends ArrayAdapter<CustomNotifica
                             NotificationDAO notificationDAO = new NotificationDAO(getContext());
                             notificationDAO.open();
                             notificationDAO.deleteNotification(customNotificationButton.getId());
-                            notificationDAO.close();
+                            //notificationDAO.close();
 
                             //Suppression du boutton dans la liste
                             customNotificationButtons.remove(position);
@@ -181,8 +181,9 @@ public class CustomNotificationButtonAdapter extends ArrayAdapter<CustomNotifica
         NotificationDAO notificationDAO = new NotificationDAO(getContext());
         notificationDAO.open();
         Notification notification = notificationDAO.getNotification(customNotificationButton.getId());
-        notificationDAO.close();
-        viewHolder.aSwitch.setChecked(notification.getActive() == 1);
+        //notificationDAO.close();
+        if(notification != null)
+            viewHolder.aSwitch.setChecked(notification.getActive() == 1);
 
         //Mise en place du texte du boutton
         viewHolder.content.setText(customNotificationButton.getContent());

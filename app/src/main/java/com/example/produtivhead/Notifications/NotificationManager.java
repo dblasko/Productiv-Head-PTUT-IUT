@@ -46,7 +46,7 @@ public class NotificationManager {
         notificationDAO.updateNotification(notification);
 
         //Fermeture de l'accès à la base de données
-        notificationDAO.close();
+        //notificationDAO.close();
     }
 
     public static void cancelNotification(Context context, int notificationId) {
@@ -64,7 +64,7 @@ public class NotificationManager {
         Notification notification = notificationDAO.getNotification(notificationId);
         notification.setActive(0);
         notificationDAO.updateNotification(notification);
-        notificationDAO.close();
+        //notificationDAO.close();
     }
 
     //Création d'un channel de notification (obligatoire sur les dernières versions android), a appeler avant de créer une notification
@@ -84,7 +84,7 @@ public class NotificationManager {
         NotificationDAO notificationDAO = new NotificationDAO(context);
         notificationDAO.open();
         Notification notification = notificationDAO.getNotification(notificationId);
-        notificationDAO.close();
+        //notificationDAO.close();
         String notificationContent = notification.getContent();
 
         //Contenu par défaut si notificationContent est vide

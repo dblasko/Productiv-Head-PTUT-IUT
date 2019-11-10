@@ -26,10 +26,17 @@
         </activity>
 
 
-        <activity android:name=".Notifications.ConfigActivity"></activity>
-        <activity android:name=".Notifications.RappelsActivity" />
-        <activity android:name=".Notifications.NotificationActivity">
+        <activity android:name=".Notifications.ConfigActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Notifications.RappelsActivity"/>
         </activity>
+        <activity android:name=".Notifications.RappelsActivity">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".Notifications.NotificationActivity"/>
+        </activity>
+        <activity android:name=".Notifications.NotificationActivity"></activity>
 
         <receiver android:name=".Notifications.NotificationReceiverActivity" />
         <receiver
