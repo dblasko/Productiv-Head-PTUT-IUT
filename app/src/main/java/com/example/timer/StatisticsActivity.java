@@ -37,6 +37,7 @@ public class StatisticsActivity extends AppCompatActivity {
     Calendar calendar;
     TextView tdatePicker;
     String recupDate;
+    String recupJour;
     DatePickerDialog datePicker;
 
     TimerStatisticsDAO tsDAO = new TimerStatisticsDAO(this);
@@ -108,9 +109,13 @@ public class StatisticsActivity extends AppCompatActivity {
                 datePicker = new DatePickerDialog(StatisticsActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                        tdatePicker.setText(year + "-" + (month + 1) + "-" + day);
-                        recupDate = (String.valueOf(year) + "-" + String.valueOf(month+1) + "-" + String.valueOf(day));
+
+                        if(day<10) recupJour=("0" + String.valueOf(day));
+                        else recupJour=String.valueOf(day);
+                        tdatePicker.setText(year + "-" + (month + 1) + "-" + recupJour);
+                        recupDate = (String.valueOf(year) + "-" + String.valueOf(month+1) + "-" + recupJour);
                         affichageStats(recupDate);
+
                     }
                 }, cAnnee, cMois, cJour);
                 datePicker.show();
@@ -123,6 +128,8 @@ public class StatisticsActivity extends AppCompatActivity {
     public void affichageStats(String date) {
         DecimalFormat dfs = new DecimalFormat("###.##");
         DecimalFormat df = new DecimalFormat("###.##");
+
+        System.out.println("essaie "+date);
 
         //TODO -        STATISTIQUES DU JOUR
 
