@@ -16,10 +16,9 @@ public class BootReceiverActivity extends BroadcastReceiver {
         notificationDAO.open();
 
         //Initialisation des notifications au redémarrage de l'appareil
-        for(int i = 1; i <= 101; i++) {
-            Notification notification = notificationDAO.getNotification(i);
+        for(Notification notification : notificationDAO.getAllNotifications()) {
             if(notification.getActive() == 1) {
-                NotificationManager.scheduleNotification(context, i);
+                NotificationManager.scheduleNotification(context, notification.getId());
             }
         }
 

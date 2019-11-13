@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.produtivhead.Notifications.Notification;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NotificationDAO {
 
     private MySQLite mySQLite;
@@ -74,6 +77,17 @@ public class NotificationDAO {
         }
         c.close();
         return notification;
+    }
+
+    public List<Notification> getAllNotifications() {
+        ArrayList<Notification> notifications = new ArrayList<>();
+
+        Cursor c = db.rawQuery("SELECT * FROM Notifications", null);
+        while(c.moveToNext()) {
+            notifications.add(new Notification(c.getInt(0), c.getString(1), c.getString(2), c.getInt(3), c.getInt(4), c.getInt(5), c.getInt(6), c.getInt(7), c.getInt(8), c.getInt(9), c.getInt(10)));
+        }
+        c.close();
+        return notifications;
     }
 
 }

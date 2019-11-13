@@ -38,8 +38,10 @@ public class NotificationManager {
         if(notification.getRepeatable() == 1)
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(), AlarmManager.INTERVAL_DAY, receiverPendingIntent);
         //Sinon
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(), receiverPendingIntent);
         else
-            alarmManager.set(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(), receiverPendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(), receiverPendingIntent);
 
         //Sauvegarde de l'état de la notification dans la base de données
         notification.setActive(1);
