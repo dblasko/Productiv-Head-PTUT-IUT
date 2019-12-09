@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.astritveliu.boom.Boom;
 import com.example.produtivhead.DB.HabitDao;
+import com.example.produtivhead.Home.HomeActivity;
 import com.example.produtivhead.Notifications.ConfigActivity;
 import com.example.produtivhead.Notifications.NotificationActivity;
 import com.example.produtivhead.R;
@@ -355,7 +356,8 @@ public class HabitListActivity extends AppCompatActivity implements NavigationVi
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-
+            Intent i = new Intent(this, HomeActivity.class);
+            this.startActivity(i);
         } else if (id == R.id.nav_timer) {
             Intent i = new Intent(this, TimerActivity.class);
             this.startActivity(i);

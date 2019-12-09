@@ -24,6 +24,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.produtivhead.DB.TimerStatisticsDAO;
 import com.example.produtivhead.Habits.HabitListActivity;
+import com.example.produtivhead.Home.HomeActivity;
 import com.example.produtivhead.Notifications.NotificationActivity;
 import com.example.produtivhead.R;
 import com.example.produtivhead.WorkMode.WorkModeManager;
@@ -571,7 +572,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-
+            Intent i = new Intent(this, HomeActivity.class);
+            this.startActivity(i);
         } else if (id == R.id.nav_timer) {
             Intent i = new Intent(this, TimerActivity.class);
             this.startActivity(i);

@@ -2,4 +2,5 @@
     <string name="app_name">Productiv\'Head</string>
     <string name="navigation_drawer_open">Ouvrir le drawer.</string>
     <string name="navigation_drawer_close">Fermer le drawer.</string>
+    <string name="title_activity_home">HomeActivity</string>
 </resources>

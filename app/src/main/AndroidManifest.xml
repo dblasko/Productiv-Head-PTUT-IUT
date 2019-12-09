@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.produtivhead" >
+    package="com.example.produtivhead">
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
-
 
     <application
         android:allowBackup="false"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:roundIcon="@drawable/icon"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme"
         android:screenOrientation="portrait"
-        android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name=".Habits.HabitDetailActivity"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Habits.HabitListActivity"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Home.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -29,38 +27,47 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name=".Notifications.ConfigActivity"
+        <activity
+            android:name=".Habits.HabitDetailActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Habits.HabitListActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".Notifications.ConfigActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Notifications.RappelsActivity"/>
+                android:value=".Notifications.RappelsActivity" />
         </activity>
-        <activity android:name=".Notifications.RappelsActivity"
+        <activity
+            android:name=".Notifications.RappelsActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait">
             <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".Notifications.NotificationActivity"/>
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Notifications.NotificationActivity" />
         </activity>
-        <activity android:name=".Notifications.NotificationActivity"
-            android:launchMode="singleInstance"></activity>
-
+        <activity
+            android:name=".Notifications.NotificationActivity"
+            android:launchMode="singleInstance" />
         <activity
             android:name=".Timer.StatisticsActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Timer.TimerActivity" />
         </activity>
-        <activity android:name=".Timer.TimerActivity"
+        <activity
+            android:name=".Timer.TimerActivity"
             android:icon="@drawable/icon"
-            android:screenOrientation="portrait"
-            android:launchMode="singleInstance">
-        </activity>
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"></activity>
 
         <receiver android:name=".Notifications.NotificationReceiverActivity" />
         <receiver
