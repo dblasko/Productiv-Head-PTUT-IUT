@@ -18,9 +18,11 @@
         android:screenOrientation="portrait"
         android:fullBackupContent="@xml/backup_descriptor">
         <activity android:name=".Habits.HabitDetailActivity"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Habits.HabitListActivity"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,13 +32,15 @@
 
 
         <activity android:name=".Notifications.ConfigActivity"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Notifications.RappelsActivity"/>
         </activity>
         <activity android:name=".Notifications.RappelsActivity"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
             <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".Notifications.NotificationActivity"/>
@@ -46,14 +50,16 @@
 
         <activity
             android:name=".Timer.StatisticsActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Timer.TimerActivity" />
         </activity>
         <activity android:name=".Timer.TimerActivity"
             android:icon="@drawable/icon"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance">
         </activity>
 
         <receiver android:name=".Notifications.NotificationReceiverActivity" />
