@@ -32,6 +32,7 @@ import com.example.produtivhead.DB.HabitDao;
 import com.example.produtivhead.Notifications.ConfigActivity;
 import com.example.produtivhead.Notifications.NotificationActivity;
 import com.example.produtivhead.R;
+import com.example.produtivhead.Timer.TimerActivity;
 import com.example.produtivhead.WorkMode.WorkModeManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -356,12 +357,11 @@ public class HabitListActivity extends AppCompatActivity implements NavigationVi
         if (id == R.id.nav_home) {
 
         } else if (id == R.id.nav_timer) {
-
+            Intent i = new Intent(this, TimerActivity.class);
+            this.startActivity(i);
         } else if (id == R.id.nav_habits) {
             Intent i = new Intent(this, HabitListActivity.class);
             this.startActivity(i);
-        } else if (id == R.id.nav_work_mode) {
-
         } else if (id == R.id.nav_todo_list) {
 
         } else if (id == R.id.nav_notifications) {

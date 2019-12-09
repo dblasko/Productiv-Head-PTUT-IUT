@@ -14,11 +14,8 @@
             android:id="@+id/nav_habits"
             android:title="Suivi des habitudes" />
         <item
-            android:id="@+id/nav_work_mode"
-            android:title="Mode travail" />
-        <item
             android:id="@+id/nav_todo_list"
-            android:title="Todo Liste" />
+            android:title="Todo List" />
         <item
             android:id="@+id/nav_notifications"
             android:title="Notifications" />

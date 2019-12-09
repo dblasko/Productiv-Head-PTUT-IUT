@@ -9,13 +9,14 @@
 
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:fullBackupContent="@xml/backup_descriptor">
         <activity android:name=".Habits.HabitDetailActivity"
             android:launchMode="singleInstance"/>
         <activity android:name=".Habits.HabitListActivity"
@@ -42,6 +43,18 @@
         </activity>
         <activity android:name=".Notifications.NotificationActivity"
             android:launchMode="singleInstance"></activity>
+
+        <activity
+            android:name=".Timer.StatisticsActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Timer.TimerActivity" />
+        </activity>
+        <activity android:name=".Timer.TimerActivity"
+            android:icon="@drawable/icon"
+            android:screenOrientation="portrait">
+        </activity>
 
         <receiver android:name=".Notifications.NotificationReceiverActivity" />
         <receiver

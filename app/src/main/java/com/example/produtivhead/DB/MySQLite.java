@@ -28,6 +28,7 @@ public class MySQLite extends SQLiteOpenHelper {
         // S'exécute à la création de la BD
         // => Donc on exécute la/les requêtes pour créer la table
         sqLiteDatabase.execSQL(HabitDao.CREATE_TABLE_HABITS); // Exécute create table habit
+        sqLiteDatabase.execSQL(TimerStatisticsDAO.CREATE_TABLE_TIMERSTATISTIQUE);
         sqLiteDatabase.execSQL("Create table Notifications (ID integer primary key autoincrement, TITLE text, CONTENT text, REPEATABLE integer, HOUR integer, MINUTE integer, DAYS integer, YEAR integer, MONTH integer, DAY integer, ACTIVE integer)");
     }
 
