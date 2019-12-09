@@ -510,7 +510,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
                     reset(view);
                 }
 
-                if(nbSession==0) tNbSessionPersonnalise.setText("∞");
+                if(nbSession==0) tNbSessionPersonnalise.setText("  ∞");
                 else tNbSessionPersonnalise.setText(String.valueOf(nbSession));
                 actualisationTimer();
                 dialog.cancel();

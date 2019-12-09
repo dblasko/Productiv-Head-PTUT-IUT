@@ -11,7 +11,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="473ae254-096b-4a27-a871-5f3d58f455c4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/produtivhead/Timer/TimerActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/produtivhead/Timer/TimerActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_timer_activity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_timer_activity.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/build/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,8 +57,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/produtivhead/Timer/TimerActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="579" column="34" selection-start-line="579" selection-start-column="34" selection-end-line="579" selection-end-column="34" />
+            <state relative-caret-position="523">
+              <caret line="526" column="39" lean-forward="true" selection-start-line="526" selection-start-column="39" selection-end-line="526" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -63,14 +66,24 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="21" column="48" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
+            <state relative-caret-position="386">
+              <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
             </state>
           </provider>
           <provider editor-type-id="android-manifest" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_timer_activity.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="677">
+              <caret line="320" column="38" selection-start-line="320" selection-start-column="38" selection-end-line="320" selection-end-column="38" />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
     </leaf>
@@ -92,6 +105,8 @@
       <find>customNotifications.remove</find>
       <find>constraintLayout</find>
       <find>cardv</find>
+      <find>setText</find>
+      <find>20</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -139,14 +154,14 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/produtivhead/Timer/StatisticsActivity.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/xml/backup_descriptor.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_timer_activity.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_stat.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/produtivhead/DB/MySQLite.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/drawer_menu.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/produtivhead/Habits/HabitListActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/produtivhead/Notifications/NotificationActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/produtivhead/Timer/TimerActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/produtivhead/Timer/TimerActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_timer_activity.xml" />
       </list>
     </option>
   </component>
@@ -290,6 +305,13 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="produtivhead" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Produtiv'Head" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="produtivhead" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="Timer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Produtiv'Head" type="1abcf292:AndroidViewProjectNode" />
@@ -464,7 +486,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.12353568" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.12353568" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
@@ -477,7 +499,7 @@
       <window_info anchor="bottom" id="Terminal" order="2" />
       <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.50108933" side_tool="true" weight="0.15618221" />
       <window_info anchor="bottom" id="Build" order="4" sideWeight="0.49891067" weight="0.15618221" />
-      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.49946696" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.49946696" weight="0.3286334" />
       <window_info anchor="bottom" id="Logcat" order="6" weight="0.9251627" />
       <window_info anchor="bottom" id="Android Profiler" order="7" />
       <window_info anchor="bottom" id="Debug" order="8" />
@@ -487,7 +509,7 @@
       <window_info anchor="right" id="Theme Preview" order="2" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info anchor="right" id="Device File Explorer" order="4" side_tool="true" />
-      <window_info anchor="right" id="Preview" order="5" weight="0.32897604" />
+      <window_info active="true" anchor="right" id="Preview" order="5" visible="true" weight="0.328541" />
     </layout>
   </component>
   <component name="editorHistoryManager">
@@ -705,14 +727,6 @@
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_timer_activity.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7678">
-          <caret line="349" column="39" selection-start-line="349" selection-start-column="39" selection-end-line="349" selection-end-column="39" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_stat.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="623">
@@ -750,23 +764,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/produtivhead/Timer/TimerActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="579" column="34" selection-start-line="579" selection-start-column="34" selection-end-line="579" selection-end-column="34" />
+        <state relative-caret-position="523">
+          <caret line="526" column="39" lean-forward="true" selection-start-line="526" selection-start-column="39" selection-end-line="526" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_timer_activity.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="21" column="48" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
+        <state relative-caret-position="677">
+          <caret line="320" column="38" selection-start-line="320" selection-start-column="38" selection-end-line="320" selection-end-column="38" />
         </state>
       </provider>
-      <provider editor-type-id="android-manifest" />
+      <provider editor-type-id="android-designer2" />
     </entry>
   </component>
 </project>
