@@ -4,21 +4,28 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
+        <group android:id="@+id/idid1"><item
             android:id="@+id/nav_home"
-            android:title="Accueil" />
-        <item
+            android:title="Accueil"
+            android:icon="@drawable/ic_home_black_24dp"/></group>
+        <group android:id="@+id/idid2"><item
             android:id="@+id/nav_timer"
-            android:title="Timer" />
-        <item
+            android:title="Timer"
+            android:icon="@drawable/ic_timer_black_24dp"/></group>
+        <group android:id="@+id/idid3"><item
             android:id="@+id/nav_habits"
-            android:title="Suivi des habitudes" />
-        <item
+            android:title="Suivi des habitudes"
+            android:icon="@drawable/ic_show_chart_black_24dp"/></group>
+            <!--android:icon="@drawable/ic_assignment_black_24dp"-->
+        <group android:id="@+id/idid4"><item
             android:id="@+id/nav_todo_list"
-            android:title="Todo List" />
-        <item
+            android:title="Todo List"
+            android:icon="@drawable/ic_playlist_add_check_black_24dp"/></group>
+        <group android:id="@+id/idid5"><item
             android:id="@+id/nav_notifications"
-            android:title="Notifications" />
+            android:title="Notifications"
+            android:icon="@drawable/ic_add_alert_black_24dp"/></group>
+        <group android:id="@+id/idid6"></group>
     </group>
 
 </menu>

@@ -341,6 +341,7 @@
 </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
+        app:headerLayout="@layout/header_layout"
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
