@@ -5,6 +5,7 @@
     android:fillViewport="true"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
 <include android:id="@+id/tool_bar"
     layout="@layout/tool_bar"
     xmlns:android="http://schemas.android.com/apk/res/android" />
@@ -19,7 +20,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:background="@color/grey">
+    android:background="#fefff0">
 
 
         <androidx.cardview.widget.CardView
