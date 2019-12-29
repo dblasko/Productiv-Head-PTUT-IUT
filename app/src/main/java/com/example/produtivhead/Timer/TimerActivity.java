@@ -40,7 +40,7 @@ import java.util.Locale;
 
 public class TimerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private int debut = 8000;           // en millis    1500000  exemple 8000
+    private int debut = 1500000;           // en millis    1500000  exemple 8000
 
     private int nbSession = 0;
     private int nbTravail = 0;
@@ -421,14 +421,14 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
                 debut = nbTpsGrandePause * 60000;
                 //nbPause=0;
             } else {
-                debut = 4000;    // 1200000
+                debut = 1200000;    // 1200000
                 //nbPause =0;
             }
         } else {
             if (sessionPersonnaliser && tpsPausePerso != -1)
                 debut = tpsPausePerso * 60000;
             else
-                debut = 3000;   //300000
+                debut = 300000;   //300000
         }
         tempsRestant = debut;
         decrementation.cancel();
