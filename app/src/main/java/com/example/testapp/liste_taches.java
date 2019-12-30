@@ -27,8 +27,8 @@ public class liste_taches extends AppCompatActivity {
         setContentView(R.layout.liste_taches);
 
 
-        Intent intent = getIntent();
-        String nomTt = intent.getStringExtra(acceuil_todolist.nom);
+        //Intent intent = getIntent();
+        //String nomTt = intent.getStringExtra(acceuil_todolist.nom);
 
         /*if (intent != null) {
 
@@ -37,10 +37,22 @@ public class liste_taches extends AppCompatActivity {
             }}
 
             liste.add(str);*/
+
+
+        //Création de l'adapter pour la ListView
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, simple_list_item_1, liste);
         ListView list = (ListView) findViewById(R.id.listeT);
         list.setAdapter(adapter);
-        liste.add(nomTt);
+
+        //Intialisation de l'accès à la BD pour récupérer toutes les tâches créées
+        TachesDAO tachesDAO = new TachesDAO(this);
+        tachesDAO.open();
+
+        //Ajout de toutes les tâches à la liste
+        for(String tache : tachesDAO.getAllTaches()) {
+            liste.add(tache);
+        }
+
         adapter.notifyDataSetChanged();
 
 

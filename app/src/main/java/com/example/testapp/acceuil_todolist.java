@@ -182,8 +182,13 @@ public class acceuil_todolist extends AppCompatActivity{
         Intent intent = new Intent(this,liste_taches.class);
         EditText editText = (EditText) findViewById(R.id.nomTache);
         String nomTt= editText.getText().toString();
-        intent.putExtra(nom,nomTt);
 
+        //Initialisation de l'accès à la base de données pour sauvegarder la tâche créée
+        TachesDAO tachesDAO = new TachesDAO(this);
+        tachesDAO.open();
+
+        //Sauvegarde de la tâche dans la bd
+        tachesDAO.addTache(nomTt);
 
        startActivity(intent);
 
@@ -200,7 +205,7 @@ public class acceuil_todolist extends AppCompatActivity{
 
             case R.id.notificationb:
                 if (coche) {
-                    Toast.makeText(getApplicationContext(), "Vous serez notifiez !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Vous serez notifié !", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
