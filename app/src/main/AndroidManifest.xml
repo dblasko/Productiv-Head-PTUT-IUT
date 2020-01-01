@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.produtivhead">
+    package="com.dblasko.productivhead">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Home.HomeActivity"
+            android:name="com.dblasko.productivhead.Home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait">
@@ -28,50 +28,50 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Habits.HabitDetailActivity"
+            android:name="com.dblasko.productivhead.Habits.HabitDetailActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Habits.HabitListActivity"
+            android:name="com.dblasko.productivhead.Habits.HabitListActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".Notifications.ConfigActivity"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Notifications.RappelsActivity" />
-        </activity>
-        <activity
-            android:name=".Notifications.RappelsActivity"
+            android:name="com.dblasko.productivhead.Notifications.ConfigActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Notifications.NotificationActivity" />
+                android:value="com.dblasko.productivhead.Notifications.RappelsActivity" />
         </activity>
         <activity
-            android:name=".Notifications.NotificationActivity"
+            android:name="com.dblasko.productivhead.Notifications.RappelsActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dblasko.productivhead.Notifications.NotificationActivity" />
+        </activity>
+        <activity
+            android:name="com.dblasko.productivhead.Notifications.NotificationActivity"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".Timer.StatisticsActivity"
+            android:name="com.dblasko.productivhead.Timer.StatisticsActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Timer.TimerActivity" />
+                android:value="com.dblasko.productivhead.Timer.TimerActivity" />
         </activity>
         <activity
-            android:name=".Timer.TimerActivity"
+            android:name="com.dblasko.productivhead.Timer.TimerActivity"
             android:icon="@drawable/icon"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"></activity>
 
-        <receiver android:name=".Notifications.NotificationReceiverActivity" />
+        <receiver android:name="com.dblasko.productivhead.Notifications.NotificationReceiverActivity" />
         <receiver
-            android:name=".BootReceiverActivity"
+            android:name="com.dblasko.productivhead.BootReceiverActivity"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
