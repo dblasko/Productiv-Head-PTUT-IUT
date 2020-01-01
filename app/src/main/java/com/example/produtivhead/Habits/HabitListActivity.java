@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -97,6 +98,11 @@ public class HabitListActivity extends AppCompatActivity implements NavigationVi
         dateText.setText(getLiteralMonth(month) + " " + year);
     }
 
+    public void toastInvalidType() {
+        Toast t = Toast.makeText(this, "Pour l'objectif, merci d'entrer une valeur strictement numérique.", Toast.LENGTH_LONG);
+        t.show();
+    }
+
     public void createHabitDialog() {
         // Creates and displays the dialog to create a new habit
 
@@ -125,13 +131,17 @@ public class HabitListActivity extends AppCompatActivity implements NavigationVi
                 }
                 // => Double uses ".", parsing with , results in an app crash
                 advText = advText.replace(',', '.');
-                double adv = Double.parseDouble(advText);
-                String unit = et3.getText().toString();
+                try {
+                    double adv = Double.parseDouble(advText);
+                    String unit = et3.getText().toString();
 
-                habitDao.insertDailyAdv(new Habit(habitTitle, year, month, "00", adv, unit)); // Day 0 is here to remember the habit + to know its unit
-                ((HabitListAdapter) habitRecView.getAdapter()).setHabitsData(habitDao.getMonthlyHabits(year, month)); // We update the adapters data once the new habit is added, this is enough since there is no need to refresh the entire view, only the list is changing
-                habitRecView.getAdapter().notifyDataSetChanged();
-                // Re animate
+                    habitDao.insertDailyAdv(new Habit(habitTitle, year, month, "00", adv, unit)); // Day 0 is here to remember the habit + to know its unit
+                    ((HabitListAdapter) habitRecView.getAdapter()).setHabitsData(habitDao.getMonthlyHabits(year, month)); // We update the adapters data once the new habit is added, this is enough since there is no need to refresh the entire view, only the list is changing
+                    habitRecView.getAdapter().notifyDataSetChanged();
+                    // Re animate
+                } catch (Exception e) {
+                    toastInvalidType();
+                }
                 animateRecyclerView();
 
                 dialog.cancel();
@@ -179,17 +189,21 @@ public class HabitListActivity extends AppCompatActivity implements NavigationVi
         leftArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int monthInt = Integer.parseInt(month);
-                if (monthInt == 1) {
-                    // Go back a year and set to december if jan
-                    int yearInt = Integer.parseInt(year);
-                    yearInt--;
-                    year = Integer.toString(yearInt);
-                    month = "12";
-                } else {
-                    monthInt--;
-                    if (monthInt < 10) month = "0" + Integer.toString(monthInt);
-                    else month = Integer.toString(monthInt);
+                try {
+                    int monthInt = Integer.parseInt(month);
+                    if (monthInt == 1) {
+                        // Go back a year and set to december if jan
+                        int yearInt = Integer.parseInt(year);
+                        yearInt--;
+                        year = Integer.toString(yearInt);
+                        month = "12";
+                    } else {
+                        monthInt--;
+                        if (monthInt < 10) month = "0" + Integer.toString(monthInt);
+                        else month = Integer.toString(monthInt);
+                    }
+                } catch (Exception e) {
+                    toastInvalidType();
                 }
                 // Update the view with new data
                 refreshView(year, month);
@@ -200,17 +214,21 @@ public class HabitListActivity extends AppCompatActivity implements NavigationVi
         rightArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int monthInt = Integer.parseInt(month);
-                if (monthInt == 12) {
-                    // Forward a year and set to jan if december
-                    int yearInt = Integer.parseInt(year);
-                    yearInt++;
-                    year = Integer.toString(yearInt);
-                    month = "01";
-                } else {
-                    monthInt++;
-                    if (monthInt < 10) month = "0" + Integer.toString(monthInt);
-                    else month = Integer.toString(monthInt);
+                try {
+                    int monthInt = Integer.parseInt(month);
+                    if (monthInt == 12) {
+                        // Forward a year and set to jan if december
+                        int yearInt = Integer.parseInt(year);
+                        yearInt++;
+                        year = Integer.toString(yearInt);
+                        month = "01";
+                    } else {
+                        monthInt++;
+                        if (monthInt < 10) month = "0" + Integer.toString(monthInt);
+                        else month = Integer.toString(monthInt);
+                    }
+                } catch (Exception e) {
+                    toastInvalidType();
                 }
                 // Update the view with new data
                 refreshView(year, month);

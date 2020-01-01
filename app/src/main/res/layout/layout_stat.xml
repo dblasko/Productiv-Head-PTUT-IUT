@@ -20,7 +20,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:background="#fefff0">
+    android:background="@color/backgroundcolor">
 
 
         <androidx.cardview.widget.CardView
@@ -41,7 +41,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="50dp"
                 android:gravity="center"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/yellowDark"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 />
@@ -78,7 +78,7 @@
             android:layout_marginTop="15sp"
             android:layout_marginLeft="10sp"
             android:text="Statistiques du jour : "
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/yellowDark"
             android:textSize="20sp" />
 
         <TextView
@@ -170,7 +170,7 @@
        android:layout_marginTop="15sp"
        android:layout_marginLeft="10sp"
        android:text="Graphique du jour : "
-       android:textColor="@color/colorPrimaryDark"
+       android:textColor="@color/yellowDark"
        android:textSize="20sp" />
 
        <lecho.lib.hellocharts.view.PieChartView
@@ -196,7 +196,7 @@
             android:layout_marginTop="15sp"
             android:layout_marginLeft="10sp"
             android:text="Statistiques du mois : "
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/yellowDark"
             android:textSize="20sp" />
 
         <TextView
@@ -286,7 +286,7 @@
             android:layout_marginTop="15sp"
             android:layout_marginLeft="10sp"
             android:text="Graphique du mois : "
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/yellowDark"
             android:textSize="20sp" />
 
         <lecho.lib.hellocharts.view.PieChartView

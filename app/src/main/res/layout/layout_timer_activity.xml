@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
 
-    android:background="#fefff0">
+    android:background="@color/backgroundcolor">
 
 
 <RelativeLayout

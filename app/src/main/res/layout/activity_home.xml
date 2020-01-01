@@ -8,7 +8,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context=".Home.HomeActivity">
+    tools:context=".Home.HomeActivity"
+    android:background="@color/backgroundcolor">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,182 +22,185 @@
             android:id="@+id/tool_bar"
             layout="@layout/tool_bar"/>
 
-        <ScrollView
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:layout_marginTop="20dp"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:text="Bienvenue !\nDe quoi avez-vous besoin?"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp" />
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageButton
-                        android:layout_marginTop="20dp"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:adjustViewBounds="true"
-                        android:background="@android:color/transparent"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/icon"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:text="Bienvenue !\nDe quoi avez-vous besoin?"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp" />
-
-
-
-                <androidx.cardview.widget.CardView
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp"
-                    app:cardCornerRadius="5dp"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="onClickHabits">
-
-                    <LinearLayout
+                    android:orientation="vertical">
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <ImageView
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        app:cardCornerRadius="5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:onClick="onClickHabits">
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="110dp"
-                            android:src="@drawable/habits_tracking"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="17sp"
-                            android:textAlignment="center"
-                            android:text="Suivi des habitudes"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"/>
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="110dp"
+                                android:src="@drawable/habits_tracking"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerCrop"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="17sp"
+                                android:textAlignment="center"
+                                android:text="Suivi des habitudes"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"/>
 
-                    </LinearLayout>
+                        </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp"
-                    app:cardCornerRadius="5dp"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="onClickTimer">
-
-                    <LinearLayout
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <ImageView
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        app:cardCornerRadius="5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:onClick="onClickTimer">
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="110dp"
-                            android:src="@drawable/pomodoro"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="17sp"
-                            android:textAlignment="center"
-                            android:text="Timer de travail"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"/>
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="110dp"
+                                android:src="@drawable/pomodoro"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerCrop"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="17sp"
+                                android:textAlignment="center"
+                                android:text="Timer de travail"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"/>
 
-                    </LinearLayout>
+                        </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp"
-                    app:cardCornerRadius="5dp"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="onClickTodo">
-
-                    <LinearLayout
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <ImageView
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        app:cardCornerRadius="5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:onClick="onClickTodo">
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="110dp"
-                            android:src="@drawable/todo"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="17sp"
-                            android:textAlignment="center"
-                            android:text="Todo list"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"/>
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="110dp"
+                                android:src="@drawable/todo"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerCrop"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="17sp"
+                                android:textAlignment="center"
+                                android:text="Todo list"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"/>
 
-                    </LinearLayout>
+                        </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp"
-                    app:cardCornerRadius="5dp"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="onClickNotifications">
-
-                    <LinearLayout
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <ImageView
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        app:cardCornerRadius="5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:onClick="onClickNotifications">
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="110dp"
-                            android:src="@drawable/notifs"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="17sp"
-                            android:textAlignment="center"
-                            android:text="Notifications et rappels"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"/>
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="110dp"
+                                android:src="@drawable/notifs"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerCrop"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="17sp"
+                                android:textAlignment="center"
+                                android:text="Notifications et rappels"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"/>
 
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </ScrollView>
 
 
+        </LinearLayout>
 
-
-            </LinearLayout>
-        </ScrollView>
 
     </LinearLayout>
 

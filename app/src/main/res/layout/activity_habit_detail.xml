@@ -44,7 +44,7 @@
                     android:layout_marginBottom="7dp"
                     android:layout_weight="1"
                     android:text="Suivi de l'habitude :"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/yellowDark"
                     android:textSize="16dp"
                     android:textStyle="bold" />
 
@@ -77,7 +77,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="7dp"
                 android:text="L'avis Productiv'head :"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/yellowDark"
                 android:textSize="16dp"
                 android:textStyle="bold | italic" />
 
@@ -89,7 +89,7 @@
                 android:paddingLeft="13dp"
                 android:paddingRight="13dp"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/yellowDark"
                 android:textSize="18sp"
                 tools:text="test" />
 
@@ -122,7 +122,7 @@
                     android:layout_weight="0"
                     android:paddingBottom="5dp"
                     android:text="Rigueur à ce jour :"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/yellowDark"
                     android:textSize="16dp"
                     android:textStyle="bold" />
 

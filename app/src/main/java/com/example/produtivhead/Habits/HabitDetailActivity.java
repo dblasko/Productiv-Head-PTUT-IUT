@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -340,6 +341,11 @@ public class HabitDetailActivity extends AppCompatActivity {
         fadeOut.setFillAfter(true);
     }
 
+    public void toastInvalidType() {
+        Toast t = Toast.makeText(this, "Pour l'avancement, merci d'entrer une valeur strictement numérique.", Toast.LENGTH_LONG);
+        t.show();
+    }
+
     public void showHabitInputDialog(String year, String month, String habit) {
         // Builds & shows the dialog for habit input
 
@@ -374,6 +380,7 @@ public class HabitDetailActivity extends AppCompatActivity {
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                double advDouble;
 
                 String adv = etAdvancement.getText().toString();
                 if (adv.isEmpty()) {
@@ -381,7 +388,13 @@ public class HabitDetailActivity extends AppCompatActivity {
                     return;
                 }
                 adv = adv.replace(',', '.'); // Doubles use . or else throw an exception
-                double advDouble = Double.parseDouble(adv);
+                try {
+                    advDouble = Double.parseDouble(adv);
+                } catch (Exception e) {
+                    toastInvalidType();
+                    dialog.cancel();
+                    return;
+                }
                 String when = daySpinner.getSelectedItem().toString();
                 if (when.equals(textToday)) {
                     // Get current day

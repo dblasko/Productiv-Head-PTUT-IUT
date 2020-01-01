@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#FFEB3B</color>
-    <color name="colorPrimaryDark">#c8b700</color>
+    <!--<color name="colorPrimaryDark">#c8b700</color>-->
+    <color name="colorPrimaryDark">#FFEB3B</color>
     <color name="colorAccent">#ff6e40</color>
     <color name="grey">#E6EBEB</color>
     <color name="darkgrey">#757575</color>
     <color name="colorControlNormal">#FFFF</color>
+    <color name="yellowDark">#c8b700</color>
+    <color name="backgroundcolor">#2CC5BFA2</color>
 </resources>
