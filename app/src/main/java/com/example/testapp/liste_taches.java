@@ -2,6 +2,7 @@ package com.example.testapp;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import android.widget.ListAdapter;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +46,13 @@ public class liste_taches extends AppCompatActivity {
         ListView list = (ListView) findViewById(R.id.listeT);
         list.setAdapter(adapter);
 
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(liste_taches.this, "ça marche", Toast.LENGTH_SHORT).show();
+            }
+        });
+        
         //Intialisation de l'accès à la BD pour récupérer toutes les tâches créées
         TachesDAO tachesDAO = new TachesDAO(this);
         tachesDAO.open();
@@ -52,6 +61,8 @@ public class liste_taches extends AppCompatActivity {
         for(String tache : tachesDAO.getAllTaches()) {
             liste.add(tache);
         }
+        
+        
 
         adapter.notifyDataSetChanged();
 
