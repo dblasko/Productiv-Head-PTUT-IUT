@@ -1,6 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Nom de la tâche" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="128dp">
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="278dp"
+            android:layout_height="41dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Dates de début et de fin de tâche"
+            tools:layout_editor_absoluteX="57dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="127dp"
+            android:layout_height="37dp"
+            android:ems="10"
+            android:inputType="date"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="75dp" />
+
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="155dp"
+            android:layout_height="47dp"
+            android:ems="10"
+            android:inputType="date"
+            tools:layout_editor_absoluteX="224dp"
+            tools:layout_editor_absoluteY="65dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="au"
+            tools:layout_editor_absoluteX="175dp"
+            tools:layout_editor_absoluteY="93dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="554dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="173dp">
+
+        <EditText
+            android:id="@+id/editText5"
+            android:layout_width="307dp"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Heures de début et de fin de tâche"
+            tools:layout_editor_absoluteX="52dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <EditText
+            android:id="@+id/editText6"
+            android:layout_width="164dp"
+            android:layout_height="49dp"
+            android:ems="10"
+            android:inputType="time"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="103dp" />
+
+        <EditText
+            android:id="@+id/editText7"
+            android:layout_width="162dp"
+            android:layout_height="43dp"
+            android:ems="10"
+            android:inputType="time"
+            tools:layout_editor_absoluteX="233dp"
+            tools:layout_editor_absoluteY="109dp" />
+
+        <EditText
+            android:id="@+id/editText8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Résumé de la tâche"
+            tools:layout_editor_absoluteX="113dp"
+            tools:layout_editor_absoluteY="152dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="211dp"
+            android:layout_height="213dp"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="104dp"
+            tools:layout_editor_absoluteY="206dp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Supprimer la tâche"
+            tools:layout_editor_absoluteX="104dp"
+            tools:layout_editor_absoluteY="490dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

@@ -50,6 +50,13 @@ public class liste_taches extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(liste_taches.this, "ça marche", Toast.LENGTH_SHORT).show();
+                    Intent affichage= new Intent(liste_taches.this, affichage_tache.class);
+                    Intent liste=getIntent();
+                    /*if (liste.hasExtra("edittext")){ // vérifie qu'une valeur est associée à la clé “edittext”
+                        String str = liste.getStringExtra("edittext"); // on récupère la valeur associée à la clé
+                    }*/
+                        startActivity(affichage);
+
             }
         });
         

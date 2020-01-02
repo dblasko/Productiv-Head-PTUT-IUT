@@ -32,12 +32,21 @@
 
 
         <activity  android:name=".acceuil_todolist"
-            android:label="Accueil"
+        android:label="Accueil"
 
-            android:parentActivityName=".MainActivity">
+        android:parentActivityName=".MainActivity">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".MainActivity"/>
+    </activity>
+
+        <activity  android:name=".affichage_tache"
+            android:label="Affichage"
+
+            android:parentActivityName=".liste_taches">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".liste_taches"/>
         </activity>
 
 
