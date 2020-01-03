@@ -26,7 +26,7 @@ import java.util.Calendar;
 
 public class acceuil_todolist extends AppCompatActivity{
 
-
+    private static int compteurIdentifiant=1;
     public static final String nom ="rien pour linstant";
     private EditText text;
     private DatePickerDialog.OnDateSetListener dateurDeNotifDeb;
@@ -178,19 +178,31 @@ public class acceuil_todolist extends AppCompatActivity{
     public void envoyer(View view){
 
 
-        Toast.makeText(getApplicationContext(), "C'est Validé !", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "C'est ajouté !", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,liste_taches.class);
+        //nom de la tache
         EditText editText = (EditText) findViewById(R.id.nomTache);
         String nomTt= editText.getText().toString();
+        //date de début
+        TextView dateD=(TextView) findViewById(R.id.debut) ;
+        String dateDS=dateD.getText().toString();
+        //date de fin
+        TextView dateF=(TextView) findViewById(R.id.fin) ;
+        String dateFS=dateD.getText().toString();
+        //heure de début
+        TextView heure=(TextView) findViewById(R.id.heure);
+        String heureS=heure.getText().toString();
 
+        Taches uneTache= new Taches(compteurIdentifiant,dateDS,dateFS,heureS,nomTt);
+        compteurIdentifiant++;
         //Initialisation de l'accès à la base de données pour sauvegarder la tâche créée
         TachesDAO tachesDAO = new TachesDAO(this);
         tachesDAO.open();
 
         //Sauvegarde de la tâche dans la bd
-        tachesDAO.addTache(nomTt);
+        tachesDAO.addTache(uneTache);
 
-       startActivity(intent);
+        startActivity(intent);
 
     }
 
