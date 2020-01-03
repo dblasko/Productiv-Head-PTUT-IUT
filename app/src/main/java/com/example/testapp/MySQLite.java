@@ -14,7 +14,7 @@ public class MySQLite extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("Create table Taches (ID integer primary key autoincrement, CONTENT text,heure text,dateDeb text,dateFin text,resume text )");
+        db.execSQL("Create table Taches (ID integer primary key autoincrement, DATEDEB text, DATEFIN text, HEURE text, RESUME text)");
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -29,11 +30,11 @@ public class TachesDAO {
 
     public void addTache(Taches tache) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put("content", tache.getNom());
         contentValues.put("ID", tache.getId());
-        contentValues.put("dateDeb", tache.getDateDebut());
-        contentValues.put("dateFin", tache.getDateFin());
-        contentValues.put("heure", tache.getHeure());
+        contentValues.put("DATEDEB", tache.getDateDebut());
+        contentValues.put("DATEFIN", tache.getDateFin());
+        contentValues.put("HEURE", tache.getHeure());
+        contentValues.put("RESUME", tache.getNom());
         db.insert("Taches",null, contentValues);
     }
 
@@ -51,12 +52,13 @@ public class TachesDAO {
     }
 
 
-    public List<String> getAllTaches() {
-        ArrayList<String> taches = new ArrayList<>();
+    public List<Taches> getAllTaches() {
+        ArrayList<Taches> taches = new ArrayList<>();
 
         Cursor c = db.rawQuery("SELECT * FROM Taches", null);
         while(c.moveToNext()) {
-            taches.add(c.getString(1));
+            Taches tache = new Taches(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4));
+            taches.add(tache);
         }
         c.close();
         return taches;
