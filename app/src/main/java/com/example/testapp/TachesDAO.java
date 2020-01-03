@@ -38,13 +38,13 @@ public class TachesDAO {
         db.insert("Taches",null, contentValues);
     }
 
-    public Taches getTache(int id){
+    public Taches getTache(String nom){
 
         Taches tache = null;
 
-        Cursor c = db.rawQuery("SELECT * FROM Taches WHERE ID = " + id, null);
+        Cursor c = db.rawQuery("SELECT * FROM Taches WHERE nom= " + nom, null);
         if (c.moveToFirst()) {
-            tache = new Taches(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4));
+            tache = new Taches(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4),c.getString(5));
         }
         c.close();
         return tache;
@@ -57,7 +57,7 @@ public class TachesDAO {
 
         Cursor c = db.rawQuery("SELECT * FROM Taches", null);
         while(c.moveToNext()) {
-            Taches tache = new Taches(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4));
+            Taches tache = new Taches(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4),c.getString(5));
             taches.add(tache);
         }
         c.close();

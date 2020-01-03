@@ -193,7 +193,7 @@ public class acceuil_todolist extends AppCompatActivity{
         TextView heure=(TextView) findViewById(R.id.heure);
         String heureS=heure.getText().toString();
 
-        Taches uneTache= new Taches(compteurIdentifiant,dateDS,dateFS,heureS,nomTt);
+        Taches uneTache= new Taches(compteurIdentifiant,dateDS,dateFS,heureS,nomTt,null);
         compteurIdentifiant++;
         //Initialisation de l'accès à la base de données pour sauvegarder la tâche créée
         TachesDAO tachesDAO = new TachesDAO(this);

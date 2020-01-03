@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/nomTache"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -72,7 +72,7 @@
             tools:layout_editor_absoluteY="16dp" />
 
         <EditText
-            android:id="@+id/editText6"
+            android:id="@+id/FormLabel"
             android:layout_width="164dp"
             android:layout_height="49dp"
             android:ems="10"
@@ -99,14 +99,6 @@
             tools:layout_editor_absoluteX="113dp"
             tools:layout_editor_absoluteY="152dp" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="211dp"
-            android:layout_height="213dp"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="104dp"
-            tools:layout_editor_absoluteY="206dp" />
-
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
@@ -114,5 +106,15 @@
             android:text="Supprimer la tâche"
             tools:layout_editor_absoluteX="104dp"
             tools:layout_editor_absoluteY="490dp" />
+
+        <EditText
+            android:id="@+id/editText9"
+            android:layout_width="214dp"
+            android:layout_height="159dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            tools:layout_editor_absoluteX="104dp"
+            tools:layout_editor_absoluteY="254dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

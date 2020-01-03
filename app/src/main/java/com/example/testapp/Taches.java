@@ -6,13 +6,14 @@ public class Taches {
     private String dateFin;
     private String heure;
     private String nom;
-
-    Taches(int idp,String dateD,String dateF,String heurep,String nomp){
+    private String resume;
+    Taches(int idp,String dateD,String dateF,String heurep,String nomp,String resumep){
         id=idp;
         dateDebut=dateD;
         dateFin=dateF;
         heure=heurep;
         nom=nomp;
+        resume=resumep;
     }
     public int getId(){
         return id;
