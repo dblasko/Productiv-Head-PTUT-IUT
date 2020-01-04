@@ -178,7 +178,6 @@ public class acceuil_todolist extends AppCompatActivity{
     public void envoyer(View view){
 
 
-        Toast.makeText(getApplicationContext(), "C'est ajouté !", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,liste_taches.class);
         //nom de la tache
         EditText editText = (EditText) findViewById(R.id.nomTache);
@@ -188,7 +187,7 @@ public class acceuil_todolist extends AppCompatActivity{
         String dateDS=dateD.getText().toString();
         //date de fin
         TextView dateF=(TextView) findViewById(R.id.fin) ;
-        String dateFS=dateD.getText().toString();
+        String dateFS=dateF.getText().toString();
         //heure de début
         TextView heure=(TextView) findViewById(R.id.heure);
         String heureS=heure.getText().toString();
@@ -201,6 +200,8 @@ public class acceuil_todolist extends AppCompatActivity{
 
         //Sauvegarde de la tâche dans la bd
         tachesDAO.addTache(uneTache);
+
+        Toast.makeText(getApplicationContext(), "C'est ajouté !", Toast.LENGTH_SHORT).show();
 
         startActivity(intent);
 

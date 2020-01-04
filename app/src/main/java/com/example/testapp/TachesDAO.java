@@ -34,6 +34,7 @@ public class TachesDAO {
         contentValues.put("DATEDEB", tache.getDateDebut());
         contentValues.put("DATEFIN", tache.getDateFin());
         contentValues.put("HEURE", tache.getHeure());
+        contentValues.put("NOM", tache.getNom());
         contentValues.put("RESUME", tache.getNom());
         db.insert("Taches",null, contentValues);
     }
@@ -42,7 +43,7 @@ public class TachesDAO {
 
         Taches tache = null;
 
-        Cursor c = db.rawQuery("SELECT * FROM Taches WHERE nom= " + nom, null);
+        Cursor c = db.rawQuery("SELECT * FROM Taches WHERE nom = '" + nom + "'", null);
         if (c.moveToFirst()) {
             tache = new Taches(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4),c.getString(5));
         }
