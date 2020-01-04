@@ -21,7 +21,7 @@ import static android.R.layout.simple_spinner_item;
 public class liste_taches extends AppCompatActivity {
 
 
-    private ListView listeTaches;
+    private ArrayList<Taches> listeTaches;
     private ArrayList<String> liste;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +32,13 @@ public class liste_taches extends AppCompatActivity {
         final TachesDAO tachesDAO = new TachesDAO(this);
         tachesDAO.open();
 
-        //Instanciation de la liste
+        //Instanciation des listes
+        listeTaches = new ArrayList<>();
         liste = new ArrayList<>();
 
-        //Ajout de toutes les tâches à la liste
+        //Ajout de toutes les tâches aux listes
         for (Taches tache : tachesDAO.getAllTaches()) {
+            listeTaches.add(tache);
             liste.add(tache.getNom());
         }
 
@@ -53,8 +55,7 @@ public class liste_taches extends AppCompatActivity {
 
                 Intent affichage = new Intent(liste_taches.this, affichage_tache.class);
 
-                String nomItemChoisi = liste.get(i);
-                Taches tache = tachesDAO.getTache(nomItemChoisi);
+                Taches tache = listeTaches.get(i);
                 affichage.putExtra("idTache", tache.getId());
 
                 startActivity(affichage);

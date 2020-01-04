@@ -29,7 +29,9 @@ public class Taches {
     }
     public String getNom(){
         return nom;
-
+    }
+    public String getResume(){
+        return resume;
     }
 
 
