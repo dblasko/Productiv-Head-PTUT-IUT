@@ -51,6 +51,14 @@ public class TachesDAO {
         return tache;
 
     }
+    public void supprimerTache(int id){
+
+
+        String where = "id = ?";
+        String[] whereArgs = {id + ""};
+        db.delete("Taches", where, whereArgs);
+
+    }
 
 
     public List<Taches> getAllTaches() {

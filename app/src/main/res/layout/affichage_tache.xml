@@ -9,7 +9,7 @@
         android:id="@+id/nomTache"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Nom de la tâche"
@@ -19,15 +19,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
+        android:layout_width="406dp"
         android:layout_height="128dp"
-        app:layout_constraintTop_toBottomOf="@+id/nomTache">
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/nomTache"
+        tools:layout_editor_absoluteX="2dp">
 
         <TextView
             android:id="@+id/editText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="48dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Dates de début et de fin de tâche"
@@ -42,7 +44,7 @@
             android:layout_height="37dp"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             android:ems="10"
             android:inputType="date"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -84,7 +86,7 @@
             android:id="@+id/editText5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="60dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Heure de début de tâche"
@@ -97,10 +99,11 @@
             android:id="@+id/heureDeb"
             android:layout_width="164dp"
             android:layout_height="49dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="84dp"
             android:ems="10"
             android:inputType="time"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.514"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editText5" />
 
@@ -108,7 +111,7 @@
             android:id="@+id/editText8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="28dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Résumé de la tâche"
@@ -121,7 +124,7 @@
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="88dp"
             android:text="Supprimer la tâche"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -137,6 +140,7 @@
             app:layout_constraintBottom_toTopOf="@+id/button2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText8" />
+            app:layout_constraintTop_toBottomOf="@+id/editText8"
+            app:layout_constraintVertical_bias="0.115" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
