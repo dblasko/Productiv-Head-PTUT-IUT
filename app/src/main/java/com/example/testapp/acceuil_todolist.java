@@ -26,7 +26,7 @@ import java.util.Calendar;
 
 public class acceuil_todolist extends AppCompatActivity{
 
-    private static int compteurIdentifiant=1;
+    public static int compteurIdentifiant=1;
     public static final String nom ="rien pour linstant";
     private EditText text;
     private DatePickerDialog.OnDateSetListener dateurDeNotifDeb;
