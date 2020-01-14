@@ -50,6 +50,13 @@ tools:context=".MainActivity">
         android:ems="10"
         android:hint="heure de début de tâche"
         android:inputType="time" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Résumé de la tâche"
+        android:inputType="textMultiLine"
+        android:id="@+id/resumeA"
+        />
 
     <RadioButton
         android:id="@+id/notificationb"
@@ -70,15 +77,6 @@ tools:context=".MainActivity">
         android:text="Ajouter"
         tools:layout_editor_absoluteX="171dp"
         tools:layout_editor_absoluteY="598dp" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="161dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="170dp"
-        android:onClick="liste_taches"
-        android:text="Voir mes tâches" />
 
 </LinearLayout>
 

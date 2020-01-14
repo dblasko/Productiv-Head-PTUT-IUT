@@ -5,7 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,7 +67,12 @@ public class TachesDAO {
     public List<Taches> getAllTaches() {
         ArrayList<Taches> taches = new ArrayList<>();
 
-        Cursor c = db.rawQuery("SELECT * FROM Taches", null);
+        Date actuelle = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String dat = dateFormat.format(actuelle);
+        System.out.println(dat);
+
+        Cursor c = db.rawQuery("SELECT * FROM Taches ", null);
         while(c.moveToNext()) {
             Taches tache = new Taches(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4),c.getString(5));
             taches.add(tache);

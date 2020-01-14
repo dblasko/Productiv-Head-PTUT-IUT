@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -51,30 +53,6 @@ public class acceuil_todolist extends AppCompatActivity{
 
 
 
-        /*
-        listeTache = (ListView) findViewById(R.id.listeT);
-        String[] items= {"Lina"};
-        arrayList= new ArrayList<String>(Arrays.asList(items));
-        adapter= new ArrayAdapter<String>(this, R.layout.liste_taches,R.id.listeT,arrayList);
-        listeTache.setAdapter(adapter);
-        RecupnomTache= (EditText) findViewById(R.id.nomTache);
-        btn= (Button) findViewById(R.id.valideur);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String newItem= RecupnomTache.getText().toString();
-                arrayList.add(newItem);
-                adapter.notifyDataSetChanged();
-            }
-        });*/
-        /*Button valideur = (Button) findViewById(R.id.valideur);
-        valideur.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Log.i("Lina","Omg");
-                Toast.makeText(getApplicationContext(), "C'est Validé !", Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
 //-------------TIMEUR DE DATE DE DEBUT !!!
 
@@ -191,8 +169,10 @@ public class acceuil_todolist extends AppCompatActivity{
         //heure de début
         TextView heure=(TextView) findViewById(R.id.heure);
         String heureS=heure.getText().toString();
-
-        Taches uneTache= new Taches(compteurIdentifiant,dateDS,dateFS,heureS,nomTt,null);
+        //résumé de la tâche
+        TextView resume=(TextView) findViewById(R.id.resumeA);
+        String resumeA= resume.getText().toString();
+        Taches uneTache= new Taches(compteurIdentifiant,dateDS,dateFS,heureS,nomTt,resumeA);
         compteurIdentifiant++;
         //Initialisation de l'accès à la base de données pour sauvegarder la tâche créée
         TachesDAO tachesDAO = new TachesDAO(this);
