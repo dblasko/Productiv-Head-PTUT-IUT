@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.dblasko.productivhead.DB.NotificationDAO;
+import com.dblasko.productivhead.Todolist.liste_taches;
 
 import java.util.Calendar;
 
@@ -68,6 +69,9 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
         }
         else if(notification.getId() == NotificationActivity.getNotificationIdHorairesTravail()) {
             repeatingIntent = new Intent(context, NotificationActivity.class);
+        }
+        else if(notification.getId() >= 200) {
+            repeatingIntent = new Intent(context, liste_taches.class);
         }
         else
             repeatingIntent =  new Intent(context, RappelsActivity.class);
