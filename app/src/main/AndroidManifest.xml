@@ -69,6 +69,46 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"></activity>
 
+
+        <activity android:name="com.dblasko.productivhead.Todolist.MainActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.dblasko.productivhead.Todolist.liste_taches"
+            android:label="Liste"
+            android:parentActivityName="com.dblasko.productivhead.Todolist.MainActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dblasko.productivhead.Todolist.MainActivity"/>
+        </activity>
+
+
+        <activity  android:name="com.dblasko.productivhead.Todolist.acceuil_todolist"
+            android:label="Accueil"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:parentActivityName="com.dblasko.productivhead.Todolist.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dblasko.productivhead.Todolist.MainActivity"/>
+        </activity>
+
+        <activity  android:name="com.dblasko.productivhead.Todolist.affichage_tache"
+            android:label="Affichage"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:parentActivityName="com.dblasko.productivhead.Todolist.liste_taches">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dblasko.productivhead.Todolist.liste_taches"/>
+        </activity>
+
+
+
+
         <receiver android:name="com.dblasko.productivhead.Notifications.NotificationReceiverActivity" />
         <receiver
             android:name="com.dblasko.productivhead.BootReceiverActivity"

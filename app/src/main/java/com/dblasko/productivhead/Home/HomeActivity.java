@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.dblasko.productivhead.Habits.HabitListActivity;
 import com.dblasko.productivhead.Notifications.NotificationActivity;
 import com.dblasko.productivhead.Timer.TimerActivity;
+import com.dblasko.productivhead.Todolist.MainActivity;
 import com.dblasko.productivhead.WorkMode.WorkModeManager;
 import com.google.android.material.navigation.NavigationView;
 
@@ -48,8 +49,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void onClickTodo(View v) {
-        Toasty.error(this, "Fonctionnalité en cours de développement");
+        Intent i = new Intent(this, MainActivity.class);
+        this.startActivity(i);
     }
+
 
 
     private Toolbar toolbar;
@@ -170,7 +173,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             Intent i = new Intent(this, HabitListActivity.class);
             this.startActivity(i);
         } else if (id == R.id.nav_todo_list) {
-
+            Intent i = new Intent(this, MainActivity.class);
+            this.startActivity(i);
         } else if (id == R.id.nav_notifications) {
             Intent i = new Intent(this, NotificationActivity.class);
             this.startActivity(i);

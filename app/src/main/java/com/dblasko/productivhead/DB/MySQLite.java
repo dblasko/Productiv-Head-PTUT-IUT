@@ -30,6 +30,7 @@ public class MySQLite extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(HabitDao.CREATE_TABLE_HABITS); // Exécute create table habit
         sqLiteDatabase.execSQL(TimerStatisticsDAO.CREATE_TABLE_TIMERSTATISTIQUE);
         sqLiteDatabase.execSQL("Create table Notifications (ID integer primary key autoincrement, TITLE text, CONTENT text, REPEATABLE integer, HOUR integer, MINUTE integer, DAYS integer, YEAR integer, MONTH integer, DAY integer, ACTIVE integer)");
+        sqLiteDatabase.execSQL("Create table Taches (ID integer primary key autoincrement, DATEDEB text, DATEFIN text, HEURE text, NOM text, RESUME text)");
     }
 
     @Override
