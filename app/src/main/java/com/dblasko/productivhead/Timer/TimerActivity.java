@@ -1,6 +1,7 @@
 package com.dblasko.productivhead.Timer;
 
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -35,6 +36,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.dblasko.productivhead.DB.TimerStatisticsDAO;
 import com.dblasko.productivhead.Habits.HabitListActivity;
 import com.dblasko.productivhead.Home.HomeActivity;
+import com.dblasko.productivhead.Notifications.KillTimerNotificationService;
 import com.dblasko.productivhead.Notifications.NotificationActivity;
 import com.dblasko.productivhead.R;
 import com.dblasko.productivhead.Todolist.MainActivity;
@@ -171,6 +173,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         timerActivity = this;
         notificationAction = 0;
         createTimerNotification();
+        startService(new Intent(this, KillTimerNotificationService.class));
 
         /* */
 
@@ -764,8 +767,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
                 .setCustomContentView(notificationLayout)
                 .setCustomBigContentView(notificationLayout)
                 .setSmallIcon(R.mipmap.productiv_head_round)
-                .setVibrate(new long[] {-1})
-                .setOngoing(true);
+                .setVibrate(new long[] {-1});
 
         //Envoi de la notification
         notificationManager.notify(102, notificationBuilder.build());
