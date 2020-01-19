@@ -1,9 +1,14 @@
 package com.dblasko.productivhead.Timer;
 
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.Gravity;
@@ -15,12 +20,15 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RemoteViews;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -106,6 +114,17 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
     private ImageView iMPauseTravail;
     private ImageView iMPauseRepos;
 
+    // POUR NOTIFICATION
+    private NotificationCompat.Builder notificationBuilder;
+    private RemoteViews notificationLayout;
+    private static TimerActivity timerActivity;
+    private int notificationAction;
+    private Intent intentPause;
+    private Intent intentPlay;
+
+    private PendingIntent pendingIntentPause;
+    private PendingIntent pendingIntentPlay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,6 +166,11 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
                 drawer.openDrawer(Gravity.LEFT);
             }
         });
+
+        // PARTIE NOTIFICATION
+        timerActivity = this;
+        notificationAction = 0;
+        createTimerNotification();
 
         /* */
 
@@ -290,6 +314,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
 
 
     public void startTravail(View view) {
+        notificationAction = 1;
         sessionTravail = true;
         resetPossible = true;
         tNomTvl.setVisibility(View.VISIBLE);
@@ -318,6 +343,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
 
             @Override
             public void onFinish() {
+                notificationAction = 2;
                 alarme();
                 finSessionTravail = true;
 
@@ -356,6 +382,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
 
 
     public void startRepos(View view) {
+        notificationAction = 3;
         sessionRepos = true;
         tNomRep.setVisibility(View.VISIBLE);
         tNomTvl.setVisibility(View.INVISIBLE);
@@ -381,8 +408,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
 
             @Override
             public void onFinish() {
+                notificationAction = 0;
                 alarme();
-
                 bStartRepos.setVisibility(View.INVISIBLE);
                 iMStartRepos.setVisibility(View.INVISIBLE);
                 bStartTravail.setVisibility(View.INVISIBLE);
@@ -456,6 +483,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
     }
 
     public void pauseTravail(View view) {
+        notificationAction = 0;
+        updateTimerNotification(null);
         resetPossible = true;
         decrementation.cancel();
         bStartTravail.setVisibility(View.VISIBLE);
@@ -471,6 +500,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
     }
 
     public void pauseRepos(View view) {
+        notificationAction = 0;
+        updateTimerNotification(null);
         resetPossible = true;
         decrementation.cancel();
         finSessionTravail = false;
@@ -488,6 +519,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
 
     public void reset(View view) {
         if (resetPossible) {
+            notificationAction = 0;
             nbTravail = 0;
             tSessionTravail.setText(String.valueOf(nbTravail));
             if(nbSession==0) tNbSessionPersonnalise.setText("∞");
@@ -524,6 +556,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
 
         String timerFormat = String.format(Locale.getDefault(), "%02d:%02d", minutes, secondes);
         timer.setText(timerFormat);
+
+        updateTimerNotification(timerFormat);
     }
 
 
@@ -685,6 +719,88 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    // POUR NOTIFICATION
+
+    public RemoteViews getNotificationLayout() {
+        return notificationLayout;
+    }
+
+    public int getNotificationAction() {
+        return notificationAction;
+    }
+
+    public PendingIntent getPendingIntentPause() {
+        return pendingIntentPause;
+    }
+
+    public static void deleteTimerNotification(Context context) {
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        notificationManager.cancel(102);
+    }
+
+    public PendingIntent getPendingIntentPlay() {
+        return pendingIntentPlay;
+    }
+
+    public void createTimerNotification() {
+        createTimerNotificationChannel();
+
+        intentPause = new Intent(this, TimerActionReceiver.class);
+        intentPlay = new Intent(this, TimerActionReceiver.class);
+        intentPause.putExtra("action", "pause");
+        intentPlay.putExtra("action", "play");
+        pendingIntentPause = PendingIntent.getBroadcast(this, 0, intentPause, PendingIntent.FLAG_CANCEL_CURRENT);
+        pendingIntentPlay = PendingIntent.getBroadcast(this, 1, intentPlay, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        notificationLayout = new RemoteViews(getPackageName(), R.layout.timer_notification_layout);
+        notificationLayout.setOnClickPendingIntent(R.id.imageViewPlay, pendingIntentPlay);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationBuilder = new NotificationCompat.Builder(this, "channel_low")
+                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setCustomContentView(notificationLayout)
+                .setCustomBigContentView(notificationLayout)
+                .setSmallIcon(R.mipmap.productiv_head_round)
+                .setVibrate(new long[] {-1})
+                .setOngoing(true);
+
+        //Envoi de la notification
+        notificationManager.notify(102, notificationBuilder.build());
+    }
+
+    public void updateTimerNotification(String text) {
+        if(text != null)
+            notificationLayout.setTextViewText(R.id.textViewNotificationTimer, text);
+
+        if(notificationAction == 1 || notificationAction == 3) {
+            notificationLayout.setOnClickPendingIntent(R.id.imageViewPause, pendingIntentPause);
+            notificationLayout.setOnClickPendingIntent(R.id.imageViewPlay, null);
+        } else if(notificationAction == 0 || notificationAction == 2) {
+            notificationLayout.setOnClickPendingIntent(R.id.imageViewPause, null);
+            notificationLayout.setOnClickPendingIntent(R.id.imageViewPlay, pendingIntentPlay);
+        }
+
+        notificationBuilder.setCustomContentView(notificationLayout);
+        notificationBuilder.setCustomBigContentView(notificationLayout);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(102, notificationBuilder.build());
+    }
+
+    public void createTimerNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Productiv'head";
+            NotificationChannel channel = new NotificationChannel("channel_low", name, NotificationManager.IMPORTANCE_LOW);
+            channel.setSound(null, null);
+            android.app.NotificationManager notificationManager = getApplicationContext().getSystemService(android.app.NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    public static TimerActivity getTimerActivity() {
+        return timerActivity;
     }
 
 }
