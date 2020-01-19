@@ -88,17 +88,21 @@ public class NotificationManager {
         Notification notification = notificationDAO.getNotification(notificationId);
         //notificationDAO.close();
         String notificationContent = notification.getContent();
+        String notificationTitle = notification.getTitle();
 
         //Contenu par défaut si notificationContent est vide
         if(notificationContent.length() == 0) {
             notificationContent = "This is the default notification content";
+        }
+        if(notificationTitle.length() == 0) {
+            notificationTitle = "Notification";
         }
 
         //Création de la notification
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, "channel_id")
                 .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setContentTitle("Notification")
+                .setContentTitle(notificationTitle)
                 .setContentText(notificationContent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(repeatingPendingIntent)

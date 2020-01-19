@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -20,7 +21,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.dblasko.productivhead.DB.NotificationDAO;
 import com.dblasko.productivhead.DB.TachesDAO;
+import com.dblasko.productivhead.Notifications.Notification;
+import com.dblasko.productivhead.Notifications.NotificationManager;
 import com.dblasko.productivhead.R;
 import com.dblasko.productivhead.WorkMode.WorkModeManager;
 
@@ -45,6 +49,10 @@ public class acceuil_todolist extends AppCompatActivity {
 
     private Toolbar toolbar;
     private WorkModeManager wmm;
+
+    private int annee;
+    private int mois;
+    private int jour;
 
 
     @Override
@@ -109,9 +117,9 @@ public class acceuil_todolist extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Calendar calendrier = Calendar.getInstance();
-                int annee = calendrier.get(Calendar.YEAR);
-                int mois = calendrier.get(Calendar.MONTH);
-                int jour = calendrier.get(Calendar.DAY_OF_MONTH);
+                annee = calendrier.get(Calendar.YEAR);
+                mois = calendrier.get(Calendar.MONTH);
+                jour = calendrier.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialogueur = new DatePickerDialog(acceuil_todolist.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateurDeNotifDeb, annee, mois, jour);
                 dialogueur.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -204,6 +212,22 @@ public class acceuil_todolist extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(), "C'est ajouté !", Toast.LENGTH_SHORT).show();
 
+
+        //Plannification de la notification
+        CheckBox notificationb = findViewById(R.id.notificationb);
+        if(notificationb.isChecked()) {
+            NotificationDAO notificationDAO = new NotificationDAO(this);
+            notificationDAO.open();
+
+            int id = 200;
+            while(notificationDAO.getNotification(id) != null)
+                id++;
+            String[] heureMinute = heureS.split(":");
+            Notification notification = new Notification(id, "Todo", nomTt, 0, Integer.parseInt(heureMinute[0]), Integer.parseInt(heureMinute[1]), 0, annee, mois, jour, 1);
+            notificationDAO.addNotification(notification);
+            NotificationManager.scheduleNotification(this, id);
+        }
+
         startActivity(intent);
 
     }
@@ -212,8 +236,8 @@ public class acceuil_todolist extends AppCompatActivity {
 
     public void obtenirCalend(View v) {
 
-        RadioButton notificationb = (RadioButton) findViewById(R.id.notificationb);
-        boolean coche = ((RadioButton) v).isChecked();
+        CheckBox notificationb = findViewById(R.id.notificationb);
+        boolean coche = notificationb.isChecked();
 
         switch (v.getId()) {
 

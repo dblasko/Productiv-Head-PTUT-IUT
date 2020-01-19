@@ -70,7 +70,7 @@ public class affichage_tache extends AppCompatActivity {
         boutonSupp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "C'est ajouté !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "C'est supprimé !", Toast.LENGTH_SHORT).show();
                 final TachesDAO tachesDAO = new TachesDAO(affichage_tache.this);
                 tachesDAO.open();
                 int id = getIntent().getIntExtra("idTache", 0);

@@ -101,18 +101,20 @@ public class NotificationReceiverActivity extends BroadcastReceiver {
         NotificationManager.createNotification(context, notification.getId(), pendingIntent);
 
         //Suppression de la notification dans la base de données si c'est un rappel
-        if(notification.getId() != NotificationActivity.getNotificationIdSuiviHabitudes() && notification.getId() != NotificationActivity.getNotificationIdHorairesTravail()){
+        if(notification.getId() != NotificationActivity.getNotificationIdSuiviHabitudes() && notification.getId() != NotificationActivity.getNotificationIdHorairesTravail() && notification.getId() >= 200 && notification.getId() < 300) {
             NotificationDAO notificationDAO = new NotificationDAO(context);
             notificationDAO.open();
             notificationDAO.deleteNotification(notification.getId());
             //notificationDAO.close();
 
             //Update la RappelsActivity lorsque on supprime la notification
-            for(CustomNotificationButton customNotificationButton : RappelsActivity.customNotifications) {
-                if(customNotificationButton.getId() == notification.getId())
-                    RappelsActivity.customNotifications.remove(customNotificationButton);
+            if(RappelsActivity.customNotifications != null) {
+                for (CustomNotificationButton customNotificationButton : RappelsActivity.customNotifications) {
+                    if (customNotificationButton.getId() == notification.getId())
+                        RappelsActivity.customNotifications.remove(customNotificationButton);
+                }
+                RappelsActivity.adapter.notifyDataSetChanged();
             }
-            RappelsActivity.adapter.notifyDataSetChanged();
         }
     }
 

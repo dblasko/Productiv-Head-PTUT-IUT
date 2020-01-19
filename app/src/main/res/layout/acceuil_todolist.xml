@@ -61,7 +61,7 @@ tools:context=".Todolist.MainActivity">
         android:id="@+id/resumeA"
         />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/notificationb"
         android:layout_width="128dp"
         android:layout_height="65dp"

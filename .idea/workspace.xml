@@ -11,18 +11,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb222577-3766-4531-9b43-abd649f820ac" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/KillTimerNotificationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActionReceiver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_pause_black.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_play_black.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/timer_notification_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/NotificationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/NotificationManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/NotificationReceiverActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/NotificationReceiverActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/acceuil_todolist.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/acceuil_todolist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/affichage_tache.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/affichage_tache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acceuil_todolist.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/acceuil_todolist.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,69 +42,100 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActionReceiver.java">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActivity.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/acceuil_todolist.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="789" column="5" selection-start-line="789" selection-start-column="5" selection-end-line="789" selection-end-column="5" />
+            <state relative-caret-position="473">
+              <caret line="259" lean-forward="true" selection-start-line="259" selection-end-line="259" />
               <folding>
-                <element signature="e#5607#5772#0" expanded="true" />
-                <element signature="e#5771#5772#0" expanded="true" />
-                <element signature="e#8714#8871#0" expanded="true" />
-                <element signature="e#8870#8871#0" expanded="true" />
-                <element signature="e#9212#9368#0" expanded="true" />
-                <element signature="e#9367#9368#0" expanded="true" />
-                <element signature="e#27016#27017#0" expanded="true" />
-                <element signature="e#27057#27058#0" expanded="true" />
-                <element signature="e#27099#27100#0" expanded="true" />
-                <element signature="e#27140#27141#0" expanded="true" />
-                <element signature="e#28322#28323#0" expanded="true" />
-                <element signature="e#28363#28364#0" expanded="true" />
-                <element signature="e#28414#28415#0" expanded="true" />
-                <element signature="e#28454#28455#0" expanded="true" />
-                <element signature="e#31528#31529#0" expanded="true" />
-                <element signature="e#31564#31565#0" expanded="true" />
+                <element signature="e#5779#6344#0" expanded="true" />
+                <element signature="e#6343#6344#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/Notification.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-119">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/NotificationManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="97" column="47" selection-start-line="97" selection-start-column="47" selection-end-line="97" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/DB/NotificationDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-128">
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/RappelsActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="82" column="34" selection-start-line="82" selection-start-column="34" selection-end-line="82" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/NotificationReceiverActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="28" selection-start-line="28" selection-end-line="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/Taches.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/liste_taches.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-238">
+              <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider editor-type-id="android-manifest" />
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/affichage_tache.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2040">
-              <caret line="120" column="13" lean-forward="true" selection-start-line="120" selection-start-column="13" selection-end-line="120" selection-end-column="13" />
+            <state relative-caret-position="272">
+              <caret line="72" column="71" selection-start-line="72" selection-start-column="71" selection-end-line="72" selection-end-column="71" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Home/HomeActivity.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/BootReceiverActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1975">
-              <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+            <state relative-caret-position="68">
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/KillTimerNotificationService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/timer_notification_layout.xml">
-          <provider selected="true" editor-type-id="text-editor" />
-          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
     </leaf>
@@ -121,6 +150,11 @@
       <find>toast</find>
       <find>deleteTimerNotification</find>
       <find>com.dblasko.cha</find>
+      <find>obtenirCalend</find>
+      <find>int id</find>
+      <find>id</find>
+      <find>id =</find>
+      <find>rappels</find>
     </findStrings>
   </component>
   <component name="GenerateSignedApkSettings">
@@ -157,17 +191,19 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Habits/HabitListActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/NotificationActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/acceuil_todolist.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/affichage_tache.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/liste_taches.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/liste_taches.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/affichage_tache.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/acceuil_todolist.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActionReceiver.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/KillTimerNotificationService.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/acceuil_todolist.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/acceuil_todolist.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/NotificationManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/NotificationReceiverActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/affichage_tache.java" />
       </list>
     </option>
   </component>
@@ -182,6 +218,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="PTUT_IUT" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PTUT_IUT" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -192,7 +240,34 @@
             <path>
               <item name="Produtiv'Head" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="Produtiv'Head" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="productivhead" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Produtiv'Head" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="productivhead" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="DB" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Produtiv'Head" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="productivhead" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="Notifications" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Produtiv'Head" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="productivhead" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="Todolist" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Produtiv'Head" type="1abcf292:AndroidViewProjectNode" />
@@ -213,19 +288,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="PTUT_IUT" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PTUT_IUT" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -233,7 +296,7 @@
     <property name="ExportApk.BuildVariants" value="release" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable-v24" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -379,36 +442,36 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/DB/HabitDao.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/notification_activity.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/new_habit_dialog.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="9" column="26" lean-forward="true" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_rappels.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_stat.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_card_view.xml">
-      <provider selected="true" editor-type-id="text-editor" />
       <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_habit_detail.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1012">
           <caret line="46" column="46" selection-start-line="46" selection-start-column="46" selection-end-line="46" selection-end-column="46" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_config.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_habit_list.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="9" column="41" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="41" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/WorkMode/WorkModeManager.java" />
     <entry file="file://$PROJECT_DIR$/local.properties">
@@ -424,7 +487,6 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/DB/MySQLite.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/DB/TachesDAO.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-v24/border.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/Taches.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
@@ -442,48 +504,17 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Habits/HabitDetailActivity.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Habits/HabitListActivity.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/ConfigActivity.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/NotificationActivity.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/RappelsActivity.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_timer_activity.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/acceuil_todolist.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/affichage_tache.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/liste_taches.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/liste_taches.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/affichage_tache.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/acceuil_todolist.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/MainActivity.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/timer_notification_layout.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Home/HomeActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="789" column="5" selection-start-line="789" selection-start-column="5" selection-end-line="789" selection-end-column="5" />
-          <folding>
-            <element signature="e#5607#5772#0" expanded="true" />
-            <element signature="e#5771#5772#0" expanded="true" />
-            <element signature="e#8714#8871#0" expanded="true" />
-            <element signature="e#8870#8871#0" expanded="true" />
-            <element signature="e#9212#9368#0" expanded="true" />
-            <element signature="e#9367#9368#0" expanded="true" />
-            <element signature="e#27016#27017#0" expanded="true" />
-            <element signature="e#27057#27058#0" expanded="true" />
-            <element signature="e#27099#27100#0" expanded="true" />
-            <element signature="e#27140#27141#0" expanded="true" />
-            <element signature="e#28322#28323#0" expanded="true" />
-            <element signature="e#28363#28364#0" expanded="true" />
-            <element signature="e#28414#28415#0" expanded="true" />
-            <element signature="e#28454#28455#0" expanded="true" />
-            <element signature="e#31528#31529#0" expanded="true" />
-            <element signature="e#31564#31565#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="68">
+          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActionReceiver.java">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/KillTimerNotificationService.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -492,20 +523,119 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Home/HomeActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/timer_notification_layout.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1975">
-          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+        <state relative-caret-position="498">
+          <caret line="120" column="13" selection-start-line="120" selection-start-column="13" selection-end-line="120" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2040">
-          <caret line="120" column="13" lean-forward="true" selection-start-line="120" selection-start-column="13" selection-end-line="120" selection-end-column="13" />
+        <state relative-caret-position="578">
+          <caret line="789" column="5" selection-start-line="789" selection-start-column="5" selection-end-line="789" selection-end-column="5" />
         </state>
       </provider>
-      <provider editor-type-id="android-manifest" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActionReceiver.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/NotificationActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1386">
+          <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/acceuil_todolist.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="64" selection-start-line="64" selection-end-line="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/DB/NotificationDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-128">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/RappelsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="82" column="34" selection-start-line="82" selection-start-column="34" selection-end-line="82" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/NotificationManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="97" column="47" selection-start-line="97" selection-start-column="47" selection-end-line="97" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/Notification.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-119">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/acceuil_todolist.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="259" lean-forward="true" selection-start-line="259" selection-end-line="259" />
+          <folding>
+            <element signature="e#5779#6344#0" expanded="true" />
+            <element signature="e#6343#6344#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/liste_taches.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-238">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/BootReceiverActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/Taches.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/NotificationReceiverActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/affichage_tache.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="72" column="71" selection-start-line="72" selection-start-column="71" selection-end-line="72" selection-end-column="71" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
