@@ -99,7 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ok"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="350dp"
         android:layout_marginLeft="250dp"
         android:textSize="18dp"
         android:textColor="@color/colorAccent"
@@ -111,13 +111,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Annuler"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="350dp"
         android:layout_marginLeft="140dp"
         android:textSize="18dp"
         android:textColor="@color/colorAccent"
         android:background="@android:color/transparent"
 
         />
+
+    <CheckBox
+        android:id="@+id/checkboxAlarme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="270dp"
+        android:text="Couper l'alarme"
+        android:typeface="sans"
+        android:textSize="20dp"
+        >
+
+    </CheckBox>
 
 
 

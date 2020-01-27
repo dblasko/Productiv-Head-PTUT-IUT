@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -50,7 +51,7 @@ import java.util.Locale;
 
 public class TimerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private int debut = 1500000;           // en millis    1500000  exemple 8000
+    private int debut = 4000;           // en millis    1500000  exemple 8000  //***********************************************************
 
     private int nbSession = 0;
     private int nbTravail = 0;
@@ -69,6 +70,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
     private ImageButton bPauseRepos;
     private ImageButton bReset;
     private ImageButton bPersonnaliser;
+    private ImageButton bNextPause;
 
 
     private boolean finSessionTravail = true;
@@ -115,6 +117,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
     private ImageView iMStartRepos;
     private ImageView iMPauseTravail;
     private ImageView iMPauseRepos;
+    private ImageView iMNextPause;
 
     // POUR NOTIFICATION
     private NotificationCompat.Builder notificationBuilder;
@@ -126,6 +129,9 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
 
     private PendingIntent pendingIntentPause;
     private PendingIntent pendingIntentPlay;
+
+    private CheckBox cBSonAlarme;
+    private boolean cocher=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,6 +203,11 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         iMStartRepos = findViewById(R.id.imageViewStartRepos);
         iMPauseTravail = findViewById(R.id.imageViewPauseTravail);
         iMPauseRepos = findViewById(R.id.imageViewPauseRepos);
+        bNextPause = findViewById(R.id.buttonNextPause);
+        iMNextPause = findViewById(R.id.imageNext);
+
+
+
 
         bPauseTravail.setVisibility(View.INVISIBLE);
         iMPauseTravail.setVisibility(View.INVISIBLE);
@@ -211,6 +222,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         bReset.setVisibility(View.VISIBLE);
         tNomTvl.setVisibility(View.VISIBLE);
         tNomRep.setVisibility(View.INVISIBLE);
+        bNextPause.setVisibility(View.INVISIBLE);
+        iMNextPause.setVisibility(View.INVISIBLE);
 
         bStartTravail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -269,6 +282,14 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
             }
         });
 
+        bNextPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initTpsTravail(view);
+            }
+        });
+
+
         if(nbSession==0) tNbSessionPersonnalise.setText("∞");
         else tNbSessionPersonnalise.setText(String.valueOf(nbSession));
         actualisationTimer();
@@ -317,6 +338,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
 
 
     public void startTravail(View view) {
+        System.out.println("essais " + cocher);
+        System.out.println("essaiss+ " + sessionTravail);
         notificationAction = 1;
         sessionTravail = true;
         resetPossible = true;
@@ -342,6 +365,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
                 iMPauseRepos.setVisibility(View.INVISIBLE);
                 bInitTpsTravail.setVisibility(View.INVISIBLE);
                 iMInitTpsTravail.setVisibility(View.INVISIBLE);
+                bNextPause.setVisibility(View.INVISIBLE);
+                iMNextPause.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -360,6 +385,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
                 iMStartRepos.setVisibility(View.VISIBLE);
                 bInitTpsTravail.setVisibility(View.INVISIBLE);
                 iMInitTpsTravail.setVisibility(View.INVISIBLE);
+                bNextPause.setVisibility(View.INVISIBLE);
+                iMNextPause.setVisibility(View.INVISIBLE);
 
                 nbTravail = nbTravail + 1;
                 tSessionTravail.setText(String.valueOf(nbTravail));
@@ -389,6 +416,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         sessionRepos = true;
         tNomRep.setVisibility(View.VISIBLE);
         tNomTvl.setVisibility(View.INVISIBLE);
+        bNextPause.setVisibility(View.VISIBLE);
+        iMNextPause.setVisibility(View.VISIBLE);
         resetPossible = true;
         if (finSessionTravail) initTpsRepos(view);
         decrementation = new CountDownTimer(tempsRestant, 1000) {          //compte à rembourd
@@ -407,6 +436,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
                 iMPauseTravail.setVisibility(View.INVISIBLE);
                 bInitTpsTravail.setVisibility(View.INVISIBLE);
                 iMInitTpsTravail.setVisibility(View.INVISIBLE);
+                bNextPause.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -423,6 +453,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
                 iMPauseRepos.setVisibility(View.INVISIBLE);
                 bInitTpsTravail.setVisibility(View.VISIBLE);
                 iMInitTpsTravail.setVisibility(View.VISIBLE);
+                bNextPause.setVisibility(View.INVISIBLE);
+                iMNextPause.setVisibility(View.INVISIBLE);
 
                 //TODO-         BDD TEMPS DE PAUSE
                 tsInser.setTpsPause(tsInser.getTpsPause() + debut);
@@ -444,21 +476,21 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
     }
 
     public void initTpsRepos(View view) {
-        // debut=4000; // 300000 millis exemple 4000
+        // debut=4000; // 300000 millis exemple 4000            //***********************************************************
         resetPossible = true;
         if (nbTravail == 4) {
             if (sessionPersonnaliser && nbTpsGrandePause != -1) {
                 debut = nbTpsGrandePause * 60000;
                 //nbPause=0;
             } else {
-                debut = 1200000;    // 1200000
+                debut = 2000;    // 1200000
                 //nbPause =0;
             }
         } else {
             if (sessionPersonnaliser && tpsPausePerso != -1)
                 debut = tpsPausePerso * 60000;
             else
-                debut = 300000;   //300000
+                debut = 2000;   //300000
         }
         tempsRestant = debut;
         decrementation.cancel();
@@ -473,7 +505,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
             reset(view);
         } else {
             if (sessionPersonnaliser && tpsTravailPerso != -1) debut = tpsTravailPerso * 60000;
-            else debut = 1500000;
+            else debut = 4000;                         //1500000              //***********************************************************
             resetPossible = true;
             tSessionTravail.setText(String.valueOf(nbTravail));
             decrementation.cancel();
@@ -500,6 +532,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         iMPauseRepos.setVisibility(View.INVISIBLE);
         bInitTpsTravail.setVisibility(View.INVISIBLE);
         iMInitTpsTravail.setVisibility(View.INVISIBLE);
+        bNextPause.setVisibility(View.INVISIBLE);
+        iMNextPause.setVisibility(View.INVISIBLE);
     }
 
     public void pauseRepos(View view) {
@@ -518,6 +552,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         iMPauseRepos.setVisibility(View.INVISIBLE);
         bInitTpsTravail.setVisibility(View.INVISIBLE);
         iMInitTpsTravail.setVisibility(View.INVISIBLE);
+        bNextPause.setVisibility(View.VISIBLE);
+        iMNextPause.setVisibility(View.VISIBLE);
     }
 
     public void reset(View view) {
@@ -546,6 +582,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
             bInitTpsTravail.setVisibility(View.INVISIBLE);
             iMInitTpsTravail.setVisibility(View.INVISIBLE);
             iMInitTpsTravail.setVisibility(View.INVISIBLE);
+            bNextPause.setVisibility(View.INVISIBLE);
+            iMNextPause.setVisibility(View.INVISIBLE);
             if (sonActive) son.reset();
             tNomTvl.setVisibility(View.VISIBLE);
 
@@ -575,6 +613,12 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         etTpsGrandePause = dView.findViewById(R.id.edit_tpsGrandePause);
         sessionPersonnaliser = true;
 
+        cBSonAlarme = dView.findViewById(R.id.checkboxAlarme);
+        boolean checked = cBSonAlarme.isChecked();
+        System.out.println("essai " + cocher);
+        if(checked) cocher=true;
+        if(cocher) cBSonAlarme.setChecked(true);
+        else cBSonAlarme.setChecked(false);
         if (modif) {
             // affichage dans le dialog
             etNbSession.setText(affichageNbSession);
@@ -643,6 +687,9 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
                 if(nbSession==0) tNbSessionPersonnalise.setText("  ∞");
                 else tNbSessionPersonnalise.setText(String.valueOf(nbSession));
                 actualisationTimer();
+
+
+
                 dialog.cancel();
             }
         });
@@ -803,6 +850,14 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
 
     public static TimerActivity getTimerActivity() {
         return timerActivity;
+    }
+
+    public void sonAlarme(View view){
+
+
+
+        if(cocher) son.reset();
+
     }
 
 }

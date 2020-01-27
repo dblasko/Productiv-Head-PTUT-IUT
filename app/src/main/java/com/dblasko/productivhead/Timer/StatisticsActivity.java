@@ -44,6 +44,7 @@ public class StatisticsActivity extends AppCompatActivity {
     TextView tdatePicker;
     String recupDate;
     String recupJour;
+    String recupMois;
     DatePickerDialog datePicker;
 
     TimerStatisticsDAO tsDAO = new TimerStatisticsDAO(this);
@@ -118,8 +119,10 @@ public class StatisticsActivity extends AppCompatActivity {
 
                         if(day<10) recupJour=("0" + String.valueOf(day));
                         else recupJour= String.valueOf(day);
-                        tdatePicker.setText(year + "-" + (month + 1) + "-" + recupJour);
-                        recupDate = (String.valueOf(year) + "-" + String.valueOf(month+1) + "-" + recupJour);
+                        if(month<10) recupMois=("0" + String.valueOf(month+1));
+                        else recupMois= String.valueOf(month+1);
+                        tdatePicker.setText(year + "-" + recupMois + "-" + recupJour);
+                        recupDate = (String.valueOf(year) + "-" + recupMois + "-" + recupJour);
                         affichageStats(recupDate);
 
                     }
