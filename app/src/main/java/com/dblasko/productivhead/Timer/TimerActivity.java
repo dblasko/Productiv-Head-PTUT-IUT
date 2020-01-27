@@ -339,7 +339,6 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
 
     public void startTravail(View view) {
         System.out.println("essais " + cocher);
-        System.out.println("essaiss+ " + sessionTravail);
         notificationAction = 1;
         sessionTravail = true;
         resetPossible = true;
@@ -470,9 +469,12 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
     }
 
     public void alarme() {
+
+        if(!cocher){
         son = MediaPlayer.create(TimerActivity.this, R.raw.alarme);
         son.start();
         sonActive = true;
+        }
     }
 
     public void initTpsRepos(View view) {
@@ -566,8 +568,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
             if (sessionTravail || sessionRepos) decrementation.cancel();
             if (modif) {
                 if (tpsTravailPerso != -1) debut = tpsTravailPerso * 60000;
-                else debut = 1500000;
-            } else debut = 1500000;
+                else debut = 40000;  //1500000 //*************************************************************************************
+            } else debut = 40000;   //1500000 //*************************************************************************************
             tempsRestant = debut;
             actualisationTimer();
 
@@ -612,13 +614,9 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         etTpsPause = dView.findViewById(R.id.edit_tpsPause);
         etTpsGrandePause = dView.findViewById(R.id.edit_tpsGrandePause);
         sessionPersonnaliser = true;
-
         cBSonAlarme = dView.findViewById(R.id.checkboxAlarme);
-        boolean checked = cBSonAlarme.isChecked();
-        System.out.println("essai " + cocher);
-        if(checked) cocher=true;
-        if(cocher) cBSonAlarme.setChecked(true);
-        else cBSonAlarme.setChecked(false);
+
+
         if (modif) {
             // affichage dans le dialog
             etNbSession.setText(affichageNbSession);
@@ -627,9 +625,19 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
             etTpsGrandePause.setText(affichageTpsGrandePause);
         }
 
+        if(cocher) cBSonAlarme.setChecked(true);
+        else cBSonAlarme.setChecked(false);
+
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //***************************************************************
+                //boolean checked = cBSonAlarme.isChecked();
+                if(cBSonAlarme.isChecked()) cocher=true;
+                else cocher=false;
+
+
 
                 String recupNbSession = etNbSession.getText().toString();
                 if (recupNbSession.equals("")) {
@@ -678,8 +686,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
                     resetPossible = true;
                     //reset(view);
                 } else {
-                    debut = 8000;
-                    System.out.println("d else");
+                    debut = 4000;  //******************************************************************************************************************
                     resetPossible = true;
                     reset(view);
                 }

@@ -6,19 +6,15 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="essai" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="info" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb222577-3766-4531-9b43-abd649f820ac" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/StatisticsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/StatisticsActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_dialog.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_timer_activity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_timer_activity.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/alarme.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/raw/alarme.mp3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -54,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_dialog.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2074">
-              <caret line="122" column="39" selection-start-line="122" selection-start-column="39" selection-end-line="122" selection-end-column="39" />
+            <state relative-caret-position="336">
+              <caret line="133" lean-forward="true" selection-start-line="133" selection-end-line="133" />
             </state>
           </provider>
           <provider editor-type-id="android-designer2" />
@@ -67,8 +63,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="206" column="51" selection-start-line="206" selection-start-column="51" selection-end-line="206" selection-end-column="51" />
+            <state relative-caret-position="265">
+              <caret line="637" column="34" selection-start-line="637" selection-start-column="34" selection-end-line="637" selection-end-column="34" />
               <folding>
                 <element signature="e#8150#8305#0" expanded="true" />
                 <element signature="e#8304#8305#0" expanded="true" />
@@ -76,26 +72,23 @@
                 <element signature="e#9654#9655#0" expanded="true" />
                 <element signature="e#9848#10001#0" expanded="true" />
                 <element signature="e#10000#10001#0" expanded="true" />
-                <element signature="e#28720#28721#0" expanded="true" />
-                <element signature="e#28761#28762#0" expanded="true" />
-                <element signature="e#28803#28804#0" expanded="true" />
-                <element signature="e#28844#28845#0" expanded="true" />
-                <element signature="e#28896#28897#0" expanded="true" />
-                <element signature="e#28937#28938#0" expanded="true" />
-                <element signature="e#29199#29200#0" expanded="true" />
-                <element signature="e#29239#29240#0" expanded="true" />
-                <element signature="e#32214#32215#0" expanded="true" />
-                <element signature="e#32250#32251#0" expanded="true" />
+                <element signature="e#23445#26013#0" expanded="true" />
+                <element signature="e#26012#26013#0" expanded="true" />
+                <element signature="e#30741#30742#0" expanded="true" />
+                <element signature="e#30824#30825#0" expanded="true" />
+                <element signature="e#30917#30918#0" expanded="true" />
+                <element signature="e#31219#31220#0" expanded="true" />
+                <element signature="e#34230#34231#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_timer_activity.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-564">
-              <caret line="242" column="49" lean-forward="true" selection-start-line="242" selection-start-column="49" selection-end-line="242" selection-end-column="49" />
+            <state relative-caret-position="490">
+              <caret line="304" lean-forward="true" selection-start-line="304" selection-end-line="304" />
             </state>
           </provider>
           <provider editor-type-id="android-designer2" />
@@ -121,6 +114,7 @@
       <find>recupJour</find>
       <find>invisible</find>
       <find>visible</find>
+      <find>alarme</find>
     </findStrings>
   </component>
   <component name="GenerateSignedApkSettings">
@@ -168,10 +162,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Todolist/affichage_tache.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/NotificationManager.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Notifications/NotificationReceiverActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_dialog.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/StatisticsActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_timer_activity.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_dialog.xml" />
       </list>
     </option>
   </component>
@@ -388,7 +382,7 @@
       <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.50067115" side_tool="true" weight="0.32885906" />
       <window_info anchor="bottom" id="Build" order="4" weight="0.24220963" />
       <window_info anchor="bottom" id="Run" order="5" weight="0.3243626" />
-      <window_info anchor="bottom" id="Logcat" order="6" sideWeight="0.49932885" weight="0.33286119" />
+      <window_info anchor="bottom" id="Logcat" order="6" sideWeight="0.49932885" visible="true" weight="0.33286119" />
       <window_info anchor="bottom" id="Android Profiler" order="7" weight="0.329718" />
       <window_info anchor="bottom" id="Debug" order="8" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.32885906" />
@@ -608,14 +602,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_dialog.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2074">
-          <caret line="122" column="39" selection-start-line="122" selection-start-column="39" selection-end-line="122" selection-end-column="39" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/StatisticsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -629,10 +615,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_timer_activity.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="304" lean-forward="true" selection-start-line="304" selection-end-line="304" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dblasko/productivhead/Timer/TimerActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="206" column="51" selection-start-line="206" selection-start-column="51" selection-end-line="206" selection-end-column="51" />
+        <state relative-caret-position="265">
+          <caret line="637" column="34" selection-start-line="637" selection-start-column="34" selection-end-line="637" selection-end-column="34" />
           <folding>
             <element signature="e#8150#8305#0" expanded="true" />
             <element signature="e#8304#8305#0" expanded="true" />
@@ -640,24 +634,21 @@
             <element signature="e#9654#9655#0" expanded="true" />
             <element signature="e#9848#10001#0" expanded="true" />
             <element signature="e#10000#10001#0" expanded="true" />
-            <element signature="e#28720#28721#0" expanded="true" />
-            <element signature="e#28761#28762#0" expanded="true" />
-            <element signature="e#28803#28804#0" expanded="true" />
-            <element signature="e#28844#28845#0" expanded="true" />
-            <element signature="e#28896#28897#0" expanded="true" />
-            <element signature="e#28937#28938#0" expanded="true" />
-            <element signature="e#29199#29200#0" expanded="true" />
-            <element signature="e#29239#29240#0" expanded="true" />
-            <element signature="e#32214#32215#0" expanded="true" />
-            <element signature="e#32250#32251#0" expanded="true" />
+            <element signature="e#23445#26013#0" expanded="true" />
+            <element signature="e#26012#26013#0" expanded="true" />
+            <element signature="e#30741#30742#0" expanded="true" />
+            <element signature="e#30824#30825#0" expanded="true" />
+            <element signature="e#30917#30918#0" expanded="true" />
+            <element signature="e#31219#31220#0" expanded="true" />
+            <element signature="e#34230#34231#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_timer_activity.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_dialog.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-564">
-          <caret line="242" column="49" lean-forward="true" selection-start-line="242" selection-start-column="49" selection-end-line="242" selection-end-column="49" />
+        <state relative-caret-position="336">
+          <caret line="133" lean-forward="true" selection-start-line="133" selection-end-line="133" />
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />

@@ -123,10 +123,11 @@
         android:id="@+id/checkboxAlarme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="265dp"
         android:text="Couper l'alarme"
         android:typeface="sans"
-        android:textSize="20dp"
+        android:textSize="18dp"
+        android:textColor="#7b7b7b"
         >
 
     </CheckBox>
