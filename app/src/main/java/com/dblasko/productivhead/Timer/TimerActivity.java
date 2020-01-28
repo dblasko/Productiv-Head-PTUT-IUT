@@ -1,7 +1,6 @@
 package com.dblasko.productivhead.Timer;
 
 import android.app.AlertDialog;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,6 +11,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,21 +48,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import static android.media.AudioAttributes.USAGE_ALARM;
+
 
 public class TimerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private int debut = 4000;           // en millis    1500000  exemple 8000  //***********************************************************
-
+    private int debut = 1500000; //millisecondes
     private int nbSession = 0;
     private int nbTravail = 0;
     private int tpsTravailPerso = 0;
     private int tpsPausePerso = 0;
     private int nbTpsGrandePause = 0;
 
-    private Button bStatistique;
-
     private CountDownTimer decrementation;
 
+    private Button bStatistique;
     private ImageButton bStartTravail;
     private ImageButton bStartRepos;
     private ImageButton bInitTpsTravail;
@@ -72,6 +72,13 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
     private ImageButton bPersonnaliser;
     private ImageButton bNextPause;
 
+    private ImageView iMStartTravail;
+    private ImageView iMInitTpsTravail;
+    private ImageView iMStartRepos;
+    private ImageView iMPauseTravail;
+    private ImageView iMPauseRepos;
+    private ImageView iMNextPause;
+
 
     private boolean finSessionTravail = true;
     private boolean sonActive = false;
@@ -80,13 +87,13 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
     private boolean sessionRepos = false;
     private boolean sessionPersonnaliser = false;
     private boolean modif = false;
-
+    private boolean alarmeCocher =false;
+    private boolean vibreurCocher=false;
 
     private long tempsRestant = debut;
 
     private MediaPlayer son;
     private AlertDialog dialog;
-
 
     private EditText etNbSession;
     private EditText etTpsTravail;
@@ -98,26 +105,23 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
     private String affichageTpsPause = "";
     private String affichageTpsGrandePause = "";
 
-
     private TextView tNomTvl;
     private TextView tNomRep;
     private TextView tNbSessionPersonnalise;
     private TextView timer;
     private TextView tSessionTravail;
 
-    TimerStatisticsDAO tsDAO = new TimerStatisticsDAO(this);
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-    TimerStatistics tsInser = new TimerStatistics(0f, 0f, 0, sdf.format(new Date()));
+    private CheckBox cBSonAlarme;
+    private CheckBox cBVibreur;
 
+    private Vibrator vibreur;
     private Toolbar toolbar;
     private WorkModeManager wmm;
 
-    private ImageView iMStartTravail;
-    private ImageView iMInitTpsTravail;
-    private ImageView iMStartRepos;
-    private ImageView iMPauseTravail;
-    private ImageView iMPauseRepos;
-    private ImageView iMNextPause;
+    // POUR BD
+    TimerStatisticsDAO tsDAO = new TimerStatisticsDAO(this);
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    TimerStatistics tsInser = new TimerStatistics(0f, 0f, 0, sdf.format(new Date()));
 
     // POUR NOTIFICATION
     private NotificationCompat.Builder notificationBuilder;
@@ -126,21 +130,17 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
     private int notificationAction;
     private Intent intentPause;
     private Intent intentPlay;
-
     private PendingIntent pendingIntentPause;
     private PendingIntent pendingIntentPlay;
 
-    private CheckBox cBSonAlarme;
-    private boolean cocher=false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_timer_activity);
-        //customizeActionBar();
 
         /* BARRE */
-
         toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         TextView titre_barre = findViewById(R.id.nav_bar_title);
@@ -155,7 +155,6 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
                 wmm.enableWorkMode(b);
             }
         });
-
         /* FIN BARRE */
 
         // PARTIE DRAWER
@@ -180,10 +179,10 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         notificationAction = 0;
         createTimerNotification();
         startService(new Intent(this, KillTimerNotificationService.class));
-
         /* */
 
         tsDAO.open();
+        vibreur = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         timer = findViewById(R.id.timer);
         bStartTravail = findViewById(R.id.buttonStartTravail);
@@ -205,9 +204,6 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         iMPauseRepos = findViewById(R.id.imageViewPauseRepos);
         bNextPause = findViewById(R.id.buttonNextPause);
         iMNextPause = findViewById(R.id.imageNext);
-
-
-
 
         bPauseTravail.setVisibility(View.INVISIBLE);
         iMPauseTravail.setVisibility(View.INVISIBLE);
@@ -293,7 +289,6 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         if(nbSession==0) tNbSessionPersonnalise.setText("∞");
         else tNbSessionPersonnalise.setText(String.valueOf(nbSession));
         actualisationTimer();
-
     }
 
     @Override
@@ -326,9 +321,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
                 alertDialog.show();
                 break;
         }
-
         return super.onOptionsItemSelected(item);
-
     }
 
     public void saveStatistics() {
@@ -338,7 +331,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
 
 
     public void startTravail(View view) {
-        System.out.println("essais " + cocher);
+        System.out.println("essais " + alarmeCocher);
         notificationAction = 1;
         sessionTravail = true;
         resetPossible = true;
@@ -348,7 +341,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         if(nbSession==0) tNbSessionPersonnalise.setText("∞");
         else tNbSessionPersonnalise.setText(String.valueOf(nbSession));
 
-        decrementation = new CountDownTimer(tempsRestant, 1000) {          //compte à rembourd
+        decrementation = new CountDownTimer(tempsRestant, 1000) {      //compte à rembourd
             @Override
             public void onTick(long tempsNecessaire) {
                 tempsRestant = tempsNecessaire;
@@ -405,7 +398,6 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
                 // TODO -       TESTS
                 System.out.println("nombre de session : " + tsInser.getNbSessionsTravail());
             }
-
         }.start();
     }
 
@@ -469,35 +461,40 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
     }
 
     public void alarme() {
-
-        if(!cocher){
         son = MediaPlayer.create(TimerActivity.this, R.raw.alarme);
-        son.start();
-        sonActive = true;
+        if(alarmeCocher){
+            son.start();
+            sonActive = true;
+        }
+        if(vibreurCocher) {
+            long [] t={1000,1000,1000,1000}; //vibre 1s puis attends 1s etc
+            int i=1000;
+            for(int j=0; j<3;j++){          //bouble car erreur exception due à trop de résultats à lire
+                vibreur.vibrate(t,2); //répété deux fois par boucle
+            }
         }
     }
 
     public void initTpsRepos(View view) {
-        // debut=4000; // 300000 millis exemple 4000            //***********************************************************
         resetPossible = true;
         if (nbTravail == 4) {
             if (sessionPersonnaliser && nbTpsGrandePause != -1) {
                 debut = nbTpsGrandePause * 60000;
                 //nbPause=0;
             } else {
-                debut = 2000;    // 1200000
-                //nbPause =0;
+                debut = 1200000;
             }
         } else {
             if (sessionPersonnaliser && tpsPausePerso != -1)
                 debut = tpsPausePerso * 60000;
             else
-                debut = 2000;   //300000
+                debut = 300000;
         }
         tempsRestant = debut;
         decrementation.cancel();
         actualisationTimer();
         son.reset();
+        vibreur.cancel();
         sonActive = false;
     }
 
@@ -505,15 +502,16 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         if (nbSession > 0 && nbTravail == nbSession) {
             resetPossible = true;
             reset(view);
-        } else {
+        }else{
             if (sessionPersonnaliser && tpsTravailPerso != -1) debut = tpsTravailPerso * 60000;
-            else debut = 4000;                         //1500000              //***********************************************************
+            else debut = 1500000;
             resetPossible = true;
             tSessionTravail.setText(String.valueOf(nbTravail));
             decrementation.cancel();
             tempsRestant = debut;
             actualisationTimer();
             son.reset();
+            vibreur.cancel();
             sonActive = false;
             startTravail(view);
         }
@@ -568,8 +566,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
             if (sessionTravail || sessionRepos) decrementation.cancel();
             if (modif) {
                 if (tpsTravailPerso != -1) debut = tpsTravailPerso * 60000;
-                else debut = 40000;  //1500000 //*************************************************************************************
-            } else debut = 40000;   //1500000 //*************************************************************************************
+                else debut = 1500000;
+            } else debut = 1500000;
             tempsRestant = debut;
             actualisationTimer();
 
@@ -587,8 +585,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
             bNextPause.setVisibility(View.INVISIBLE);
             iMNextPause.setVisibility(View.INVISIBLE);
             if (sonActive) son.reset();
+            if(vibreurCocher) vibreur.cancel();
             tNomTvl.setVisibility(View.VISIBLE);
-
             tNomRep.setVisibility(View.INVISIBLE);
         }
     }
@@ -596,10 +594,8 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
     public void actualisationTimer() {
         int minutes = (int) (tempsRestant / 1000) / 60;
         int secondes = (int) (tempsRestant / 1000) % 60;
-
         String timerFormat = String.format(Locale.getDefault(), "%02d:%02d", minutes, secondes);
         timer.setText(timerFormat);
-
         updateTimerNotification(timerFormat);
     }
 
@@ -615,7 +611,7 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         etTpsGrandePause = dView.findViewById(R.id.edit_tpsGrandePause);
         sessionPersonnaliser = true;
         cBSonAlarme = dView.findViewById(R.id.checkboxAlarme);
-
+        cBVibreur = dView.findViewById(R.id.checkboxVibreur);
 
         if (modif) {
             // affichage dans le dialog
@@ -624,20 +620,21 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
             etTpsPause.setText(affichageTpsPause);
             etTpsGrandePause.setText(affichageTpsGrandePause);
         }
-
-        if(cocher) cBSonAlarme.setChecked(true);
+        if(alarmeCocher) cBSonAlarme.setChecked(true);
         else cBSonAlarme.setChecked(false);
+
+        if(vibreurCocher) cBVibreur.setChecked(true);
+        else cBVibreur.setChecked(false);
 
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //***************************************************************
-                //boolean checked = cBSonAlarme.isChecked();
-                if(cBSonAlarme.isChecked()) cocher=true;
-                else cocher=false;
+                if(cBSonAlarme.isChecked()) alarmeCocher =true;
+                else alarmeCocher =false;
 
-
+                if(cBVibreur.isChecked()) vibreurCocher =true;
+                else vibreurCocher =false;
 
                 String recupNbSession = etNbSession.getText().toString();
                 if (recupNbSession.equals("")) {
@@ -686,17 +683,12 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
                     resetPossible = true;
                     //reset(view);
                 } else {
-                    debut = 4000;  //******************************************************************************************************************
                     resetPossible = true;
                     reset(view);
                 }
-
                 if(nbSession==0) tNbSessionPersonnalise.setText("  ∞");
                 else tNbSessionPersonnalise.setText(String.valueOf(nbSession));
                 actualisationTimer();
-
-
-
                 dialog.cancel();
             }
         });
@@ -727,15 +719,6 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
         } else dialog.show();
     }
 
-    /*public void customizeActionBar() {
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.icon);
-        getSupportActionBar().setSubtitle("Timer");
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-    }*/
-
     // POUR DRAWER
     @Override
     public void onBackPressed() {
@@ -746,7 +729,6 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
             super.onBackPressed();
         }
     }
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -858,13 +840,4 @@ public class TimerActivity extends AppCompatActivity implements NavigationView.O
     public static TimerActivity getTimerActivity() {
         return timerActivity;
     }
-
-    public void sonAlarme(View view){
-
-
-
-        if(cocher) son.reset();
-
-    }
-
 }

@@ -6,7 +6,7 @@
     <color name="colorAccent">#ff6e40</color>
     <color name="grey">#E6EBEB</color>
     <color name="darkgrey">#757575</color>
-    <color name="colorControlNormal">#FFFF</color>
+    <color name="colorControlNormal">#757575</color>
     <color name="yellowDark">#c8b700</color>
     <color name="backgroundcolor">#2CC5BFA2</color>
     <color name="colorTimer">#FFEB3B</color>

@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="235dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="48dp"
         android:hint="illimité"
         android:inputType="number"
         android:maxLength="3"/>
@@ -44,6 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="235dp"
+        android:layout_marginTop="3dp"
         android:layout_below="@+id/edit_nbSession"
         android:hint="25 min"
         android:inputType="number"
@@ -124,12 +125,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="265dp"
-        android:text="Couper l'alarme"
+        android:text="Alarme"
         android:typeface="sans"
         android:textSize="18dp"
-        android:textColor="#7b7b7b"
-        >
+        android:textColor="#7b7b7b">
+    </CheckBox>
 
+    <CheckBox
+        android:id="@+id/checkboxVibreur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:text="Vibreur"
+        android:typeface="sans"
+        android:textSize="18dp"
+        android:textColor="#7b7b7b">
     </CheckBox>
 
 
