@@ -151,7 +151,7 @@ public class StatisticsActivity extends AppCompatActivity {
         tStatReposJour.setText(String.valueOf((df.format(tsDAO.getTpsPause(date)/60000))));
 
         if (tsDAO.getTpsTravail(date) == 0.0 && tsDAO.getTpsPause(date) == 0.0)
-            pieData.add(new SliceValue(100, Color.GRAY).setLabel("Aucune sesssion effectuée"));
+            pieData.add(new SliceValue(100, Color.GRAY).setLabel("Aucune session effectuée"));
         else if (tsDAO.getTpsTravail(date) == 0.0 && tsDAO.getTpsPause(date) != 0.0)
             pieData.add(new SliceValue(100, Color.YELLOW).setLabel("Pause [100%]"));
         else if (tsDAO.getTpsPause(date) == 0.0 && tsDAO.getTpsTravail(date) != 0.0)
@@ -177,7 +177,7 @@ public class StatisticsActivity extends AppCompatActivity {
         PieChartData pieChartData2 = new PieChartData(pieData2);
 
         if (tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7)) == 0 && tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7)) == 0)
-            pieData2.add(new SliceValue(100, Color.GRAY).setLabel("Aucune sesssion effectuée"));
+            pieData2.add(new SliceValue(100, Color.GRAY).setLabel("Aucune session effectuée"));
         else if (tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7)) == 0 && tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7)) != 0)
             pieData2.add(new SliceValue(100, Color.YELLOW).setLabel("Pause [100%]"));
         else if (tsDAO.getTpsPauseMoisAnnee(date.substring(0, 7)) == 0 && tsDAO.getTpsTravailMoisAnnee(date.substring(0, 7)) != 0)
